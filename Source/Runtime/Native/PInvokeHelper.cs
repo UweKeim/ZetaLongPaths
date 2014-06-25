@@ -10,7 +10,7 @@
     internal static class PInvokeHelper
     {
         // http://zetalongpaths.codeplex.com/Thread/View.aspx?ThreadId=230652&ANCHOR#Post557779
-        internal const int MAX_PATH = 250;
+        internal const int MAX_PATH = 247;
 
         // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx
         internal const int ERROR_SUCCESS = 0;
