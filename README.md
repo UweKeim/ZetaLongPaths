@@ -22,7 +22,7 @@ These resources helped me finding more:
   * [pinvoke.net](http://pinvoke.net/) for finding signatures of Win32 functions.
   * [Using long path syntax with UNC](http://msdn.microsoft.com/en-us/library/aa365247.aspx), MSDN.
 
-I started by using several functions from the BCL Team blog postings and added the functions they did not covery but which I needed in my project.
+I started by using several functions from the BCL Team blog postings and added the functions they did not cover but which I needed in my project.
 
 Currently there are the following classes:
 
@@ -39,14 +39,14 @@ If you are familiar with the [System.IO](http://msdn.microsoft.com/en-us/library
 
 For example to get all files in a given folder path, use the following snippet:
 
-	var folderPath = new ZetaDirectoryInfo( @"C:\My\Long\Folder\Path" );
-	 
-	foreach ( var filePath in folderPath.GetFiles() )
-	{
-	    Console.Write( "File {0} has a size of {1}", 
-		filePath.FullName, 
-		filePath.Length );
-	}
+    var folderPath = new ZetaDirectoryInfo( @"C:\My\Long\Folder\Path" );
+    
+    foreach ( var filePath in folderPath.GetFiles() )
+    {
+        Console.Write( "File {0} has a size of {1}", 
+            filePath.FullName, 
+            filePath.Length );
+    }
 
 ## Summary
 
