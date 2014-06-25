@@ -58,7 +58,7 @@ I will add more functions in the future, just tell me which you require.
 
 ## History
 
-  * *2014-06-25* - First release to Github.
+  * *2014-06-25* - First release to Github. Also available on [The Code Project](http://www.codeproject.com/Articles/44904/Zeta-Long-Paths).
   * *2012-12-21* - Added an [NuGet package](http://nuget.org/packages/ZetaLongPaths).
   * *2012-09-20* - Some very few methods added. Stability release.
   * *2012-08-10* - Added several new methods.
