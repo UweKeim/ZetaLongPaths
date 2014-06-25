@@ -725,7 +725,7 @@
             {
                 try
                 {
-                    if (result.ToInt32() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
+                    if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
                     {
                         return DateTime.MinValue;
                     }
@@ -760,7 +760,7 @@
             {
                 try
                 {
-                    if (result.ToInt32() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
+                    if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
                     {
                         return DateTime.MinValue;
                     }
@@ -795,7 +795,7 @@
             {
                 try
                 {
-                    if (result.ToInt32() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
+                    if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
                     {
                         return DateTime.MinValue;
                     }
@@ -999,7 +999,7 @@
             {
                 try
                 {
-                    if (result.ToInt32() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
+                    if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
                     {
                         return 0;
                     }
