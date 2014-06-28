@@ -1,16 +1,14 @@
-﻿# Zeta Long Paths
+﻿# Zeta Long Paths Extended
 
 A .NET library to access files and directories with more than 260 characters length.
 
 ## Fork
 
-This fork was created for library maintenance: critical bugs fixing and new functionality implementation.
+This fork for ZetaLongPaths project. It was created for library maintenance: critical bugs fixing and new functionality implementation.
 
 ## Introduction
 
 This article describes a library that provides several classes and functions to perform basic functions on file paths and folder paths that are longer than the "MAX_PATH" limit of 260 characters.
-
-
 
 ## Background
 
@@ -64,6 +62,7 @@ I will add more functions in the future, just tell me which you require.
 
 ## History
 
+  * *2014-06-28* - Merged with source. Issues #1 and #2 recomendations added [Source](https://github.com/UweKeim/ZetaLongPaths/issues).
   * *2014-06-25* - Fixed issues with MAX_PATH constant and IntPtr overflows for x64 pointers.
   * *2014-06-25* - First release to Github. Also available on [The Code Project](http://www.codeproject.com/Articles/44904/Zeta-Long-Paths).
   * *2012-12-21* - Added an [NuGet package](http://nuget.org/packages/ZetaLongPaths).
