@@ -4,7 +4,7 @@ A .NET library to access files and directories with more than 260 characters len
 
 ## Fork
 
-This fork for ZetaLongPaths project. It was created for library maintenance: critical bugs fixing and new functionality implementation. 
+This fork for [ZetaLongPaths](https://github.com/UweKeim/ZetaLongPaths) project. It was created for library maintenance: critical bugs fixing and new functionality implementation. 
 ###### For integrity and backward compatibility namespaces are not changed. Only assembly name and versioning are modified.
 
 ## Introduction
