@@ -8,6 +8,7 @@
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Text;
+
     using Microsoft.Win32.SafeHandles;
     using Native;
     using FileAccess = Native.FileAccess;
@@ -351,7 +352,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            return (FileAttributes) PInvokeHelper.GetFileAttributes(filePath);
+            return (FileAttributes)PInvokeHelper.GetFileAttributes(filePath);
         }
 
         public static void DeleteFile(string filePath)
@@ -524,7 +525,7 @@
             basePart = getDriveOrShare(directoryPath);
 
             var remaining = directoryPath.Substring(basePart.Length);
-            childParts = remaining.Trim('\\').Split(new[] {'\\'}, StringSplitOptions.RemoveEmptyEntries);
+            childParts = remaining.Trim('\\').Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private static string getDrive(
@@ -721,26 +722,24 @@
             {
                 return DateTime.MinValue;
             }
-            else
-            {
-                try
-                {
-                    if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
-                    {
-                        return DateTime.MinValue;
-                    }
-                    else
-                    {
-                        var ft = fd.ftLastWriteTime;
 
-                        var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
-                        return getLocalTime(hft2);
-                    }
-                }
-                finally
+            try
+            {
+                if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
                 {
-                    PInvokeHelper.FindClose(result);
+                    return DateTime.MinValue;
                 }
+                else
+                {
+                    var ft = fd.ftLastWriteTime;
+
+                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    return getLocalTime(hft2);
+                }
+            }
+            finally
+            {
+                PInvokeHelper.FindClose(result);
             }
         }
 
@@ -756,26 +755,24 @@
             {
                 return DateTime.MinValue;
             }
-            else
-            {
-                try
-                {
-                    if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
-                    {
-                        return DateTime.MinValue;
-                    }
-                    else
-                    {
-                        var ft = fd.ftLastAccessTime;
 
-                        var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
-                        return getLocalTime(hft2);
-                    }
-                }
-                finally
+            try
+            {
+                if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
                 {
-                    PInvokeHelper.FindClose(result);
+                    return DateTime.MinValue;
                 }
+                else
+                {
+                    var ft = fd.ftLastAccessTime;
+
+                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    return getLocalTime(hft2);
+                }
+            }
+            finally
+            {
+                PInvokeHelper.FindClose(result);
             }
         }
 
@@ -791,26 +788,24 @@
             {
                 return DateTime.MinValue;
             }
-            else
-            {
-                try
-                {
-                    if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
-                    {
-                        return DateTime.MinValue;
-                    }
-                    else
-                    {
-                        var ft = fd.ftCreationTime;
 
-                        var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
-                        return getLocalTime(hft2);
-                    }
-                }
-                finally
+            try
+            {
+                if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
                 {
-                    PInvokeHelper.FindClose(result);
+                    return DateTime.MinValue;
                 }
+                else
+                {
+                    var ft = fd.ftCreationTime;
+
+                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    return getLocalTime(hft2);
+                }
+            }
+            finally
+            {
+                PInvokeHelper.FindClose(result);
             }
         }
 
@@ -854,7 +849,20 @@
                 // 2012-08-29, Uwe Keim: Since we currently get Access Denied 5,
                 // do use the .NET functions (which seem to not have these issues)
                 // if possible.
-                File.SetLastWriteTime(filePath, date);
+
+                // Sergey Filippov: Item number 16314 from Codeplex issues fix
+                if (File.Exists(filePath))
+                {
+                    File.SetLastWriteTime(filePath, date);
+                }
+                else if (Directory.Exists(filePath))
+                {
+                    Directory.SetLastWriteTime(filePath, date);
+                }
+                else
+                {
+                    throw new FileNotFoundException("Can't set LastWriteTime, because file system object is not exists", filePath);
+                }
             }
         }
 
@@ -892,7 +900,20 @@
                 // 2012-08-29, Uwe Keim: Since we currently get Access Denied 5,
                 // do use the .NET functions (which seem to not have these issues)
                 // if possible.
-                File.SetLastAccessTime(filePath, date);
+
+                // Sergey Filippov: Item number 16314 from Codeplex issues fix
+                if (File.Exists(filePath))
+                {
+                    File.SetLastAccessTime(filePath, date);
+                }
+                else if (Directory.Exists(filePath))
+                {
+                    Directory.SetLastAccessTime(filePath, date);
+                }
+                else
+                {
+                    throw new FileNotFoundException("Can't set SetLastAccessTime, because file system object is not exists", filePath);
+                }
             }
         }
 
@@ -930,7 +951,20 @@
                 // 2012-08-29, Uwe Keim: Since we currently get Access Denied 5,
                 // do use the .NET functions (which seem to not have these issues)
                 // if possible.
-                File.SetCreationTime(filePath, date);
+
+                // Sergey Filippov: Item number 16314 from Codeplex issues fix
+                if (File.Exists(filePath))
+                {
+                    File.SetCreationTime(filePath, date);
+                }
+                else if (Directory.Exists(filePath))
+                {
+                    Directory.SetCreationTime(filePath, date);
+                }
+                else
+                {
+                    throw new FileNotFoundException("Can't set SetCreationTime, because file system object is not exists", filePath);
+                }
             }
         }
 
@@ -995,95 +1029,93 @@
             {
                 return 0;
             }
-            else
+            
+            try
             {
-                try
+                if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
                 {
-                    if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
+                    return 0;
+                }
+                else
+                {
+                    var sfh = new SafeFileHandle(result, false);
+                    if (sfh.IsInvalid)
                     {
-                        return 0;
-                    }
-                    else
-                    {
-                        var sfh = new SafeFileHandle(result, false);
-                        if (sfh.IsInvalid)
+                        var num = Marshal.GetLastWin32Error();
+                        if ((num == 2 || num == 3 || num == 21))
+                        // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
                         {
-                            var num = Marshal.GetLastWin32Error();
-                            if ((num == 2 || num == 3 || num == 21))
-                                // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
-                            {
-                                return 0;
-                            }
-                            else
-                            {
-                                return 0;
-                            }
+                            return 0;
                         }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
 
-                        /*
-                        var low = fd.nFileSizeLow;
-                        var high = fd.nFileSizeHigh;
+                    /*
+                    var low = fd.nFileSizeLow;
+                    var high = fd.nFileSizeHigh;
 
-                        //return (high * (0xffffffff + 1)) + low;
-                        //return (((ulong)high) << 32) + low;
-                        var l = ((high << 0x20) | (low & 0xffffffffL));
-                            // Copied from FileInfo.Length via Reflector.NET.
-                        return (ulong) l;*/
+                    //return (high * (0xffffffff + 1)) + low;
+                    //return (((ulong)high) << 32) + low;
+                    var l = ((high << 0x20) | (low & 0xffffffffL));
+                        // Copied from FileInfo.Length via Reflector.NET.
+                    return (ulong) l;*/
 
-                        var low = fd.nFileSizeLow;
-                        var high = fd.nFileSizeHigh;
+                    var low = fd.nFileSizeLow;
+                    var high = fd.nFileSizeHigh;
 
-                        Trace.TraceInformation(@"FindFirstFile returned LOW = {0}, HIGH = {1}.", low, high);
+                    Trace.TraceInformation(@"FindFirstFile returned LOW = {0}, HIGH = {1}.", low, high);
+                    Trace.Flush();
+
+                    try
+                    {
+                        return (long)high << 32 | ((long)low & (long)(0xffffffffL));
+
+                        //try
+                        //{
+                        //var sign = ((long) high << 32 | (low & 0xffffffffL));
+
+                        //try
+                        //{
+                        //return sign <= 0 ? 0 : unchecked((ulong) sign);
+                        //}
+                        //    catch (OverflowException x)
+                        //    {
+                        //        var y = new OverflowException(@"Error getting file length (cast).", x);
+
+                        //        y.Data[@"low"] = low;
+                        //        y.Data[@"high"] = high;
+                        //        y.Data[@"signed value"] = sign;
+
+                        //        throw y;
+                        //    }
+                        //}
+                        //catch (OverflowException x)
+                        //{
+                        //    var y = new OverflowException(@"Error getting file length (sign).", x);
+
+                        //    y.Data[@"low"] = low;
+                        //    y.Data[@"high"] = high;
+
+                        //    throw y;
+                        //}
+                    }
+                    catch (OverflowException x)
+                    {
+                        Trace.TraceInformation(
+                            @"Got overflow exception ('{3}') for path '{0}'. LOW = {1}, HIGH = {2}.", filePath, low,
+                            high, x.Message);
                         Trace.Flush();
 
-                        try
-                        {
-                            return (long)high << 32 | ((long)low & (long)(0xffffffffL));
-
-                            //try
-                            //{
-                            //var sign = ((long) high << 32 | (low & 0xffffffffL));
-
-                            //try
-                            //{
-                            //return sign <= 0 ? 0 : unchecked((ulong) sign);
-                            //}
-                            //    catch (OverflowException x)
-                            //    {
-                            //        var y = new OverflowException(@"Error getting file length (cast).", x);
-
-                            //        y.Data[@"low"] = low;
-                            //        y.Data[@"high"] = high;
-                            //        y.Data[@"signed value"] = sign;
-
-                            //        throw y;
-                            //    }
-                            //}
-                            //catch (OverflowException x)
-                            //{
-                            //    var y = new OverflowException(@"Error getting file length (sign).", x);
-
-                            //    y.Data[@"low"] = low;
-                            //    y.Data[@"high"] = high;
-
-                            //    throw y;
-                            //}
-                        }
-                        catch (OverflowException x)
-                        {
-                            Trace.TraceInformation(
-                                @"Got overflow exception ('{3}') for path '{0}'. LOW = {1}, HIGH = {2}.", filePath, low,
-                                high, x.Message);
-                            Trace.Flush();
-
-                            throw;
-                        }
+                        throw;
                     }
                 }
-                finally
-                {
-                    PInvokeHelper.FindClose(result);
-                }
+            }
+            finally
+            {
+                PInvokeHelper.FindClose(result);
             }
         }
 
@@ -1120,7 +1152,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a file, find its contents
-                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
+                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
                         {
                             results.Add(new ZlpFileInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
                         }
@@ -1170,7 +1202,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a directory, find its contents
-                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
                         {
                             if (currentFileName != @"." && currentFileName != @"..")
                             {
@@ -1190,6 +1222,20 @@
             }
 
             return results.ToArray();
+        }
+
+        /// <summary>
+        /// The is current path longer, then supported by standard System.IO methods
+        /// </summary>
+        /// <param name="path">
+        /// The path to check.
+        /// </param>
+        /// <returns>
+        /// True, if path longer then MAX_PATH constant, or is UNC path, else - False
+        /// </returns>
+        public static bool IsPathLong(string path)
+        {
+            return MustBeLongPath(path);
         }
 
         internal static bool MustBeLongPath(string path)

@@ -5,6 +5,7 @@
     using System.IO;
     using System.Runtime.InteropServices;
     using System.Text;
+
     using Microsoft.Win32.SafeHandles;
 
     internal static class PInvokeHelper
@@ -18,7 +19,7 @@
         internal const int ERROR_NO_MORE_FILES = 18;
 
         // http://www.dotnet247.com/247reference/msgs/21/108780.aspx
-        [DllImportAttribute(@"advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(@"advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern int GetNamedSecurityInfo(
             string pObjectName,
             int objectType,
@@ -109,7 +110,7 @@
             [MarshalAs(UnmanagedType.LPTStr)] string lpNewFileName,
             uint dwFlags);
 
-        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode)]
+        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool CreateDirectory(
             [MarshalAs(UnmanagedType.LPTStr)] string lpPathName,
@@ -136,28 +137,28 @@
             public uint nFileSizeLow;
         }
 
-        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode)]
+        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool SetFileAttributes(
             [MarshalAs(UnmanagedType.LPTStr)] string lpFileName,
             [MarshalAs(UnmanagedType.U4)] FileAttributes dwFileAttributes);
 
-        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode)]
+        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool RemoveDirectory(
             [MarshalAs(UnmanagedType.LPTStr)] string lpPathName);
 
-        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode)]
+        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DeleteFile(
             [MarshalAs(UnmanagedType.LPTStr)] string lpFileName);
 
-        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode)]
+        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern IntPtr FindFirstFile(
             [MarshalAs(UnmanagedType.LPTStr)] string lpFileName,
             out WIN32_FIND_DATA lpFindFileData);
 
-        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode)]
+        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern bool FindNextFile(
             IntPtr hFindFile,
             out WIN32_FIND_DATA lpFindFileData);
@@ -217,38 +218,44 @@
             WIN32_FIND_DATA findData;
             var findHandle = FindFirstFile(directoryPath.TrimEnd('\\') + @"\*", out findData);
 
-            if (findHandle != INVALID_HANDLE_VALUE)
+            try
             {
-                bool found;
-                do
+                if (findHandle != INVALID_HANDLE_VALUE)
                 {
-                    var currentFileName = findData.cFileName;
-
-                    // if this is a directory, find its contents
-                    if (((int) findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
+                    bool found;
+                    do
                     {
-                        if (currentFileName != @"." && currentFileName != @"..")
+                        var currentFileName = findData.cFileName;
+
+                        // if this is a directory, find its contents
+                        if (((int) findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
                         {
-                            var childResults = FindFilesAndDirectories(Path.Combine(directoryPath, currentFileName));
-                            // add children and self to results
-                            results.AddRange(childResults);
+                            if (currentFileName != @"." && currentFileName != @"..")
+                            {
+                                var childResults = FindFilesAndDirectories(Path.Combine(directoryPath, currentFileName));
+                                // add children and self to results
+                                results.AddRange(childResults);
+                                results.Add(Path.Combine(directoryPath, currentFileName));
+                            }
+                        }
+
+                            // it's a file; add it to the results
+                        else
+                        {
                             results.Add(Path.Combine(directoryPath, currentFileName));
                         }
-                    }
 
-                        // it's a file; add it to the results
-                    else
-                    {
-                        results.Add(Path.Combine(directoryPath, currentFileName));
-                    }
-
-                    // find next
-                    found = FindNextFile(findHandle, out findData);
-                } while (found);
+                        // find next
+                        found = FindNextFile(findHandle, out findData);
+                    } while (found);
+                }
+            }
+            finally
+            {
+                // close the find handle
+                FindClose(findHandle);
             }
 
-            // close the find handle
-            FindClose(findHandle);
             return results;
         }
 

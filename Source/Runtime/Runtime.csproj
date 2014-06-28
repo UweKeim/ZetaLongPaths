@@ -11,11 +11,11 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZetaLongPaths</RootNamespace>
-    <AssemblyName>ZetaLongPaths</AssemblyName>
+    <AssemblyName>ZetaLongPathsEx</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>ZetaLongPaths.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>ZetaLongPathsEx.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -54,7 +54,7 @@
     <Compile Include="ZlpPathHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ZetaLongPaths.snk" />
+    <None Include="ZetaLongPathsEx.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
