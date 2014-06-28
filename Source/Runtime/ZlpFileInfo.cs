@@ -87,6 +87,17 @@
             return ZlpIOHelper.ReadAllBytes(_path);
         }
 
+        public System.IO.FileStream OpenRead()
+        {
+            return new System.IO.FileStream(
+                ZlpIOHelper.CreateFileHandle(
+                    _path,
+                    CreationDisposition.OpenAlways,
+                    FileAccess.GenericRead,
+                    FileShare.Read),
+                System.IO.FileAccess.Read);
+        }
+
         public string ReadAllText()
         {
             return ZlpIOHelper.ReadAllText(_path);

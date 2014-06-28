@@ -81,6 +81,13 @@
 			return ZlpIOHelper.GetDirectories(_path, pattern);
 		}
 
+        public ZlpDirectoryInfo CreateSubdirectory(string name)
+        {
+            var path = ZlpPathHelper.Combine(_path, name);
+            ZlpIOHelper.CreateDirectory(path);
+            return new ZlpDirectoryInfo(path);
+        }
+
 		public ZlpDirectoryInfo Parent
 		{
 			get { return new ZlpDirectoryInfo(ZlpPathHelper.GetDirectoryPathNameFromFilePath(_path)); }

@@ -98,23 +98,23 @@
             return;
             // --
 
-            Assert.IsTrue(
-                ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim\"));
-            Assert.IsTrue(
-                ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim"));
-            Assert.IsFalse(
-                ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Deploy\Origin\Enterprise\C-Allgaier\Web\QM-Handbuch-Freigabe\Bin"));
+            //Assert.IsTrue(
+            //    ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim\"));
+            //Assert.IsTrue(
+            //    ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim"));
+            //Assert.IsFalse(
+            //    ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Deploy\Origin\Enterprise\C-Allgaier\Web\QM-Handbuch-Freigabe\Bin"));
 
-            return;
+            //return;
 
-            Assert.DoesNotThrow(
-                () => ZlpIOHelper.CreateDirectory(@"c:\ablage\1\2\3\vier\fünf\"));
+            //Assert.DoesNotThrow(
+            //    () => ZlpIOHelper.CreateDirectory(@"c:\ablage\1\2\3\vier\fünf\"));
 
-            Assert.DoesNotThrow(
-                () => ZlpIOHelper.CopyFile(
-                    @"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Bin\Applications\de\MessageBoxExLib.resources.dll",
-                    @"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Deploy\Origin\Enterprise\C-Allgaier\Windows\Applications\de\MessageBoxExLib.resources.dll",
-                    true));
+            //Assert.DoesNotThrow(
+            //    () => ZlpIOHelper.CopyFile(
+            //        @"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Bin\Applications\de\MessageBoxExLib.resources.dll",
+            //        @"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Deploy\Origin\Enterprise\C-Allgaier\Windows\Applications\de\MessageBoxExLib.resources.dll",
+            //        true));
         }
 
         [Test]
