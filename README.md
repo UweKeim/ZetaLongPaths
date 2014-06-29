@@ -64,7 +64,7 @@ I will add more functions in the future, just tell me which you require.
 ## History
 
   * *2014-06-28* - Merged with source. Bug fixes.
-  * *2014-06-25* - Fixed issues with MAX_PATH constant and IntPtr overflows for x64 pointers.
+  * *2014-06-25* - [Fork created](https://github.com/UweKeim/ZetaLongPaths). Fixed issues with MAX_PATH constant and IntPtr overflows for x64 pointers.
   * *2014-06-25* - First release to Github. Also available on [The Code Project](http://www.codeproject.com/Articles/44904/Zeta-Long-Paths).
   * *2012-12-21* - Added an [NuGet package](http://nuget.org/packages/ZetaLongPaths).
   * *2012-09-20* - Some very few methods added. Stability release.
