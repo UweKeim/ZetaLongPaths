@@ -112,5 +112,12 @@
         {
             return new ZlpFileInfo(ZlpPathHelper.ChangeExtension(o.FullName, extension));
         }
+
+        public static ZlpDirectoryInfo CreateSubdirectory(this ZlpDirectoryInfo o, string name)
+        {
+            var path = ZlpPathHelper.Combine(o.FullName, name);
+            ZlpIOHelper.CreateDirectory(path);
+            return new ZlpDirectoryInfo(path);
+        }
     }
 }

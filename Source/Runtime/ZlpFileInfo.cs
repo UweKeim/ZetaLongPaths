@@ -98,6 +98,17 @@
                 System.IO.FileAccess.Read);
         }
 
+        public System.IO.FileStream OpenWrite()
+        {
+            return new System.IO.FileStream(
+                ZlpIOHelper.CreateFileHandle(
+                    _path,
+                    CreationDisposition.OpenAlways,
+                    FileAccess.GenericRead | FileAccess.GenericWrite,
+                    FileShare.Read | FileShare.Write),
+                System.IO.FileAccess.ReadWrite);
+        }
+
         public string ReadAllText()
         {
             return ZlpIOHelper.ReadAllText(_path);
