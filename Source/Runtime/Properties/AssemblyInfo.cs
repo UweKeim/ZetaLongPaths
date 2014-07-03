@@ -5,16 +5,14 @@ using System.Security;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Zeta Long Paths Extended")]
+[assembly: AssemblyTitle("Zeta Long Paths")]
 [assembly: AssemblyDescription("Library with functions to bypass the MAX_PATH limit of several .NET classes")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Raynet GmbH")]
-[assembly: AssemblyProduct("Zeta Long Paths Extended")]
-[assembly: AssemblyCopyright("© 2014 Raynet GmbH")]
-[assembly: AssemblyTrademark("http://www.raynet.de")]
+[assembly: AssemblyCompany("Zeta Software GmbH")]
+[assembly: AssemblyProduct("Zeta Long Paths")]
+[assembly: AssemblyCopyright("© 2009-2014 Zeta Software GmbH")]
+[assembly: AssemblyTrademark("http://www.zeta-producer.com")]
 [assembly: AssemblyCulture("")]
-
-[assembly: AssemblyKeyFileAttribute("ZetaLongPathsEx.snk")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -22,7 +20,7 @@ using System.Security;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("83203c0f-1320-4347-b4b8-704d2bc69898")]
+[assembly: Guid("4d05bb00-5ec1-43aa-aa79-af0dac0249cc")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,5 +32,5 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.5")]
+[assembly: AssemblyFileVersion("1.0.0.5")]
