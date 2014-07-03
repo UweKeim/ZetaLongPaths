@@ -1,7 +1,14 @@
 ﻿namespace ZetaLongPaths.UnitTests
 {
     using System;
+    using System.IO;
+
     using NUnit.Framework;
+
+    using ZetaLongPaths.Native;
+
+    using FileAccess = ZetaLongPaths.Native.FileAccess;
+    using FileShare = ZetaLongPaths.Native.FileShare;
 
     [TestFixture]
     public class IOHelperTest
@@ -57,64 +64,75 @@
         [Test]
         public void TestGeneral()
         {
-            //var m = ZlpIOHelper.GetFileLength(@"C:\Ablage\test.temp");
-            //Assert.IsTrue(m > 0);
+            var tempFolder = Environment.ExpandEnvironmentVariables("%temp%");
+            Assert.True(ZlpIOHelper.DirectoryExists(tempFolder));
 
-            const string f = @"C:\Ablage\IconExperience - O-Collections\readme_o.txt";
-            var m = ZlpIOHelper.GetFileLength(f);
-            Assert.IsTrue(m > 0);
-            Assert.IsTrue(m==new System.IO.FileInfo(f).Length);
+            var tempPath = ZlpPathHelper.Combine(tempFolder, "ZlpTest");
+
+            try
+            {
+                ZlpIOHelper.CreateDirectory(tempPath);
+                Assert.IsTrue(ZlpIOHelper.DirectoryExists(tempPath));
+
+                var filePath = ZlpPathHelper.Combine(tempPath, "text.zlp");
+                var fileHandle = ZlpIOHelper.CreateFileHandle(
+                    filePath,
+                    CreationDisposition.CreateAlways,
+                    FileAccess.GenericWrite | FileAccess.GenericRead,
+                    FileShare.None);
+                var textStream = new StreamWriter(new FileStream(fileHandle, System.IO.FileAccess.Write));
+                textStream.WriteLine("Zeta Long Paths Extended testing...");
+                textStream.Flush();
+                textStream.Close();
+                fileHandle.Close();
+
+                Assert.IsTrue(ZlpIOHelper.FileExists(filePath));
 
 
-            Assert.IsTrue(ZlpIOHelper.FileExists(@"c:\Windows\notepad.exe"));
-            Assert.IsFalse(ZlpIOHelper.FileExists(@"c:\dslfsdjklfhsd\kjsaklfjd.exe"));
-            Assert.IsFalse(ZlpIOHelper.FileExists(@"c:\ablage"));
+                var m = ZlpIOHelper.GetFileLength(filePath);
+                Assert.IsTrue(m > 0);
+                Assert.IsTrue(m == new FileInfo(filePath).Length);
 
-            Assert.IsFalse(ZlpIOHelper.DirectoryExists(@"c:\Windows\notepad.exe"));
-            Assert.IsTrue(ZlpIOHelper.DirectoryExists(@"c:\Windows"));
-            Assert.IsTrue(ZlpIOHelper.DirectoryExists(@"c:\Windows\"));
-            Assert.IsFalse(ZlpIOHelper.DirectoryExists(@"c:\fkjhskfsdhfjkhsdjkfhsdkjfh"));
-            Assert.IsFalse(ZlpIOHelper.DirectoryExists(@"c:\fkjhskfsdhfjkhsdjkfhsdkjfh\"));
 
-            // --
+                Assert.IsTrue(ZlpIOHelper.FileExists(@"c:\Windows\notepad.exe"));
+                Assert.IsFalse(ZlpIOHelper.FileExists(@"c:\dslfsdjklfhsd\kjsaklfjd.exe"));
+                Assert.IsFalse(ZlpIOHelper.FileExists(@"c:\ablage"));
 
-            Assert.DoesNotThrow(() => ZlpIOHelper.SetFileLastWriteTime(@"c:\ablage\test.txt", new DateTime(1986, 1, 1)));
-            Assert.DoesNotThrow(() => ZlpIOHelper.SetFileLastAccessTime(@"c:\ablage\test.txt", new DateTime(1987, 1, 1)));
-            Assert.DoesNotThrow(() => ZlpIOHelper.SetFileCreationTime(@"c:\ablage\test.txt", new DateTime(1988, 1, 1)));
+                Assert.IsFalse(ZlpIOHelper.DirectoryExists(@"c:\Windows\notepad.exe"));
+                Assert.IsTrue(ZlpIOHelper.DirectoryExists(@"c:\Windows"));
+                Assert.IsTrue(ZlpIOHelper.DirectoryExists(@"c:\Windows\"));
+                Assert.IsFalse(ZlpIOHelper.DirectoryExists(@"c:\fkjhskfsdhfjkhsdjkfhsdkjfh"));
+                Assert.IsFalse(ZlpIOHelper.DirectoryExists(@"c:\fkjhskfsdhfjkhsdjkfhsdkjfh\"));
 
-            ZlpIOHelper.WriteAllText(@"c:\ablage\file.txt", @"äöü.");
-            Assert.IsTrue(ZlpIOHelper.FileExists(@"c:\ablage\file.txt"));
+                // --
 
-            var time = ZlpIOHelper.GetFileLastWriteTime(@"c:\ablage\fehlerbericht.txt");
-            Assert.Greater(time, DateTime.MinValue);
+                Assert.DoesNotThrow(() => ZlpIOHelper.SetFileLastWriteTime(filePath, new DateTime(1986, 1, 1)));
+                Assert.DoesNotThrow(() => ZlpIOHelper.SetFileLastAccessTime(filePath, new DateTime(1987, 1, 1)));
+                Assert.DoesNotThrow(() => ZlpIOHelper.SetFileCreationTime(filePath, new DateTime(1988, 1, 1)));
 
-            var owner = ZlpIOHelper.GetFileOwner(@"c:\Windows\notepad.exe");
-            Assert.IsNotNullOrEmpty(owner);
+                Assert.DoesNotThrow(() => ZlpIOHelper.SetFileLastWriteTime(tempPath, new DateTime(1986, 1, 1)));
+                Assert.DoesNotThrow(() => ZlpIOHelper.SetFileLastAccessTime(tempPath, new DateTime(1987, 1, 1)));
+                Assert.DoesNotThrow(() => ZlpIOHelper.SetFileCreationTime(tempPath, new DateTime(1988, 1, 1)));
 
-            var l = ZlpIOHelper.GetFileLength(
-                @"C:\Ablage\CEG\Bodycote-CEG-WebApps-Intranet.rar");
-            Assert.IsTrue(l > 0);
+                var anotherFile = ZlpPathHelper.Combine(tempPath, "test2.zpl");
+                ZlpIOHelper.WriteAllText(anotherFile, @"äöü.");
+                Assert.IsTrue(ZlpIOHelper.FileExists(anotherFile));
+
+                var time = ZlpIOHelper.GetFileLastWriteTime(filePath);
+                Assert.Greater(time, DateTime.MinValue);
+
+                var owner = ZlpIOHelper.GetFileOwner(@"c:\Windows\notepad.exe");
+                Assert.IsNotNullOrEmpty(owner);
+
+                var l = ZlpIOHelper.GetFileLength(anotherFile);
+                Assert.IsTrue(l > 0);
+            }
+            finally
+            {
+                ZlpIOHelper.DeleteDirectory(tempPath, true);
+            }
 
             return;
-            // --
-
-            Assert.IsTrue(
-                ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim\"));
-            Assert.IsTrue(
-                ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim"));
-            Assert.IsFalse(
-                ZlpIOHelper.DirectoryExists(@"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Deploy\Origin\Enterprise\C-Allgaier\Web\QM-Handbuch-Freigabe\Bin"));
-
-            return;
-
-            Assert.DoesNotThrow(
-                () => ZlpIOHelper.CreateDirectory(@"c:\ablage\1\2\3\vier\fünf\"));
-
-            Assert.DoesNotThrow(
-                () => ZlpIOHelper.CopyFile(
-                    @"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Bin\Applications\de\MessageBoxExLib.resources.dll",
-                    @"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Deploy\Origin\Enterprise\C-Allgaier\Windows\Applications\de\MessageBoxExLib.resources.dll",
-                    true));
         }
 
         [Test]

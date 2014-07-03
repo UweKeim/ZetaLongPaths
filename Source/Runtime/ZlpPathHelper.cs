@@ -1,13 +1,13 @@
 ﻿namespace ZetaLongPaths
 {
-	using System;
-	using System.ComponentModel;
-	using System.IO;
-	using System.Runtime.InteropServices;
-	using System.Text;
-	using Native;
+    using System;
+    using System.ComponentModel;
+    using System.IO;
+    using System.Runtime.InteropServices;
+    using System.Text;
+    using Native;
 
-	public static class ZlpPathHelper
+    public static class ZlpPathHelper
 	{
 		private static class InternalPathHelper
 		{
