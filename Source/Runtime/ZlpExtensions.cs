@@ -1,5 +1,6 @@
 ﻿namespace ZetaLongPaths
 {
+    using System;
     using System.Linq;
 
     /// <summary>
@@ -118,6 +119,50 @@
             var path = ZlpPathHelper.Combine(o.FullName, name);
             ZlpIOHelper.CreateDirectory(path);
             return new ZlpDirectoryInfo(path);
+        }
+
+        public static bool EqualsNoCase(this ZlpDirectoryInfo o, ZlpDirectoryInfo p)
+        {
+            if (o == null && p == null) return true;
+            else if (o == null || p == null) return false;
+
+            return string.Equals(
+                o.FullName.TrimEnd('\\', '/'),
+                p.FullName.TrimEnd('\\', '/'),
+                StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool EqualsNoCase(this ZlpDirectoryInfo o, string p)
+        {
+            if (o == null && p == null) return true;
+            else if (o == null || p == null) return false;
+
+            return string.Equals(
+                o.FullName.TrimEnd('\\', '/'),
+                p.TrimEnd('\\', '/'),
+                StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool EqualsNoCase(this ZlpFileInfo o, ZlpFileInfo p)
+        {
+            if (o == null && p == null) return true;
+            else if (o == null || p == null) return false;
+
+            return string.Equals(
+                o.FullName.TrimEnd('\\', '/'),
+                p.FullName.TrimEnd('\\', '/'),
+                StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool EqualsNoCase(this ZlpFileInfo o, string p)
+        {
+            if (o == null && p == null) return true;
+            else if (o == null || p == null) return false;
+
+            return string.Equals(
+                o.FullName.TrimEnd('\\', '/'),
+                p.TrimEnd('\\', '/'),
+                StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }
