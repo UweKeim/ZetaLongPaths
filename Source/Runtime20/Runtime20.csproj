@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1BEB776E-FEBE-4B29-AEA1-B34017697D55}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZetaLongPaths</RootNamespace>
+    <AssemblyName>ZetaLongPaths</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\ReleaseNet20\</OutputPath>
+    <DefineConstants>TRACE;NET20</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Runtime\ZetaLongPaths.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Runtime\Native\Enumerations.cs">
+      <Link>Native\Enumerations.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\PInvokeHelper.cs">
+      <Link>Native\PInvokeHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\ZlpDirectoryInfo.cs">
+      <Link>ZlpDirectoryInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\ZlpExtensions.cs">
+      <Link>ZlpExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\ZlpFileInfo.cs">
+      <Link>ZlpFileInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\ZlpIOHelper.cs">
+      <Link>ZlpIOHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\ZlpPathHelper.cs">
+      <Link>ZlpPathHelper.cs</Link>
+    </Compile>
+    <Compile Include="Net20\LinqBridge-1.3.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Runtime\ZetaLongPaths.snk">
+      <Link>ZetaLongPaths.snk</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,8 +1,10 @@
 ﻿namespace ZetaLongPaths
 {
 	using System;
+	using System.Diagnostics;
 	using Native;
 
+    [DebuggerDisplay(@"{FullName}")]
 	public class ZlpDirectoryInfo
 	{
 		private readonly string _path;

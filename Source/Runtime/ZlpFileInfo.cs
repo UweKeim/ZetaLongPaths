@@ -1,6 +1,7 @@
 ﻿namespace ZetaLongPaths
 {
     using System;
+    using System.Diagnostics;
     using System.Text;
     using Microsoft.Win32.SafeHandles;
     using Native;
@@ -8,6 +9,7 @@
     using FileAttributes = Native.FileAttributes;
     using FileShare = Native.FileShare;
 
+    [DebuggerDisplay(@"{FullName}")]
     public class ZlpFileInfo
     {
         private readonly string _path;
