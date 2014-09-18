@@ -23,6 +23,11 @@
 			get { return ZlpIOHelper.DirectoryExists(_path); }
 		}
 
+        public void MoveFileToRecycleBin()
+        {
+            ZlpIOHelper.MoveDirectoryToRecycleBin(_path);
+        }
+
 		public string OriginalPath
 		{
 			get { return _path; }
@@ -43,7 +48,17 @@
 			ZlpIOHelper.CreateDirectory(_path);
 		}
 
-		public string FullName
+        public void MoveTo(string destinationDirectoryPath)
+        {
+            ZlpIOHelper.MoveDirectory(_path, destinationDirectoryPath);
+        }
+
+        public void MoveTo(ZlpDirectoryInfo destinationDirectoryPath)
+        {
+            ZlpIOHelper.MoveDirectory(_path, destinationDirectoryPath.FullName);
+        }
+
+        public string FullName
 		{
 			get { return _path; }
 		}

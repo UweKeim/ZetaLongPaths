@@ -35,6 +35,33 @@
     <Compile Include="..\Runtime\Native\Enumerations.cs">
       <Link>Native\Enumerations.cs</Link>
     </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\ComReleaser.cs">
+      <Link>Native\FileOperations\ComReleaser.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\FileOperation.cs">
+      <Link>Native\FileOperations\FileOperation.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\FileOperationProgressSink.cs">
+      <Link>Native\FileOperations\FileOperationProgressSink.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\Interop\CopyEngineResult.cs">
+      <Link>Native\Interop\CopyEngineResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\Interop\FileOperationFlags.cs">
+      <Link>Native\Interop\FileOperationFlags.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\Interop\IFileOperation.cs">
+      <Link>Native\Interop\IFileOperation.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\Interop\IFileOperationProgressSink.cs">
+      <Link>Native\Interop\IFileOperationProgressSink.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\Interop\IShellItem.cs">
+      <Link>Native\Interop\IShellItem.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\Native\FileOperations\Interop\SIGDN.cs">
+      <Link>Native\Interop\SIGDN.cs</Link>
+    </Compile>
     <Compile Include="..\Runtime\Native\PInvokeHelper.cs">
       <Link>Native\PInvokeHelper.cs</Link>
     </Compile>

@@ -8,15 +8,46 @@
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Text;
-
     using Microsoft.Win32.SafeHandles;
     using Native;
+    using Native.FileOperations;
+    using Native.FileOperations.Interop;
     using FileAccess = Native.FileAccess;
     using FileAttributes = Native.FileAttributes;
     using FileShare = Native.FileShare;
 
     public static class ZlpIOHelper
     {
+        private const FileOperationFlags FileOperationDeleteFlags =
+            FileOperationFlags.FOF_ALLOWUNDO |
+            FileOperationFlags.FOF_NOCONFIRMATION |
+            FileOperationFlags.FOF_NOCONFIRMMKDIR |
+            FileOperationFlags.FOF_NOERRORUI |
+            FileOperationFlags.FOF_SILENT |
+            FileOperationFlags.FOF_WANTNUKEWARNING;
+
+        public static void MoveFileToRecycleBin(
+            string filePath)
+        {
+            using (var fo = new FileOperation(new FileOperationProgressSink()))
+            {
+                fo.SetOperationFlags(FileOperationDeleteFlags);
+                fo.DeleteItem(filePath);
+                fo.PerformOperations();
+            }
+        }
+
+        public static void MoveDirectoryToRecycleBin(
+            string directoryPath)
+        {
+            using (var fo = new FileOperation(new FileOperationProgressSink()))
+            {
+                fo.SetOperationFlags(FileOperationDeleteFlags);
+                fo.DeleteItem(directoryPath);
+                fo.PerformOperations();
+            }
+        }
+
         public static byte[] ReadAllBytes(
             string path)
         {

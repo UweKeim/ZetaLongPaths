@@ -23,6 +23,11 @@
         {
         }
 
+        public void MoveFileToRecycleBin()
+        {
+            ZlpIOHelper.MoveFileToRecycleBin(_path);
+        }
+
         public string OriginalPath
         {
             get { return _path; }
@@ -36,6 +41,11 @@
         public void MoveTo(string destinationFilePath)
         {
             ZlpIOHelper.MoveFile(_path, destinationFilePath);
+        }
+
+        public void MoveTo(ZlpFileInfo destinationFilePath)
+        {
+            ZlpIOHelper.MoveFile(_path, destinationFilePath.FullName);
         }
 
         /// <summary>

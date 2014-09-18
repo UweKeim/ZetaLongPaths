@@ -36,6 +36,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Native\Enumerations.cs" />
+    <Compile Include="Native\FileOperations\ComReleaser.cs" />
+    <Compile Include="Native\FileOperations\FileOperation.cs" />
+    <Compile Include="Native\FileOperations\FileOperationProgressSink.cs" />
+    <Compile Include="Native\FileOperations\Interop\CopyEngineResult.cs" />
+    <Compile Include="Native\FileOperations\Interop\FileOperationFlags.cs" />
+    <Compile Include="Native\FileOperations\Interop\IFileOperation.cs" />
+    <Compile Include="Native\FileOperations\Interop\IFileOperationProgressSink.cs" />
+    <Compile Include="Native\FileOperations\Interop\IShellItem.cs" />
+    <Compile Include="Native\FileOperations\Interop\SIGDN.cs" />
     <Compile Include="Native\PInvokeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZlpDirectoryInfo.cs" />

@@ -1,26 +1,18 @@
 ﻿namespace TestConsole
 {
-	using System;
-	using ZetaLongPaths;
+    using ZetaLongPaths;
 
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			var u = ZlpIOHelper.GetFileLength(@"c:\ablage\fehlerbericht.txt");
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            var f = new ZlpFileInfo(@"C:\Ablage\Lalala.txt");
+            f.WriteAllText("lalala.");
+            f.MoveFileToRecycleBin();
 
-			try
-			{
-				Console.WriteLine("Length: " + u);
-
-				Console.WriteLine("Press any key...");
-				Console.ReadLine();
-			}
-			catch (Exception x)
-			{
-				Console.WriteLine(x.Message);
-				Console.WriteLine(x.StackTrace);
-			}
-		}
-	}
+            var d = new ZlpDirectoryInfo(@"C:\Ablage\LalalaOrdner");
+            d.Create();
+            d.MoveFileToRecycleBin();
+        }
+    }
 }
