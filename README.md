@@ -58,6 +58,7 @@ I will add more functions in the future, just tell me which you require.
 
 ## History
 
+  * *2014-09-18* - Added functions like `MoveFileToRecycleBin()` to delete files and folders by moving them to the recycle bin.
   * *2014-06-25* - First release to GitHub. Also available at [The Code Project](http://www.codeproject.com/Articles/44904/Zeta-Long-Paths).
   * *2012-12-21* - Added an [NuGet package](http://nuget.org/packages/ZetaLongPaths).
   * *2012-09-20* - Some very few methods added. Stability release.
