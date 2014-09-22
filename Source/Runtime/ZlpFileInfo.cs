@@ -169,6 +169,11 @@
             get { return ZlpPathHelper.GetFileNameFromFilePath(_path); }
         }
 
+        public string NameWithoutExtension
+        {
+            get { return ZlpPathHelper.GetFileNameWithoutExtension(Name); }
+        }
+
         public ZlpDirectoryInfo Directory
         {
             get { return new ZlpDirectoryInfo(DirectoryName); }
