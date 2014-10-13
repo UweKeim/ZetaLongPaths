@@ -32,7 +32,7 @@
             using (var fo = new FileOperation(new FileOperationProgressSink()))
             {
                 fo.SetOperationFlags(FileOperationDeleteFlags);
-                fo.DeleteItem(filePath);
+                fo.DeleteItem(ZlpPathHelper.GetFullPath(filePath));
                 fo.PerformOperations();
             }
         }
@@ -43,7 +43,7 @@
             using (var fo = new FileOperation(new FileOperationProgressSink()))
             {
                 fo.SetOperationFlags(FileOperationDeleteFlags);
-                fo.DeleteItem(directoryPath);
+                fo.DeleteItem(ZlpPathHelper.GetFullPath(directoryPath));
                 fo.PerformOperations();
             }
         }
