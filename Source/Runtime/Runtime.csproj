@@ -35,6 +35,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ZlpFileOrDirectoryInfo.cs" />
     <Compile Include="Native\Enumerations.cs" />
     <Compile Include="Native\FileOperations\ComReleaser.cs" />
     <Compile Include="Native\FileOperations\FileOperation.cs" />
@@ -47,6 +48,9 @@
     <Compile Include="Native\FileOperations\Interop\SIGDN.cs" />
     <Compile Include="Native\PInvokeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZlpSafeFileExtensions.cs" />
+    <Compile Include="ZlpSafeFileOperations.cs" />
+    <Compile Include="ZlpSplittedPath.cs" />
     <Compile Include="ZlpDirectoryInfo.cs" />
     <Compile Include="ZlpExtensions.cs" />
     <Compile Include="ZlpFileInfo.cs" />

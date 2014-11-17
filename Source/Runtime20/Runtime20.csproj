@@ -77,11 +77,20 @@
     <Compile Include="..\Runtime\ZlpFileInfo.cs">
       <Link>ZlpFileInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Runtime\ZlpFileOrDirectoryInfo.cs">
+      <Link>ZlpFileOrDirectoryInfo.cs</Link>
+    </Compile>
     <Compile Include="..\Runtime\ZlpIOHelper.cs">
       <Link>ZlpIOHelper.cs</Link>
     </Compile>
     <Compile Include="..\Runtime\ZlpPathHelper.cs">
       <Link>ZlpPathHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\ZlpSafeFileOperations.cs">
+      <Link>ZlpSafeFileOperations.cs</Link>
+    </Compile>
+    <Compile Include="..\Runtime\ZlpSplittedPath.cs">
+      <Link>ZlpSplittedPath.cs</Link>
     </Compile>
     <Compile Include="Net20\LinqBridge-1.3.cs" />
   </ItemGroup>
