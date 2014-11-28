@@ -119,6 +119,29 @@
             }
         }
 
+        public static void AppendText(
+            string path,
+            string contents,
+            Encoding encoding = null)
+        {
+            if (encoding == null) encoding = new UTF8Encoding(false, true);
+
+            using (var fs =
+                new FileStream(
+                    CreateFileHandle(
+                        path,
+                        FileExists(path) ? CreationDisposition.OpenExisting : CreationDisposition.CreateAlways,
+                        FileAccess.GenericWrite,
+                        FileShare.Read),
+                    System.IO.FileAccess.Write))
+            using (var streamWriter = new StreamWriter(fs, encoding))
+            {
+                fs.Seek(0, SeekOrigin.End);
+
+                streamWriter.Write(contents);
+            }
+        }
+
         public static void WriteAllBytes(
             string path,
             byte[] contents)

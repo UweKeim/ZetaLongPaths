@@ -136,6 +136,11 @@
             ZlpIOHelper.WriteAllText(_path, text, encoding);
         }
 
+        public void AppendText(string text, Encoding encoding = null)
+        {
+            ZlpIOHelper.AppendText(_path, text, encoding);
+        }
+
         public void WriteAllBytes(byte[] content)
         {
             ZlpIOHelper.WriteAllBytes(_path, content);

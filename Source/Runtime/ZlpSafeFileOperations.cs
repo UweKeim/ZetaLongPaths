@@ -115,6 +115,9 @@ namespace ZetaLongPaths
             return !string.IsNullOrEmpty(filePath) && ZlpIOHelper.FileExists(filePath);
         }
 
+        /// <summary>
+        /// Deep-deletes the contents, as well as the folder itself.
+        /// </summary>
         public static void SafeDeleteDirectory(
             ZlpDirectoryInfo folderPath)
         {
@@ -124,13 +127,15 @@ namespace ZetaLongPaths
             }
         }
 
+        /// <summary>
+        /// Deep-deletes the contents, as well as the folder itself.
+        /// </summary>
         public static void SafeDeleteDirectory(
             string folderPath)
         {
             Trace.TraceInformation(@"About to safe-delete directory '{0}'.", folderPath);
 
-            if (!string.IsNullOrEmpty(folderPath) &&
-                SafeDirectoryExists(folderPath))
+            if (!string.IsNullOrEmpty(folderPath) && SafeDirectoryExists(folderPath))
             {
                 try
                 {
