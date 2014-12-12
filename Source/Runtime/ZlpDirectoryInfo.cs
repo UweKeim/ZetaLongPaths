@@ -9,6 +9,11 @@
 	{
 		private readonly string _path;
 
+        public static ZlpDirectoryInfo GetTemp()
+        {
+            return new ZlpDirectoryInfo(ZlpPathHelper.GetTempDirectoryPath());
+        }
+
 		public ZlpDirectoryInfo(string path)
 		{
 			_path = path;

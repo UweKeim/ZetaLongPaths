@@ -14,6 +14,11 @@
     {
         private readonly string _path;
 
+        public static ZlpFileInfo GetTemp()
+        {
+            return new ZlpFileInfo(ZlpPathHelper.GetTempFilePath());
+        }
+
         public ZlpFileInfo(string path)
         {
             _path = path;

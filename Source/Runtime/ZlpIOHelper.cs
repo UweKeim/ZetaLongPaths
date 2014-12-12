@@ -1069,7 +1069,7 @@
 
             // 2014-06-10, Uwe Keim: Weil das auf 64-bit-Windows 8 nicht sauber läuft,
             // zunächst mal bei kürzeren Pfaden die eingebaute Methode nehmen.
-            if (filePath.Length <= PInvokeHelper.MAX_PATH)
+            if (!MustBeLongPath(filePath))
             {
                 return new FileInfo(filePath).Length;
             }
@@ -1083,7 +1083,7 @@
             {
                 return 0;
             }
-            
+
             try
             {
                 if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
