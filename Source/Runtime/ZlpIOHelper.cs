@@ -1336,7 +1336,7 @@
             }
             else if (path.StartsWith(@"\\?\UNC\", StringComparison.InvariantCultureIgnoreCase))
             {
-                return path.Substring(@"\\?\UNC\".Length);
+                return @"\\" + path.Substring(@"\\?\UNC\".Length);
             }
             else
             {
