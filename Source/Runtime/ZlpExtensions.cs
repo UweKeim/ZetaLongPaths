@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Properties;
 
     /// <summary>
     /// "Nice to have" extensions.
@@ -163,6 +164,39 @@
                 o.FullName.TrimEnd('\\', '/'),
                 p.TrimEnd('\\', '/'),
                 StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static ZlpFileInfo CheckExists(this ZlpFileInfo file)
+        {
+            if( file==null) throw new ArgumentNullException(@"file");
+
+            if (!file.Exists)
+            {
+                throw new Exception(string.Format(Resources.FileNotFound, file));
+            }
+
+            return file;
+        }
+
+        public static ZlpDirectoryInfo CheckExists(this ZlpDirectoryInfo folder)
+        {
+            if( folder==null) throw new ArgumentNullException(@"folder");
+
+            if (!folder.Exists)
+            {
+                throw new Exception(string.Format(Resources.FolderNotFound, folder));
+            }
+
+            return folder;
+        }
+
+        public static ZlpDirectoryInfo CheckCreate(this ZlpDirectoryInfo folder)
+        {
+            if( folder==null) throw new ArgumentNullException(@"folder");
+
+            if (!folder.Exists) folder.Create();
+
+            return folder;
         }
     }
 }

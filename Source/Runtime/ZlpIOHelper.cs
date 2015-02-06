@@ -12,6 +12,7 @@
     using Native;
     using Native.FileOperations;
     using Native.FileOperations.Interop;
+    using Properties;
     using FileAccess = Native.FileAccess;
     using FileAttributes = Native.FileAttributes;
     using FileShare = Native.FileShare;
@@ -55,7 +56,7 @@
                 new FileStream(
                     CreateFileHandle(
                         path,
-                        CreationDisposition.OpenAlways,
+                        CreationDisposition.OpenExisting,
                         FileAccess.GenericRead,
                         FileShare.Read),
                     System.IO.FileAccess.Read))
@@ -88,7 +89,7 @@
                 new FileStream(
                     CreateFileHandle(
                         path,
-                        CreationDisposition.OpenAlways,
+                        CreationDisposition.OpenExisting,
                         FileAccess.GenericRead,
                         FileShare.Read),
                     System.IO.FileAccess.Read))
@@ -189,7 +190,7 @@
                 throw new Win32Exception(
                     lastWin32Error,
                     string.Format(
-                        "Error {0} creating file handle for file path '{1}': {2}",
+                        Resources.ErrorCreatingFileHandle,
                         lastWin32Error,
                         filePath,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -215,7 +216,7 @@
                 throw new Win32Exception(
                     lastWin32Error,
                     string.Format(
-                        "Error {0} copying file '{1}' to '{2}': {3}",
+                        Resources.ErrorCopyingFile,
                         lastWin32Error,
                         sourceFilePath,
                         destinationFilePath,
@@ -238,7 +239,7 @@
                 throw new Win32Exception(
                     lastWin32Error,
                     string.Format(
-                        "Error {0} moving file '{1}' to '{2}': {3}",
+                        Resources.ErrorMovingFile,
                         lastWin32Error,
                         sourceFilePath,
                         destinationFilePath,
@@ -267,7 +268,7 @@
                     throw new Win32Exception(
                         lastWin32Error,
                         string.Format(
-                            "Error {0} marking file '{1}' for deletion after reboot: {2}",
+                            Resources.ErrorMarkingFileForDeletion,
                             lastWin32Error,
                             sourceFilePath,
                             CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -297,7 +298,7 @@
                 throw new Win32Exception(
                     lastWin32Error,
                     string.Format(
-                        "Error {0} moving directory '{1}' to '{2}': {3}",
+                        Resources.ErrorMovingFolder,
                         lastWin32Error,
                         sourceFolderPath,
                         destinationFolderPath,
@@ -354,7 +355,7 @@
                     throw new Win32Exception(
                         lastWin32Error,
                         string.Format(
-                            "Error {0} looking up account SID while getting file owner for file '{1}': {2}",
+                            Resources.ErrorLookingUpSid,
                             lastWin32Error,
                             filePath,
                             CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -375,7 +376,7 @@
                 throw new Win32Exception(
                     lastWin32Error,
                     string.Format(
-                        "Error {0} getting names security info while getting file owner for file '{1}': {2}",
+                        Resources.ErrorGettingSecurityInfo,
                         lastWin32Error,
                         filePath,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -394,7 +395,7 @@
                 throw new Win32Exception(
                     lastWin32Error,
                     string.Format(
-                        "Error {0} setting file attribute of file '{1}' to '{2}': {3}",
+                        Resources.ErrorSettingAttributes,
                         lastWin32Error,
                         filePath,
                         attributes,
@@ -406,7 +407,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            return (FileAttributes)PInvokeHelper.GetFileAttributes(filePath);
+            return (FileAttributes) PInvokeHelper.GetFileAttributes(filePath);
         }
 
         public static void DeleteFile(string filePath)
@@ -431,7 +432,7 @@
                         throw new Win32Exception(
                             lastWin32Error,
                             string.Format(
-                                "Error {0} deleting file '{1}': {2}",
+                                Resources.ErrorDeletingFile,
                                 lastWin32Error,
                                 filePath,
                                 CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -473,7 +474,7 @@
                             throw new Win32Exception(
                                 lastWin32Error,
                                 string.Format(
-                                    "Error {0} deleting folder '{1}': {2}",
+                                    Resources.ErrorDeletingFolder,
                                     lastWin32Error,
                                     folderPath,
                                     CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -579,7 +580,7 @@
             basePart = getDriveOrShare(directoryPath);
 
             var remaining = directoryPath.Substring(basePart.Length);
-            childParts = remaining.Trim('\\').Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            childParts = remaining.Trim('\\').Split(new[] {'\\'}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private static string getDrive(
@@ -719,7 +720,7 @@
                 throw new Win32Exception(
                     lastWin32Error,
                     string.Format(
-                        "Error {0} creating directory '{1}': {2}",
+                        Resources.ErrorCreatingDirectory,
                         lastWin32Error,
                         directoryPath,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -787,7 +788,7 @@
                 {
                     var ft = fd.ftLastWriteTime;
 
-                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -820,7 +821,7 @@
                 {
                     var ft = fd.ftLastAccessTime;
 
-                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -853,7 +854,7 @@
                 {
                     var ft = fd.ftCreationTime;
 
-                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -891,7 +892,7 @@
                         throw new Win32Exception(
                             lastWin32Error,
                             string.Format(
-                                "Error {0} setting file last write time '{1}': {2}",
+                                Resources.ErrorSettingsWriteTime,
                                 lastWin32Error,
                                 filePath,
                                 CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -915,7 +916,7 @@
                 }
                 else
                 {
-                    throw new FileNotFoundException("Can't set LastWriteTime, because file system object is not exists", filePath);
+                    throw new FileNotFoundException(Resources.FileNotFound, filePath);
                 }
             }
         }
@@ -942,7 +943,7 @@
                         throw new Win32Exception(
                             lastWin32Error,
                             string.Format(
-                                "Error {0} setting file last access time '{1}': {2}",
+                                Resources.ErrorSettingAccessTime,
                                 lastWin32Error,
                                 filePath,
                                 CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -966,7 +967,7 @@
                 }
                 else
                 {
-                    throw new FileNotFoundException("Can't set SetLastAccessTime, because file system object is not exists", filePath);
+                    throw new FileNotFoundException(Resources.FileNotFound, filePath);
                 }
             }
         }
@@ -993,7 +994,7 @@
                         throw new Win32Exception(
                             lastWin32Error,
                             string.Format(
-                                "Error {0} setting file creation time '{1}': {2}",
+                                Resources.ErrorSettingCreationTime,
                                 lastWin32Error,
                                 filePath,
                                 CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
@@ -1017,7 +1018,7 @@
                 }
                 else
                 {
-                    throw new FileNotFoundException("Can't set SetCreationTime, because file system object is not exists", filePath);
+                    throw new FileNotFoundException(Resources.FileNotFound, filePath);
                 }
             }
         }
@@ -1097,7 +1098,7 @@
                     {
                         var num = Marshal.GetLastWin32Error();
                         if ((num == 2 || num == 3 || num == 21))
-                        // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
+                            // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
                         {
                             return 0;
                         }
@@ -1125,7 +1126,7 @@
 
                     try
                     {
-                        return (long)high << 32 | ((long)low & (long)(0xffffffffL));
+                        return (long) high << 32 | ((long) low & (long) (0xffffffffL));
 
                         //try
                         //{
@@ -1206,7 +1207,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a file, find its contents
-                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
+                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
                         {
                             results.Add(new ZlpFileInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
                         }
@@ -1256,7 +1257,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a directory, find its contents
-                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
                         {
                             if (currentFileName != @"." && currentFileName != @"..")
                             {

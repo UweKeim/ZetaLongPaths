@@ -8,11 +8,11 @@
         {
             var f = new ZlpFileInfo(@"C:\Ablage\Lalala.txt");
             f.WriteAllText("lalala.");
-            f.MoveFileToRecycleBin();
+            f.MoveToRecycleBin();
 
             var d = new ZlpDirectoryInfo(@"C:\Ablage\LalalaOrdner");
             d.Create();
-            d.MoveFileToRecycleBin();
+            d.MoveToRecycleBin();
         }
     }
 }

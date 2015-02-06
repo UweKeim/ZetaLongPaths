@@ -28,7 +28,7 @@
         {
         }
 
-        public void MoveFileToRecycleBin()
+        public void MoveToRecycleBin()
         {
             ZlpIOHelper.MoveFileToRecycleBin(_path);
         }

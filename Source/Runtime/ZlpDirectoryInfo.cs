@@ -28,7 +28,7 @@
 			get { return ZlpIOHelper.DirectoryExists(_path); }
 		}
 
-        public void MoveFileToRecycleBin()
+        public void MoveToRecycleBin()
         {
             ZlpIOHelper.MoveDirectoryToRecycleBin(_path);
         }
