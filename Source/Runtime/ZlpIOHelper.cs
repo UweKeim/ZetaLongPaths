@@ -1108,6 +1108,43 @@
                         }
                     }
 
+
+
+
+                    // http://zetalongpaths.codeplex.com/discussions/580478#post1351470
+                    // https://mcdrummerman.wordpress.com/2010/07/13/win32_find_data-and-negative-file-sizes/
+
+                    //store nFileSizeLow
+                    long fDataFSize = (long)fd.nFileSizeLow;
+
+                    //store individual file size for later accounting usage
+                    long fileSize = 0;
+
+                    if (fDataFSize < 0 && (long)fd.nFileSizeHigh > 0)
+                    {
+                        fileSize = fDataFSize + 0x100000000 + ((long)fd.nFileSizeHigh * 0x100000000);
+                    }
+                    else
+                    {
+                        if ((long)fd.nFileSizeHigh > 0)
+                        {
+                            fileSize = fDataFSize + ((long)fd.nFileSizeHigh * 0x100000000);
+                        }
+                        else if (fDataFSize < 0)
+                        {
+                            fileSize = (fDataFSize + 0x100000000);
+                        }
+                        else
+                        {
+                            fileSize = fDataFSize;
+                        }
+                    }
+
+                    return fileSize;
+
+
+
+
                     /*
                     var low = fd.nFileSizeLow;
                     var high = fd.nFileSizeHigh;
