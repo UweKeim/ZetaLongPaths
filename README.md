@@ -52,9 +52,9 @@ For example to get all files in a given folder path, use the following snippet:
 
 This article quickly introduced a library to deal with long file names when accessing files and folders.
 
-_*Please note that the library currently is limited in the number of provided functions.*_
+Please note that the library currently is limited in the number of provided functions. I will add more functions in the future, just tell me which you require.
 
-I will add more functions in the future, just tell me which you require.
+I'm using the library in several widely used real-life projects like our [CMS](http://www.zeta-producer.com), our [Test Management tool](http://www.zeta-test.com) or our [Large File Uploader](https://www.zeta-uploader.com), so the library should be rather stable and reliable.
 
 ## History
 
