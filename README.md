@@ -55,7 +55,7 @@ Beside this library, there are other libraries available for accessing longer pa
 - [Long Path](http://bcl.codeplex.com/releases/view/42783) from the BCL CodePlex library.
 - [Delimon.Win32.IO Library](https://gallery.technet.microsoft.com/DelimonWin32IO-Library-V40-7ff6b16c) from the Microsoft TechNet Gallery.
 
-Personally, I've used none of thes libraries. When I started developing this library either none of the other libraries existed or I have poorly searched.
+Personally, I've used none of these libraries. When I started developing this library either none of the other libraries existed or I have poorly searched.
 
 According to user comments, the _Long Path_ library is rather restricted in terms of functionality; the _Delimon_ library is apparently much more powerful than my library.
 
