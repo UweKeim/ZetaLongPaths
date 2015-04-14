@@ -54,6 +54,8 @@ Beside this library, there are other libraries available for accessing longer pa
 
 - [Long Path](http://bcl.codeplex.com/releases/view/42783) from the BCL CodePlex library.
 - [Delimon.Win32.IO Library](https://gallery.technet.microsoft.com/DelimonWin32IO-Library-V40-7ff6b16c) from the Microsoft TechNet Gallery.
+- [QuickIO.NET](http://quickio.net/)
+- [AlphaFS](https://github.com/alphaleonis/AlphaFS)
 
 Personally, I've used none of these libraries. When I started developing this library either none of the other libraries existed or I have poorly searched.
 
