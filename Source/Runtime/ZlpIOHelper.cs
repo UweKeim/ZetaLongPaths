@@ -75,6 +75,13 @@
             return ReadAllText(path, encoding);
         }
 
+        public static string[] ReadAllLines(
+            string path)
+        {
+            var encoding = new UTF8Encoding(false, true);
+            return ReadAllLines(path, encoding);
+        }
+
         public static bool IsDirectoryEmpty(
             string path)
         {
@@ -97,6 +104,30 @@
             {
                 return sr.ReadToEnd();
             }
+        }
+
+        public static string[] ReadAllLines(
+            string path,
+            Encoding encoding)
+        {
+            var lines = new List<string>();
+
+            using (var fs =
+                new FileStream(
+                    CreateFileHandle(
+                        path,
+                        CreationDisposition.OpenExisting,
+                        FileAccess.GenericRead,
+                        FileShare.Read),
+                    System.IO.FileAccess.Read))
+            using (var sr = new StreamReader(fs, encoding))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                    lines.Add(line);
+            }
+
+            return lines.ToArray();
         }
 
         public static void WriteAllText(
@@ -180,7 +211,10 @@
                     fileShare,
                     IntPtr.Zero,
                     creationDisposition,
-                    0,
+                    // Fix by Richard, 2015-04-14. 
+                    // See https://msdn.microsoft.com/en-us/library/aa363858(VS.85).aspx#DIRECTORIES, 
+                    // See http://stackoverflow.com/q/4998814/107625
+                    FileAttributes.BackupSemantics,
                     IntPtr.Zero);
 
             // Check for errors.
@@ -407,7 +441,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            return (FileAttributes) PInvokeHelper.GetFileAttributes(filePath);
+            return (FileAttributes)PInvokeHelper.GetFileAttributes(filePath);
         }
 
         public static void DeleteFile(string filePath)
@@ -580,7 +614,7 @@
             basePart = getDriveOrShare(directoryPath);
 
             var remaining = directoryPath.Substring(basePart.Length);
-            childParts = remaining.Trim('\\').Split(new[] {'\\'}, StringSplitOptions.RemoveEmptyEntries);
+            childParts = remaining.Trim('\\').Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private static string getDrive(
@@ -788,7 +822,7 @@
                 {
                     var ft = fd.ftLastWriteTime;
 
-                    var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -821,7 +855,7 @@
                 {
                     var ft = fd.ftLastAccessTime;
 
-                    var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -854,7 +888,7 @@
                 {
                     var ft = fd.ftCreationTime;
 
-                    var hft2 = (((long) ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -881,7 +915,10 @@
                 using (var handle = CreateFileHandle(
                     filePath,
                     CreationDisposition.OpenExisting,
-                    FileAccess.GenericWrite,
+                    // Fix by Richard, 2015-04-14.
+                    // See https://msdn.microsoft.com/en-us/library/windows/desktop/ms724933%28v=vs.85%29.aspx,
+                    // See https://msdn.microsoft.com/en-us/library/windows/desktop/aa364399%28v=vs.85%29.aspx
+                    FileAccess.FileWriteAttributes,
                     FileShare.Read | FileShare.Write))
                 {
                     var d = date.ToFileTime();
@@ -932,7 +969,10 @@
                 using (var handle = CreateFileHandle(
                     filePath,
                     CreationDisposition.OpenExisting,
-                    FileAccess.GenericWrite,
+                    // Fix by Richard, 2015-04-14.
+                    // See https://msdn.microsoft.com/en-us/library/windows/desktop/ms724933%28v=vs.85%29.aspx,
+                    // See https://msdn.microsoft.com/en-us/library/windows/desktop/aa364399%28v=vs.85%29.aspx
+                    FileAccess.FileWriteAttributes,
                     FileShare.Read | FileShare.Write))
                 {
                     var d = date.ToFileTime();
@@ -983,7 +1023,10 @@
                 using (var handle = CreateFileHandle(
                     filePath,
                     CreationDisposition.OpenExisting,
-                    FileAccess.GenericWrite,
+                    // Fix by Richard, 2015-04-14.
+                    // See https://msdn.microsoft.com/en-us/library/windows/desktop/ms724933%28v=vs.85%29.aspx,
+                    // See https://msdn.microsoft.com/en-us/library/windows/desktop/aa364399%28v=vs.85%29.aspx
+                    FileAccess.FileWriteAttributes,
                     FileShare.Read | FileShare.Write))
                 {
                     var d = date.ToFileTime();
@@ -1098,7 +1141,7 @@
                     {
                         var num = Marshal.GetLastWin32Error();
                         if ((num == 2 || num == 3 || num == 21))
-                            // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
+                        // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
                         {
                             return 0;
                         }
@@ -1163,7 +1206,7 @@
 
                     try
                     {
-                        return (long) high << 32 | ((long) low & (long) (0xffffffffL));
+                        return (long)high << 32 | ((long)low & (long)(0xffffffffL));
 
                         //try
                         //{
@@ -1244,7 +1287,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a file, find its contents
-                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
+                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
                         {
                             results.Add(new ZlpFileInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
                         }
@@ -1294,7 +1337,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a directory, find its contents
-                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
                         {
                             if (currentFileName != @"." && currentFileName != @"..")
                             {

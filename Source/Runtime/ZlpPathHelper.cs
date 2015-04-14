@@ -92,6 +92,7 @@
         public static string GetDirectoryPathNameFromFilePath(string filePath)
         {
             if (filePath == null) return null;
+            //filePath = filePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
             var ls = filePath.LastIndexOfAny(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar/*, Path.VolumeSeparatorChar*/ });
 

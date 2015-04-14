@@ -2,7 +2,8 @@
 {
     using System;
     using System.Diagnostics;
-    using Native;
+    using System.IO;
+    using FileAttributes = Native.FileAttributes;
 
     [DebuggerDisplay(@"{FullName}")]
     public class ZlpDirectoryInfo
@@ -127,7 +128,14 @@
 
         public ZlpDirectoryInfo Parent
         {
-            get { return new ZlpDirectoryInfo(ZlpPathHelper.GetDirectoryPathNameFromFilePath(_path)); }
+            get
+            {
+                return
+                    new ZlpDirectoryInfo(
+                        ZlpPathHelper.GetDirectoryPathNameFromFilePath(_path.TrimEnd(
+                            Path.DirectorySeparatorChar,
+                            Path.AltDirectorySeparatorChar)));
+            }
         }
 
         public DateTime LastWriteTime

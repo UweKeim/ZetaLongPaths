@@ -131,8 +131,51 @@
             {
                 ZlpIOHelper.DeleteDirectory(tempPath, true);
             }
+        }
 
-            return;
+        [Test]
+        public void TestAttributes()
+        {
+            var tempFolder = Environment.ExpandEnvironmentVariables("%temp%");
+            Assert.True(ZlpIOHelper.DirectoryExists(tempFolder));
+
+            var tempPath = ZlpPathHelper.Combine(tempFolder, "ZlpTest");
+
+            try
+            {
+                ZlpIOHelper.CreateDirectory(tempPath);
+                Assert.IsTrue(ZlpIOHelper.DirectoryExists(tempPath));
+
+                var filePath = ZlpPathHelper.Combine(tempPath, "text.attributes.tests");
+                var fileHandle = ZlpIOHelper.CreateFileHandle(
+                    filePath,
+                    CreationDisposition.CreateAlways,
+                    FileAccess.GenericWrite | FileAccess.GenericRead,
+                    FileShare.None);
+                var textStream = new StreamWriter(new FileStream(fileHandle, System.IO.FileAccess.Write));
+                textStream.WriteLine("Zeta Long Attribute Extended testing...");
+                textStream.Flush();
+                textStream.Close();
+                fileHandle.Close();
+
+                Assert.IsTrue(ZlpIOHelper.FileExists(filePath));
+
+                // --
+
+                var now = DateTime.Now;
+
+                Assert.DoesNotThrow(delegate { ZlpIOHelper.SetFileLastAccessTime(filePath, now); });
+                Assert.DoesNotThrow(delegate { ZlpIOHelper.SetFileLastWriteTime(filePath, now); });
+                Assert.DoesNotThrow(delegate { ZlpIOHelper.SetFileCreationTime(filePath, now); });
+
+                Assert.AreEqual(ZlpIOHelper.GetFileLastAccessTime(filePath), now);
+                Assert.AreEqual(ZlpIOHelper.GetFileLastWriteTime(filePath), now);
+                Assert.AreEqual(ZlpIOHelper.GetFileCreationTime(filePath), now);
+            }
+            finally
+            {
+                ZlpIOHelper.DeleteDirectory(tempPath, true);
+            }
         }
 
         [Test]

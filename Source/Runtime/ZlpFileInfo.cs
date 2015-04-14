@@ -136,6 +136,16 @@
             return ZlpIOHelper.ReadAllText(_path, encoding);
         }
 
+        public string[] ReadAllLines()
+        {
+            return ZlpIOHelper.ReadAllLines(_path);
+        }
+
+        public string[] ReadAllLines(Encoding encoding)
+        {
+            return ZlpIOHelper.ReadAllLines(_path, encoding);
+        }
+
         public void WriteAllText(string text, Encoding encoding = null)
         {
             ZlpIOHelper.WriteAllText(_path, text, encoding);

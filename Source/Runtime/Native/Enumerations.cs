@@ -9,6 +9,8 @@
 		GenericWrite = 0x40000000,
 		GenericExecute = 0x20000000,
 		GenericAll = 0x10000000,
+        FileReadAttributes = 0x80, // https://msdn.microsoft.com/en-us/library/windows/desktop/gg258116(v=vs.85).aspx
+        FileWriteAttributes = 0x100 // https://msdn.microsoft.com/en-us/library/windows/desktop/gg258116(v=vs.85).aspx
 	}
 
 	[Flags]
