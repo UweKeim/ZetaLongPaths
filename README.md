@@ -2,6 +2,8 @@
 
 A .NET library to access files and directories with more than 260 characters length.
 
+![Build state](https://travis-ci.org/UweKeim/ZetaLongPaths.svg?branch=master)
+
 ## Introduction
 
 This article describes a library that provides several classes and functions to perform basic functions on file paths and folder paths that are longer than the "MAX_PATH" limit of 260 characters.
