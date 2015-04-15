@@ -2,7 +2,7 @@
 
 A .NET library to access files and directories with more than 260 characters length.
 
-![Build state](https://travis-ci.org/UweKeim/ZetaLongPaths.svg?branch=master)
+[![Build state](https://travis-ci.org/UweKeim/ZetaLongPaths.svg?branch=master)](https://travis-ci.org/UweKeim/ZetaLongPaths)
 
 ## Introduction
 
