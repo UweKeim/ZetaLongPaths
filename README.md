@@ -10,7 +10,7 @@ This article describes a library that provides several classes and functions to 
 
 ## Background
 
-All .NET functions I cam accross that access the file system are limited to file paths and folder paths with less than 260 characters. This includes most (all?) of the classes in the [System.IO](http://msdn.microsoft.com/en-us/library/system.io.aspx) namespace like e.g. the [System.IO.FileInfo](http://msdn.microsoft.com/en-us/library/system.io.fileinfo.aspx) class.
+All .NET functions I came across that access the file system are limited to file paths and folder paths with less than 260 characters. This includes most (all?) of the classes in the [System.IO](http://msdn.microsoft.com/en-us/library/system.io.aspx) namespace like e.g. the [System.IO.FileInfo](http://msdn.microsoft.com/en-us/library/system.io.fileinfo.aspx) class.
 
 Since I was in the need to actually access paths with more than 260 characters, I searched for a solution. Fortunately a solution exists; basically you have to P/Invoke Win32 functions that allow a special syntax to prefix a file and allow it then to be much longer than the 260 characters (about 32,000 characters).
 
