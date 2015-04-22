@@ -761,6 +761,17 @@
             }
         }
 
+        public static bool DirectoryIsEmpty(string directoryPath)
+        {
+            // TODO: Optimize with something like http://stackoverflow.com/a/757925/107625
+
+            return
+                string.IsNullOrEmpty(directoryPath) ||
+                !DirectoryExists(directoryPath) ||
+                GetFiles(directoryPath).Length <= 0 &&
+                GetDirectories(directoryPath).Length <= 0;
+        }
+
         public static bool DirectoryExists(string directoryPath)
         {
             directoryPath = CheckAddLongPathPrefix(directoryPath);

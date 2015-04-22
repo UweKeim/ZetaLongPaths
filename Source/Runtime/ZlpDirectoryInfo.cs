@@ -44,6 +44,11 @@
             get { return ZlpIOHelper.DirectoryExists(_path); }
         }
 
+        public bool IsEmpty
+        {
+            get { return ZlpIOHelper.DirectoryIsEmpty(_path); }
+        }
+
         public void MoveToRecycleBin()
         {
             ZlpIOHelper.MoveDirectoryToRecycleBin(_path);
