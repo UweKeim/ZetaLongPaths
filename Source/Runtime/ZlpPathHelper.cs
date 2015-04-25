@@ -30,12 +30,12 @@
         {
             if (path != null)
             {
-                string text = path;
-                int num = path.Length;
+                var text = path;
+                var num = path.Length;
 
                 while (--num >= 0)
                 {
-                    char c = path[num];
+                    var c = path[num];
                     if (c == '.')
                     {
                         text = path.Substring(0, num);
@@ -74,7 +74,7 @@
             var fn = GetFileNameFromFilePath(filePath);
             var ls = fn.LastIndexOf('.');
 
-            return ls < 0 ? string.Empty : fn.Substring(0, ls);
+            return ls < 0 ? String.Empty : fn.Substring(0, ls);
         }
 
         public static string GetDirectoryNameOnlyFromFilePath(string filePath)
@@ -98,7 +98,7 @@
 
             if (ls < 0)
             {
-                return string.Empty;
+                return String.Empty;
             }
             else
             {
@@ -211,8 +211,8 @@
             string pathToWhichToMakeRelativeTo,
             string pathToMakeRelative)
         {
-            if (string.IsNullOrEmpty(pathToWhichToMakeRelativeTo) ||
-                string.IsNullOrEmpty(pathToMakeRelative))
+            if (String.IsNullOrEmpty(pathToWhichToMakeRelativeTo) ||
+                String.IsNullOrEmpty(pathToMakeRelative))
             {
                 return pathToMakeRelative;
             }
@@ -302,7 +302,7 @@
                             // Path from path1 to common root.
                             foreach (var oRemainingPart in oRemainingParts)
                             {
-                                if (!string.IsNullOrEmpty(oRemainingPart))
+                                if (!String.IsNullOrEmpty(oRemainingPart))
                                 {
                                     result.Append(@"..\");
                                 }
@@ -341,7 +341,7 @@
                 var lastWin32Error = Marshal.GetLastWin32Error();
                 throw new Win32Exception(
                     lastWin32Error,
-                    string.Format(
+                    String.Format(
                         "Error {0} getting full path for '{1}': {2}",
                         lastWin32Error,
                         path,
@@ -355,7 +355,7 @@
 
         public static string GetExtension(string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (String.IsNullOrEmpty(path))
             {
                 return path;
             }
@@ -373,7 +373,7 @@
                     var pos = p.LastIndexOf('.');
                     if (pos < 0)
                     {
-                        return string.Empty;
+                        return String.Empty;
                     }
                     else
                     {
@@ -382,7 +382,7 @@
                 }
                 else
                 {
-                    return string.Empty;
+                    return String.Empty;
                 }
             }
         }
@@ -405,11 +405,11 @@
             string path1,
             string path2)
         {
-            if (string.IsNullOrEmpty(path1))
+            if (String.IsNullOrEmpty(path1))
             {
                 return path2;
             }
-            else if (string.IsNullOrEmpty(path2))
+            else if (String.IsNullOrEmpty(path2))
             {
                 return path1;
             }
@@ -482,19 +482,19 @@
         public static string ConvertBackSlashsToForwardSlashs(
             string text)
         {
-            return string.IsNullOrEmpty(text) ? text : text.Replace('\\', '/');
+            return String.IsNullOrEmpty(text) ? text : text.Replace('\\', '/');
         }
 
         public static string ConvertForwardSlashsToBackSlashs(
             string text)
         {
-            return string.IsNullOrEmpty(text) ? text : text.Replace('/', '\\');
+            return String.IsNullOrEmpty(text) ? text : text.Replace('/', '\\');
         }
 
         public static string GetDrive(
             string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (String.IsNullOrEmpty(path))
             {
                 return path;
             }
@@ -507,7 +507,7 @@
 
                 if (colonPos <= 0)
                 {
-                    return string.Empty;
+                    return String.Empty;
                 }
                 else
                 {
@@ -517,7 +517,7 @@
                     }
                     else
                     {
-                        return string.Empty;
+                        return String.Empty;
                     }
                 }
             }
@@ -540,7 +540,7 @@
         public static string GetShare(
             string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (String.IsNullOrEmpty(path))
             {
                 return path;
             }
@@ -555,7 +555,7 @@
                 var n = str.IndexOf(dblslsh, StringComparison.Ordinal);
                 if (n < 0)
                 {
-                    return string.Empty;
+                    return String.Empty;
                 }
                 else
                 {
@@ -569,7 +569,7 @@
                     n = str.IndexOf('\\');
                     if (n <= 0)
                     {
-                        return string.Empty;
+                        return String.Empty;
                     }
                     else
                     {
@@ -587,7 +587,7 @@
                         }
                         else if (n == 0)
                         {
-                            return string.Empty;
+                            return String.Empty;
                         }
 
                         // Wiederum übernehmen in Rückgabestring, 
@@ -595,7 +595,7 @@
                         ret += str.Substring(0, n);
 
                         // The last item must not be a slash.
-                        return ret[ret.Length - 1] == '\\' ? string.Empty : ret;
+                        return ret[ret.Length - 1] == '\\' ? String.Empty : ret;
                     }
                 }
             }
@@ -604,23 +604,23 @@
         public static string GetDriveOrShare(
             string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (String.IsNullOrEmpty(path))
             {
                 return path;
             }
             else
             {
-                if (!string.IsNullOrEmpty(GetDrive(path)))
+                if (!String.IsNullOrEmpty(GetDrive(path)))
                 {
                     return GetDrive(path);
                 }
-                else if (!string.IsNullOrEmpty(GetShare(path)))
+                else if (!String.IsNullOrEmpty(GetShare(path)))
                 {
                     return GetShare(path);
                 }
                 else
                 {
-                    return string.Empty;
+                    return String.Empty;
                 }
             }
         }
@@ -633,7 +633,7 @@
         public static string GetDriveOrShareAndDirectory(
             string path)
         {
-            return string.IsNullOrEmpty(path)
+            return String.IsNullOrEmpty(path)
                 ? path
                 : ZlpPathHelper.GetDirectoryPathNameFromFilePath(path);
         }
@@ -651,7 +651,7 @@
         public static string GetDirectory(
             string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (String.IsNullOrEmpty(path))
             {
                 return path;
             }
@@ -663,15 +663,15 @@
 
                 // ReSharper disable InvocationIsSkipped
                 Debug.Assert(
-                    string.IsNullOrEmpty(driveOrShare) ||
+                    String.IsNullOrEmpty(driveOrShare) ||
                     dir.StartsWith(driveOrShare),
-                    string.Format(
+                    String.Format(
                         @"Variable 'dir' ('{0}') must start with drive or share '{1}'.",
                         dir,
                         driveOrShare));
                 // ReSharper restore InvocationIsSkipped
 
-                if (!string.IsNullOrEmpty(driveOrShare) &&
+                if (!String.IsNullOrEmpty(driveOrShare) &&
                     dir.StartsWith(driveOrShare))
                 {
                     return dir.Substring(driveOrShare.Length);
@@ -694,7 +694,7 @@
         public static string GetNameWithoutExtension(
             string path)
         {
-            return string.IsNullOrEmpty(path)
+            return String.IsNullOrEmpty(path)
                 ? path
                 : ZlpPathHelper.GetFileNameWithoutExtension(path);
         }
@@ -724,7 +724,7 @@
         public static string GetNameWithExtension(
             string path)
         {
-            return string.IsNullOrEmpty(path) ? path : ZlpPathHelper.GetFileNameFromFilePath(path);
+            return String.IsNullOrEmpty(path) ? path : ZlpPathHelper.GetFileNameFromFilePath(path);
         }
 
         public static ZlpSplittedPath SplitPath(
@@ -754,7 +754,7 @@
         public static bool IsDriveLetterPath(
             string filePath)
         {
-            if (string.IsNullOrEmpty(filePath))
+            if (String.IsNullOrEmpty(filePath))
             {
                 return false;
             }
@@ -767,7 +767,7 @@
         public static bool IsUncPath(
             string filePath)
         {
-            if (string.IsNullOrEmpty(filePath))
+            if (String.IsNullOrEmpty(filePath))
             {
                 return false;
             }
@@ -779,7 +779,7 @@
                 {
                     if (s.StartsWith(@"\\?\UNC\"))
                     {
-                        return !string.IsNullOrEmpty(ZlpPathHelper.GetShare(filePath));
+                        return !String.IsNullOrEmpty(ZlpPathHelper.GetShare(filePath));
                     }
                     else if (s.StartsWith(@"\\?\"))
                     {
@@ -787,7 +787,7 @@
                     }
                     else
                     {
-                        return !string.IsNullOrEmpty(ZlpPathHelper.GetShare(filePath));
+                        return !String.IsNullOrEmpty(ZlpPathHelper.GetShare(filePath));
                     }
                 }
                 else
@@ -828,7 +828,7 @@
         public static string GetParentPath(
             string text)
         {
-            return string.IsNullOrEmpty(text)
+            return String.IsNullOrEmpty(text)
                 ? text
                 : ZlpPathHelper.GetFullPath(ZlpPathHelper.Combine(text, @".."));
         }
@@ -871,11 +871,11 @@
             string path1,
             string path2)
         {
-            if (string.IsNullOrEmpty(path1))
+            if (String.IsNullOrEmpty(path1))
             {
                 return path2;
             }
-            else if (string.IsNullOrEmpty(path2))
+            else if (String.IsNullOrEmpty(path2))
             {
                 return path1;
             }
@@ -897,7 +897,7 @@
                 // with three slashes.
                 if (path2.Length >= 3)
                 {
-                    if (path2[0] == '/' && path2[2] == ':' && char.IsLetter(path2[1]))
+                    if (path2[0] == '/' && path2[2] == ':' && Char.IsLetter(path2[1]))
                     {
                         // Is OK to have a leading slash.
                     }
@@ -943,7 +943,7 @@
         {
             if (setSlash)
             {
-                if (string.IsNullOrEmpty(path))
+                if (String.IsNullOrEmpty(path))
                 {
                     return directorySeparatorChar.ToString(CultureInfo.InvariantCulture);
                 }
@@ -961,7 +961,7 @@
             }
             else
             {
-                if (string.IsNullOrEmpty(path))
+                if (String.IsNullOrEmpty(path))
                 {
                     return path;
                 }
@@ -979,7 +979,7 @@
         {
             if (setSlash)
             {
-                if (string.IsNullOrEmpty(path))
+                if (String.IsNullOrEmpty(path))
                 {
                     return directorySeparatorChar.ToString(CultureInfo.InvariantCulture);
                 }
@@ -997,7 +997,7 @@
             }
             else
             {
-                if (string.IsNullOrEmpty(path))
+                if (String.IsNullOrEmpty(path))
                 {
                     return path;
                 }
@@ -1006,6 +1006,12 @@
                     return path[path.Length - 1] == directorySeparatorChar ? path.Substring(0, path.Length - 1) : path;
                 }
             }
+        }
+
+        public static bool AreSameFolders(string folder1, string folder2)
+        {
+            return !string.IsNullOrEmpty(folder1) && !string.IsNullOrEmpty(folder2) &&
+                   folder1.TrimEnd('\\').ToLowerInvariant().Equals(folder2.TrimEnd('\\').ToLowerInvariant());
         }
     }
 }

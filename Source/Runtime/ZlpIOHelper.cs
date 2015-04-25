@@ -234,6 +234,29 @@
             return fileHandle;
         }
 
+        public static void CopyFileExact(
+            string sourceFilePath,
+            string destinationFilePath,
+            bool overwriteExisting)
+        {
+            CopyFile(sourceFilePath, destinationFilePath, overwriteExisting);
+            CloneDates(sourceFilePath, destinationFilePath);
+        }
+
+        private static void CloneDates(string sourceFilePath, string destinationFilePath)
+        {
+            var s = new ZlpFileInfo(sourceFilePath);
+            var d = new ZlpFileInfo(destinationFilePath);
+
+            var sc = s.CreationTime;
+            var sa = s.LastAccessTime;
+            var sw = s.LastWriteTime;
+
+            if (sc > DateTime.MinValue) d.CreationTime = sc;
+            if (sa > DateTime.MinValue) d.LastAccessTime = sa;
+            if (sw > DateTime.MinValue) d.LastWriteTime = sw;
+        }
+
         public static void CopyFile(
             string sourceFilePath,
             string destinationFilePath,

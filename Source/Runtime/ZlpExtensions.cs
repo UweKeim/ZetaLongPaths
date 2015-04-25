@@ -199,12 +199,6 @@
             return folder;
         }
 
-        private static bool AreSameFolders(string folder1, string folder2)
-        {
-            return !string.IsNullOrEmpty(folder1) && !string.IsNullOrEmpty(folder2) &&
-                   folder1.TrimEnd('\\').ToLowerInvariant().Equals(folder2.TrimEnd('\\').ToLowerInvariant());
-        }
-
         public static bool IsSame(this ZlpDirectoryInfo folder1, ZlpDirectoryInfo folder2)
         {
             return IsSame(folder1, folder2 == null ? null : folder2.FullName);
@@ -212,7 +206,7 @@
 
         public static bool IsSame(this ZlpDirectoryInfo folder1, string folder2)
         {
-            return AreSameFolders(folder1.FullName, folder2);
+            return ZlpPathHelper.AreSameFolders(folder1.FullName, folder2);
         }
 
         public static bool StartsWith(this ZlpDirectoryInfo folder1, ZlpDirectoryInfo folder2)

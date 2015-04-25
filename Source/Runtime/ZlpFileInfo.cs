@@ -79,6 +79,20 @@
             ZlpIOHelper.CopyFile(_path, destinationFilePath._path, overwriteExisting);
         }
 
+        public void CopyToExact(
+            string destinationFilePath,
+            bool overwriteExisting)
+        {
+            ZlpIOHelper.CopyFileExact(_path, destinationFilePath, overwriteExisting);
+        }
+
+        public void CopyToExact(
+            ZlpFileInfo destinationFilePath,
+            bool overwriteExisting)
+        {
+            ZlpIOHelper.CopyFileExact(_path, destinationFilePath._path, overwriteExisting);
+        }
+
         public void Delete()
         {
             ZlpIOHelper.DeleteFile(_path);
