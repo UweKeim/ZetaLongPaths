@@ -74,7 +74,7 @@
             var fn = GetFileNameFromFilePath(filePath);
             var ls = fn.LastIndexOf('.');
 
-            return ls < 0 ? String.Empty : fn.Substring(0, ls);
+            return ls < 0 ? fn : fn.Substring(0, ls);
         }
 
         public static string GetDirectoryNameOnlyFromFilePath(string filePath)
@@ -694,9 +694,9 @@
         public static string GetNameWithoutExtension(
             string path)
         {
-            return String.IsNullOrEmpty(path)
+            return string.IsNullOrEmpty(path)
                 ? path
-                : ZlpPathHelper.GetFileNameWithoutExtension(path);
+                : GetFileNameWithoutExtension(path);
         }
 
         /// <summary>

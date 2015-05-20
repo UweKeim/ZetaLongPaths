@@ -59,6 +59,34 @@
 
 			//--
 
+			s1 = @"lalala-123";
+			s2 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+
+            Assert.AreEqual(@"lalala-123", s2);
+
+			//--
+
+			s1 = @"lalala-123.txt";
+			s2 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+
+            Assert.AreEqual(@"lalala-123", s2);
+
+			//--
+
+			s1 = @"C:\Ablage\lalala-123.txt";
+			s2 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+
+            Assert.AreEqual(@"lalala-123", s2);
+
+			//--
+
+			s1 = @"\\nas001\data\folder\lalala-123.txt";
+			s2 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+
+            Assert.AreEqual(@"lalala-123", s2);
+
+			//--
+
 			s1 = @"c:\ablage\..\windows\notepad.exe";
 			s2 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
 
