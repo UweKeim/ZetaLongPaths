@@ -5,7 +5,7 @@ namespace ZetaLongPaths.Native.FileOperations.Interop
     using System.Runtime.InteropServices;
 
     [ComImport]
-    [Guid("04b0f1a7-9490-44bc-96e1-4296a31252e2")]
+    [Guid(@"04b0f1a7-9490-44bc-96e1-4296a31252e2")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IFileOperationProgressSink
     {

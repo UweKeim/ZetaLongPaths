@@ -24,7 +24,7 @@ namespace ZetaLongPaths.Native.FileOperations
         public FileOperation(FileOperationProgressSink callbackSink, IntPtr ownerHandle)
         {
             _callbackSink = callbackSink;
-            _fileOperation = (IFileOperation) Activator.CreateInstance(_fileOperationType);
+            _fileOperation = (IFileOperation) Activator.CreateInstance(FileOperationType);
 
             _fileOperation.SetOperationFlags(FileOperationFlags.FOF_NOCONFIRMMKDIR);
             if (_callbackSink != null) _sinkCookie = _fileOperation.Advise(_callbackSink);
@@ -68,7 +68,7 @@ namespace ZetaLongPaths.Native.FileOperations
         public void DeleteItem(string source)
         {
             ThrowIfDisposed();
-            using (ComReleaser<IShellItem> sourceItem = CreateShellItem(source))
+            using (var sourceItem = CreateShellItem(source))
             {
                 _fileOperation.DeleteItem(sourceItem.Item, null);
             }
@@ -77,7 +77,7 @@ namespace ZetaLongPaths.Native.FileOperations
         public void NewItem(string folderName, string name, FileAttributes attrs)
         {
             ThrowIfDisposed();
-            using (ComReleaser<IShellItem> folderItem = CreateShellItem(folderName))
+            using (var folderItem = CreateShellItem(folderName))
             {
                 _fileOperation.NewItem(folderItem.Item, attrs, name, string.Empty, _callbackSink);
             }
@@ -117,8 +117,8 @@ namespace ZetaLongPaths.Native.FileOperations
             IBindCtx pbc,
             ref Guid riid);
 
-        private static readonly Guid CLSID_FileOperation = new Guid("3ad05575-8857-4850-9277-11b85bdb8e09");
-        private static readonly Type _fileOperationType = Type.GetTypeFromCLSID(CLSID_FileOperation);
+        private static readonly Guid ClsidFileOperation = new Guid("3ad05575-8857-4850-9277-11b85bdb8e09");
+        private static readonly Type FileOperationType = Type.GetTypeFromCLSID(ClsidFileOperation);
         private static Guid _shellItemGuid = typeof (IShellItem).GUID;
     }
 }

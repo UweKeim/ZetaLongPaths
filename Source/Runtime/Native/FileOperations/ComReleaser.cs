@@ -7,23 +7,21 @@ namespace ZetaLongPaths.Native.FileOperations
 
     class ComReleaser<T> : IDisposable where T : class
     {
-        private T _obj;
-
         public ComReleaser(T obj)
         {
-            if (obj == null) throw new ArgumentNullException("obj");
-            if (!obj.GetType().IsCOMObject) throw new ArgumentOutOfRangeException("obj");
-            _obj = obj;
+            if (obj == null) throw new ArgumentNullException(nameof(obj));
+            if (!obj.GetType().IsCOMObject) throw new ArgumentOutOfRangeException(nameof(obj));
+            Item = obj;
         }
 
-        public T Item { get { return _obj; } }
+        public T Item { get; private set; }
 
         public void Dispose()
         {
-            if (_obj != null)
+            if (Item != null)
             {
-                Marshal.FinalReleaseComObject(_obj);
-                _obj = null;
+                Marshal.FinalReleaseComObject(Item);
+                Item = null;
             }
         }
     }

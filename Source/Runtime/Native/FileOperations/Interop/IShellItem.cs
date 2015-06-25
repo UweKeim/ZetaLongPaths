@@ -7,7 +7,7 @@ namespace ZetaLongPaths.Native.FileOperations.Interop
     using System.Runtime.InteropServices.ComTypes;
 
     [ComImport]
-    [Guid("43826d1e-e718-42ee-bc55-a1e261c37bfe")]
+    [Guid(@"43826d1e-e718-42ee-bc55-a1e261c37bfe")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IShellItem
     {

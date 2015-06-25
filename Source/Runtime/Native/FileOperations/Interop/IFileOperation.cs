@@ -6,7 +6,7 @@ namespace ZetaLongPaths.Native.FileOperations.Interop
     using System.Runtime.InteropServices;
 
     [ComImport]
-    [Guid("947aab5f-0a5c-4c13-b4d6-4bf7836fc9f8")]
+    [Guid(@"947aab5f-0a5c-4c13-b4d6-4bf7836fc9f8")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IFileOperation
     {

@@ -8,8 +8,6 @@
     [DebuggerDisplay(@"{FullName}")]
     public class ZlpDirectoryInfo
     {
-        private readonly string _path;
-
         public static ZlpDirectoryInfo GetTemp()
         {
             return new ZlpDirectoryInfo(ZlpPathHelper.GetTempDirectoryPath());
@@ -32,139 +30,118 @@
 
         public ZlpDirectoryInfo(string path)
         {
-            _path = path;
+            FullName = path;
         }
 
         public void Refresh()
         {
         }
 
-        public bool Exists
-        {
-            get { return ZlpIOHelper.DirectoryExists(_path); }
-        }
+        public bool Exists => ZlpIOHelper.DirectoryExists(FullName);
 
-        public bool IsEmpty
-        {
-            get { return ZlpIOHelper.DirectoryIsEmpty(_path); }
-        }
+        public bool IsEmpty => ZlpIOHelper.DirectoryIsEmpty(FullName);
 
         public void MoveToRecycleBin()
         {
-            ZlpIOHelper.MoveDirectoryToRecycleBin(_path);
+            ZlpIOHelper.MoveDirectoryToRecycleBin(FullName);
         }
 
-        public string OriginalPath
-        {
-            get { return _path; }
-        }
+        public string OriginalPath => FullName;
 
         public override string ToString()
         {
-            return _path;
+            return FullName;
         }
 
         public void Delete(bool recursive)
         {
-            ZlpIOHelper.DeleteDirectory(_path, recursive);
+            ZlpIOHelper.DeleteDirectory(FullName, recursive);
         }
 
         public void Create()
         {
-            ZlpIOHelper.CreateDirectory(_path);
+            ZlpIOHelper.CreateDirectory(FullName);
         }
 
         public void MoveTo(string destinationDirectoryPath)
         {
-            ZlpIOHelper.MoveDirectory(_path, destinationDirectoryPath);
+            ZlpIOHelper.MoveDirectory(FullName, destinationDirectoryPath);
         }
 
         public void MoveTo(ZlpDirectoryInfo destinationDirectoryPath)
         {
-            ZlpIOHelper.MoveDirectory(_path, destinationDirectoryPath.FullName);
+            ZlpIOHelper.MoveDirectory(FullName, destinationDirectoryPath.FullName);
         }
 
-        public string FullName
-        {
-            get { return _path; }
-        }
+        public string FullName { get; }
 
-        public string Name
-        {
-            get { return ZlpPathHelper.GetDirectoryNameOnlyFromFilePath(_path); }
-        }
+        public string Name => ZlpPathHelper.GetDirectoryNameOnlyFromFilePath(FullName);
 
         public ZlpFileInfo[] GetFiles()
         {
-            return ZlpIOHelper.GetFiles(_path);
+            return ZlpIOHelper.GetFiles(FullName);
         }
 
         public ZlpFileInfo[] GetFiles(string pattern)
         {
-            return ZlpIOHelper.GetFiles(_path, pattern);
+            return ZlpIOHelper.GetFiles(FullName, pattern);
         }
 
         public ZlpFileInfo[] GetFiles(string pattern, System.IO.SearchOption searchOption)
         {
-            return ZlpIOHelper.GetFiles(_path, pattern, searchOption);
+            return ZlpIOHelper.GetFiles(FullName, pattern, searchOption);
         }
 
         public ZlpFileInfo[] GetFiles(System.IO.SearchOption searchOption)
         {
-            return ZlpIOHelper.GetFiles(_path, searchOption);
+            return ZlpIOHelper.GetFiles(FullName, searchOption);
         }
 
         public ZlpDirectoryInfo[] GetDirectories()
         {
-            return ZlpIOHelper.GetDirectories(_path);
+            return ZlpIOHelper.GetDirectories(FullName);
         }
 
         public ZlpDirectoryInfo[] GetDirectories(string pattern)
         {
-            return ZlpIOHelper.GetDirectories(_path, pattern);
+            return ZlpIOHelper.GetDirectories(FullName, pattern);
         }
 
         public ZlpDirectoryInfo CreateSubdirectory(string name)
         {
-            var path = ZlpPathHelper.Combine(_path, name);
+            var path = ZlpPathHelper.Combine(FullName, name);
             ZlpIOHelper.CreateDirectory(path);
             return new ZlpDirectoryInfo(path);
         }
 
-        public ZlpDirectoryInfo Parent
-        {
-            get
-            {
-                return
-                    new ZlpDirectoryInfo(
-                        ZlpPathHelper.GetDirectoryPathNameFromFilePath(_path.TrimEnd(
-                            Path.DirectorySeparatorChar,
-                            Path.AltDirectorySeparatorChar)));
-            }
-        }
+        public ZlpDirectoryInfo Parent =>
+            new ZlpDirectoryInfo(
+                ZlpPathHelper.GetDirectoryPathNameFromFilePath(FullName.TrimEnd(
+                    Path.DirectorySeparatorChar,
+                    Path.AltDirectorySeparatorChar)));
 
         public DateTime LastWriteTime
         {
-            get { return ZlpIOHelper.GetFileLastWriteTime(_path); }
-            set { ZlpIOHelper.SetFileLastWriteTime(_path, value); }
+            get { return ZlpIOHelper.GetFileLastWriteTime(FullName); }
+            set { ZlpIOHelper.SetFileLastWriteTime(FullName, value); }
         }
 
         public DateTime LastAccessTime
         {
-            get { return ZlpIOHelper.GetFileLastAccessTime(_path); }
-            set { ZlpIOHelper.SetFileLastAccessTime(_path, value); }
+            get { return ZlpIOHelper.GetFileLastAccessTime(FullName); }
+            set { ZlpIOHelper.SetFileLastAccessTime(FullName, value); }
         }
 
         public DateTime CreationTime
         {
-            get { return ZlpIOHelper.GetFileCreationTime(_path); }
-            set { ZlpIOHelper.SetFileCreationTime(_path, value); }
+            get { return ZlpIOHelper.GetFileCreationTime(FullName); }
+            set { ZlpIOHelper.SetFileCreationTime(FullName, value); }
         }
 
         public FileAttributes Attributes
         {
-            get { return ZlpIOHelper.GetFileAttributes(_path); }
-            set { ZlpIOHelper.SetFileAttributes(_path, value); }
+            get { return ZlpIOHelper.GetFileAttributes(FullName); }
+            set { ZlpIOHelper.SetFileAttributes(FullName, value); }
         }
     }
 }

@@ -3,117 +3,41 @@ namespace ZetaLongPaths
 
     public sealed class ZlpSplittedPath
     {
-        private readonly ZlpFileOrDirectoryInfo _info;
-
         public ZlpSplittedPath(
             string path)
         {
-            _info = new ZlpFileOrDirectoryInfo(path);
+            Info = new ZlpFileOrDirectoryInfo(path);
         }
 
         public ZlpSplittedPath(
             ZlpFileOrDirectoryInfo path)
         {
-            _info = new ZlpFileOrDirectoryInfo(path);
+            Info = new ZlpFileOrDirectoryInfo(path);
         }
 
-        public string FullPath
-        {
-            get
-            {
-                return _info.FullName;
-            }
-        }
+        public string FullPath => Info.FullName;
 
-        public ZlpFileOrDirectoryInfo Info
-        {
-            get
-            {
-                return _info;
-            }
-        }
+        public ZlpFileOrDirectoryInfo Info { get; }
 
-        public string Drive
-        {
-            get
-            {
-                return ZlpPathHelper.GetDrive(_info.FullName);
-            }
-        }
+        public string Drive => ZlpPathHelper.GetDrive(Info.FullName);
 
-        public string Share
-        {
-            get
-            {
-                return ZlpPathHelper.GetShare(_info.FullName);
-            }
-        }
+        public string Share => ZlpPathHelper.GetShare(Info.FullName);
 
-        public string DriveOrShare
-        {
-            get
-            {
-                return ZlpPathHelper.GetDriveOrShare(_info.FullName);
-            }
-        }
+        public string DriveOrShare => ZlpPathHelper.GetDriveOrShare(Info.FullName);
 
-        public string Directory
-        {
-            get
-            {
-                return ZlpPathHelper.GetDirectory(_info.FullName);
-            }
-        }
+        public string Directory => ZlpPathHelper.GetDirectory(Info.FullName);
 
-        public string NameWithoutExtension
-        {
-            get
-            {
-                return ZlpPathHelper.GetNameWithoutExtension(_info.FullName);
-            }
-        }
+        public string NameWithoutExtension => ZlpPathHelper.GetNameWithoutExtension(Info.FullName);
 
-        public string NameWithExtension
-        {
-            get
-            {
-                return ZlpPathHelper.GetNameWithExtension(_info.FullName);
-            }
-        }
+        public string NameWithExtension => ZlpPathHelper.GetNameWithExtension(Info.FullName);
 
-        public string Extension
-        {
-            get
-            {
-                return ZlpPathHelper.GetExtension(_info.FullName);
-            }
-        }
+        public string Extension => ZlpPathHelper.GetExtension(Info.FullName);
 
-        public string DriveOrShareAndDirectory
-        {
-            get
-            {
-                return ZlpPathHelper.Combine(DriveOrShare, Directory);
-            }
-        }
+        public string DriveOrShareAndDirectory => ZlpPathHelper.Combine(DriveOrShare, Directory);
 
-        public string DriveOrShareAndDirectoryAndNameWithoutExtension
-        {
-            get
-            {
-                return
-                    ZlpPathHelper.Combine(
-                        ZlpPathHelper.Combine(DriveOrShare, Directory),
-                        NameWithoutExtension);
-            }
-        }
+        public string DriveOrShareAndDirectoryAndNameWithoutExtension =>
+            ZlpPathHelper.Combine(ZlpPathHelper.Combine(DriveOrShare, Directory), NameWithoutExtension);
 
-        public string DirectoryAndNameWithExtension
-        {
-            get
-            {
-                return ZlpPathHelper.Combine(Directory, NameWithExtension);
-            }
-        }
+        public string DirectoryAndNameWithExtension => ZlpPathHelper.Combine(Directory, NameWithExtension);
     }
 }

@@ -257,6 +257,15 @@
             if (sw > DateTime.MinValue) d.LastWriteTime = sw;
         }
 
+        public static void Touch(string filePath)
+        {
+            var now = DateTime.Now;
+
+            SetFileCreationTime(filePath, now);
+            SetFileLastAccessTime(filePath, now);
+            SetFileLastWriteTime(filePath, now);
+        }
+
         public static void CopyFile(
             string sourceFilePath,
             string destinationFilePath,
@@ -585,7 +594,7 @@
         {
             if (string.IsNullOrEmpty(directoryPath))
             {
-                throw new ArgumentNullException(@"directoryPath");
+                throw new ArgumentNullException(nameof(directoryPath));
             }
 
             string basePart;
@@ -1288,12 +1297,7 @@
             }
         }
 
-        public static ZlpFileInfo[] GetFiles(string directoryPath)
-        {
-            return GetFiles(directoryPath, @"*.*");
-        }
-
-        public static ZlpFileInfo[] GetFiles(string directoryPath, string pattern)
+        public static ZlpFileInfo[] GetFiles(string directoryPath, string pattern = @"*.*")
         {
             return GetFiles(directoryPath, pattern, SearchOption.TopDirectoryOnly);
         }
@@ -1348,12 +1352,7 @@
             return results.ToArray();
         }
 
-        public static ZlpDirectoryInfo[] GetDirectories(string directoryPath)
-        {
-            return GetDirectories(directoryPath, @"*");
-        }
-
-        public static ZlpDirectoryInfo[] GetDirectories(string directoryPath, string pattern)
+        public static ZlpDirectoryInfo[] GetDirectories(string directoryPath, string pattern = @"*")
         {
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 

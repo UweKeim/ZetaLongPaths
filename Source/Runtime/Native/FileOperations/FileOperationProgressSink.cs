@@ -5,39 +5,39 @@ namespace ZetaLongPaths.Native.FileOperations
     using System.Diagnostics;
     using Interop;
 
-    public class FileOperationProgressSink : IFileOperationProgressSink
+    public sealed class FileOperationProgressSink : IFileOperationProgressSink
     {
-        public virtual void StartOperations()
+        public void StartOperations()
         {
             TraceAction("StartOperations", "", 0);
         }
 
-        public virtual void FinishOperations(uint hrResult)
+        public void FinishOperations(uint hrResult)
         {
             TraceAction("FinishOperations", "", hrResult);
         }
 
-        public virtual void PreRenameItem(uint dwFlags, 
+        public void PreRenameItem(uint dwFlags, 
             IShellItem psiItem, string pszNewName)
         {
             TraceAction("PreRenameItem", psiItem, 0);
         }
 
-        public virtual void PostRenameItem(uint dwFlags, 
+        public void PostRenameItem(uint dwFlags, 
             IShellItem psiItem, string pszNewName, 
             uint hrRename, IShellItem psiNewlyCreated)
         {
             TraceAction("PostRenameItem", psiNewlyCreated, hrRename);
         }
 
-        public virtual void PreMoveItem(
+        public void PreMoveItem(
             uint dwFlags, IShellItem psiItem, 
             IShellItem psiDestinationFolder, string pszNewName)
         {
             TraceAction("PreMoveItem", psiItem, 0);
         }
 
-        public virtual void PostMoveItem(
+        public void PostMoveItem(
             uint dwFlags, IShellItem psiItem, 
             IShellItem psiDestinationFolder,
             string pszNewName, uint hrMove, 
@@ -46,14 +46,14 @@ namespace ZetaLongPaths.Native.FileOperations
             TraceAction("PostMoveItem", psiNewlyCreated, hrMove);
         }
 
-        public virtual void PreCopyItem(
+        public void PreCopyItem(
             uint dwFlags, IShellItem psiItem,
             IShellItem psiDestinationFolder, string pszNewName)
         {
             TraceAction("PreCopyItem", psiItem, 0);
         }
 
-        public virtual void PostCopyItem(
+        public void PostCopyItem(
             uint dwFlags, IShellItem psiItem,
             IShellItem psiDestinationFolder, string pszNewName,
             uint hrCopy, IShellItem psiNewlyCreated)
@@ -61,26 +61,26 @@ namespace ZetaLongPaths.Native.FileOperations
             TraceAction("PostCopyItem", psiNewlyCreated, hrCopy);
         }
 
-        public virtual void PreDeleteItem(
+        public void PreDeleteItem(
             uint dwFlags, IShellItem psiItem)
         {
             TraceAction("PreDeleteItem", psiItem, 0);
         }
 
-        public virtual void PostDeleteItem(
+        public void PostDeleteItem(
             uint dwFlags, IShellItem psiItem, 
             uint hrDelete, IShellItem psiNewlyCreated)
         {
             TraceAction("PostDeleteItem", psiItem, hrDelete);
         }
 
-        public virtual void PreNewItem(uint dwFlags, 
+        public void PreNewItem(uint dwFlags, 
             IShellItem psiDestinationFolder, string pszNewName)
         {
             TraceAction("PreNewItem", pszNewName, 0);
         }
 
-        public virtual void PostNewItem(uint dwFlags, 
+        public void PostNewItem(uint dwFlags, 
             IShellItem psiDestinationFolder, string pszNewName,
             string pszTemplateName, uint dwFileAttributes, 
             uint hrNew, IShellItem psiNewItem)
@@ -88,7 +88,7 @@ namespace ZetaLongPaths.Native.FileOperations
             TraceAction("PostNewItem", psiNewItem, hrNew);
         }
 
-        public virtual void UpdateProgress(
+        public void UpdateProgress(
             uint iWorkTotal, uint iWorkSoFar)
         {
             Debug.WriteLine("UpdateProgress: " + iWorkSoFar + "/" + iWorkTotal);
@@ -102,8 +102,7 @@ namespace ZetaLongPaths.Native.FileOperations
         private static void TraceAction(
             string action, string item, uint hresult)
         {
-            string message = string.Format(
-                "{0} ({1})", action, (CopyEngineResult)hresult);
+            string message = $"{action} ({ hresult})";
             if (!string.IsNullOrEmpty(item)) message += " : " + item;
             Debug.WriteLine(message);
         }
@@ -113,7 +112,7 @@ namespace ZetaLongPaths.Native.FileOperations
             string action, IShellItem item, uint hresult)
         {
             TraceAction(action, 
-                item != null ? item.GetDisplayName(SIGDN.SIGDN_NORMALDISPLAY) : null, 
+                item?.GetDisplayName(SIGDN.SIGDN_NORMALDISPLAY), 
                 hresult);
         }
     }

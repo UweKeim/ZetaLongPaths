@@ -52,10 +52,7 @@ namespace ZetaLongPaths
                 catch (UnauthorizedAccessException x)
                 {
                     var newFilePath =
-                        string.Format(
-                            @"{0}.{1:N}.deleted",
-                            filePath,
-                            Guid.NewGuid());
+                        $@"{filePath}.{Guid.NewGuid():N}.deleted";
 
                     Trace.TraceWarning(@"Caught UnauthorizedAccessException while deleting file '{0}'. " +
                                        @"Renaming now to '{1}'. {2}", filePath, newFilePath, x.Message);
@@ -75,10 +72,7 @@ namespace ZetaLongPaths
                 catch (Win32Exception x)
                 {
                     var newFilePath =
-                        string.Format(
-                            @"{0}.{1:N}.deleted",
-                            filePath,
-                            Guid.NewGuid());
+                        $@"{filePath}.{Guid.NewGuid():N}.deleted";
 
                     Trace.TraceWarning(@"Caught IOException while deleting file '{0}'. " +
                                        @"Renaming now to '{1}'. {2}", filePath, newFilePath, x.Message);
@@ -143,8 +137,7 @@ namespace ZetaLongPaths
                 }
                 catch (Win32Exception x)
                 {
-                    var newFilePath =
-                        string.Format(@"{0}.{1:B}.deleted", folderPath, Guid.NewGuid());
+                    var newFilePath =$@"{folderPath}.{Guid.NewGuid():B}.deleted";
 
                     Trace.TraceWarning(@"Caught IOException while deleting directory '{0}'. " +
                                        @"Renaming now to '{1}'. {2}", folderPath, newFilePath, x.Message);
@@ -186,7 +179,7 @@ namespace ZetaLongPaths
             string dstFilePath)
         {
             SafeMoveFile(
-                sourcePath == null ? null : sourcePath.FullName,
+                sourcePath?.FullName,
                 dstFilePath);
         }
 
@@ -196,7 +189,7 @@ namespace ZetaLongPaths
         {
             SafeMoveFile(
                 sourcePath,
-                dstFilePath == null ? null : dstFilePath.FullName);
+                dstFilePath?.FullName);
         }
 
         public static void SafeMoveFile(
@@ -204,8 +197,8 @@ namespace ZetaLongPaths
             ZlpFileInfo dstFilePath)
         {
             SafeMoveFile(
-                sourcePath == null ? null : sourcePath.FullName,
-                dstFilePath == null ? null : dstFilePath.FullName);
+                sourcePath?.FullName,
+                dstFilePath?.FullName);
         }
 
         public static void SafeMoveFile(
@@ -250,7 +243,7 @@ namespace ZetaLongPaths
             string dstFilePath,
             bool overwrite = true)
         {
-            SafeCopyFile(sourcePath == null ? null : sourcePath.FullName, dstFilePath, overwrite);
+            SafeCopyFile(sourcePath?.FullName, dstFilePath, overwrite);
         }
 
         public static void SafeCopyFile(
@@ -258,7 +251,7 @@ namespace ZetaLongPaths
             ZlpFileInfo dstFilePath,
             bool overwrite = true)
         {
-            SafeCopyFile(sourcePath, dstFilePath == null ? null : dstFilePath.FullName, overwrite);
+            SafeCopyFile(sourcePath, dstFilePath?.FullName, overwrite);
         }
 
         public static void SafeCopyFile(
@@ -267,8 +260,8 @@ namespace ZetaLongPaths
             bool overwrite = true)
         {
             SafeCopyFile(
-                sourcePath == null ? null : sourcePath.FullName,
-                dstFilePath == null ? null : dstFilePath.FullName,
+                sourcePath?.FullName,
+                dstFilePath?.FullName,
                 overwrite);
         }
 

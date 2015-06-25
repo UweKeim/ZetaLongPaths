@@ -12,46 +12,27 @@
     [DebuggerDisplay(@"{FullName}")]
     public class ZlpFileInfo
     {
-        private readonly string _path;
-
-        public static ZlpFileInfo GetTemp()
-        {
-            return new ZlpFileInfo(ZlpPathHelper.GetTempFilePath());
-        }
+        public static ZlpFileInfo GetTemp() => new ZlpFileInfo(ZlpPathHelper.GetTempFilePath());
 
         public ZlpFileInfo(string path)
         {
-            _path = path;
+            FullName = path;
         }
 
         public void Refresh()
         {
         }
 
-        public void MoveToRecycleBin()
-        {
-            ZlpIOHelper.MoveFileToRecycleBin(_path);
-        }
+        public void MoveToRecycleBin() => ZlpIOHelper.MoveFileToRecycleBin(FullName);
 
-        public string OriginalPath
-        {
-            get { return _path; }
-        }
+        public string OriginalPath => FullName;
 
-        public override string ToString()
-        {
-            return _path;
-        }
+        public override string ToString() => FullName;
 
-        public void MoveTo(string destinationFilePath)
-        {
-            ZlpIOHelper.MoveFile(_path, destinationFilePath);
-        }
+        public void MoveTo(string destinationFilePath) => ZlpIOHelper.MoveFile(FullName, destinationFilePath);
 
         public void MoveTo(ZlpFileInfo destinationFilePath)
-        {
-            ZlpIOHelper.MoveFile(_path, destinationFilePath.FullName);
-        }
+            => ZlpIOHelper.MoveFile(FullName, destinationFilePath.FullName);
 
         /// <summary>
         /// Pass the file handle to the <see cref="System.IO.FileStream"/> constructor. 
@@ -62,67 +43,57 @@
             FileAccess fileAccess,
             FileShare fileShare)
         {
-            return ZlpIOHelper.CreateFileHandle(_path, creationDisposition, fileAccess, fileShare);
+            return ZlpIOHelper.CreateFileHandle(FullName, creationDisposition, fileAccess, fileShare);
         }
 
         public void CopyTo(
             string destinationFilePath,
             bool overwriteExisting)
         {
-            ZlpIOHelper.CopyFile(_path, destinationFilePath, overwriteExisting);
+            ZlpIOHelper.CopyFile(FullName, destinationFilePath, overwriteExisting);
         }
 
         public void CopyTo(
             ZlpFileInfo destinationFilePath,
             bool overwriteExisting)
         {
-            ZlpIOHelper.CopyFile(_path, destinationFilePath._path, overwriteExisting);
+            ZlpIOHelper.CopyFile(FullName, destinationFilePath.FullName, overwriteExisting);
         }
 
         public void CopyToExact(
             string destinationFilePath,
             bool overwriteExisting)
         {
-            ZlpIOHelper.CopyFileExact(_path, destinationFilePath, overwriteExisting);
+            ZlpIOHelper.CopyFileExact(FullName, destinationFilePath, overwriteExisting);
         }
 
         public void CopyToExact(
             ZlpFileInfo destinationFilePath,
             bool overwriteExisting)
         {
-            ZlpIOHelper.CopyFileExact(_path, destinationFilePath._path, overwriteExisting);
+            ZlpIOHelper.CopyFileExact(FullName, destinationFilePath.FullName, overwriteExisting);
         }
 
-        public void Delete()
-        {
-            ZlpIOHelper.DeleteFile(_path);
-        }
+        public void Delete() => ZlpIOHelper.DeleteFile(FullName);
 
-        public void DeleteFileAfterReboot()
-        {
-            ZlpIOHelper.DeleteFileAfterReboot(_path);
-        }
+        public void DeleteFileAfterReboot() => ZlpIOHelper.DeleteFileAfterReboot(FullName);
 
-        public string Owner
-        {
-            get { return ZlpIOHelper.GetFileOwner(_path); }
-        }
+        public void Touch() => ZlpIOHelper.Touch(FullName);
 
-        public bool Exists
-        {
-            get { return ZlpIOHelper.FileExists(_path); }
-        }
+        public string Owner => ZlpIOHelper.GetFileOwner(FullName);
+
+        public bool Exists => ZlpIOHelper.FileExists(FullName);
 
         public byte[] ReadAllBytes()
         {
-            return ZlpIOHelper.ReadAllBytes(_path);
+            return ZlpIOHelper.ReadAllBytes(FullName);
         }
 
         public System.IO.FileStream OpenRead()
         {
             return new System.IO.FileStream(
                 ZlpIOHelper.CreateFileHandle(
-                    _path,
+                    FullName,
                     CreationDisposition.OpenAlways,
                     FileAccess.GenericRead,
                     FileShare.Read),
@@ -133,105 +104,65 @@
         {
             return new System.IO.FileStream(
                 ZlpIOHelper.CreateFileHandle(
-                    _path,
+                    FullName,
                     CreationDisposition.OpenAlways,
                     FileAccess.GenericRead | FileAccess.GenericWrite,
                     FileShare.Read | FileShare.Write),
                 System.IO.FileAccess.ReadWrite);
         }
 
-        public string ReadAllText()
-        {
-            return ZlpIOHelper.ReadAllText(_path);
-        }
+        public string ReadAllText() => ZlpIOHelper.ReadAllText(FullName);
 
-        public string ReadAllText(Encoding encoding)
-        {
-            return ZlpIOHelper.ReadAllText(_path, encoding);
-        }
+        public string ReadAllText(Encoding encoding) => ZlpIOHelper.ReadAllText(FullName, encoding);
 
-        public string[] ReadAllLines()
-        {
-            return ZlpIOHelper.ReadAllLines(_path);
-        }
+        public string[] ReadAllLines() => ZlpIOHelper.ReadAllLines(FullName);
 
-        public string[] ReadAllLines(Encoding encoding)
-        {
-            return ZlpIOHelper.ReadAllLines(_path, encoding);
-        }
+        public string[] ReadAllLines(Encoding encoding) => ZlpIOHelper.ReadAllLines(FullName, encoding);
 
         public void WriteAllText(string text, Encoding encoding = null)
-        {
-            ZlpIOHelper.WriteAllText(_path, text, encoding);
-        }
+            => ZlpIOHelper.WriteAllText(FullName, text, encoding);
 
         public void AppendText(string text, Encoding encoding = null)
-        {
-            ZlpIOHelper.AppendText(_path, text, encoding);
-        }
+            => ZlpIOHelper.AppendText(FullName, text, encoding);
 
-        public void WriteAllBytes(byte[] content)
-        {
-            ZlpIOHelper.WriteAllBytes(_path, content);
-        }
+        public void WriteAllBytes(byte[] content) => ZlpIOHelper.WriteAllBytes(FullName, content);
 
         public DateTime LastWriteTime
         {
-            get { return ZlpIOHelper.GetFileLastWriteTime(_path); }
-            set { ZlpIOHelper.SetFileLastWriteTime(_path, value); }
+            get { return ZlpIOHelper.GetFileLastWriteTime(FullName); }
+            set { ZlpIOHelper.SetFileLastWriteTime(FullName, value); }
         }
 
         public DateTime LastAccessTime
         {
-            get { return ZlpIOHelper.GetFileLastAccessTime(_path); }
-            set { ZlpIOHelper.SetFileLastAccessTime(_path, value); }
+            get { return ZlpIOHelper.GetFileLastAccessTime(FullName); }
+            set { ZlpIOHelper.SetFileLastAccessTime(FullName, value); }
         }
 
         public DateTime CreationTime
         {
-            get { return ZlpIOHelper.GetFileCreationTime(_path); }
-            set { ZlpIOHelper.SetFileCreationTime(_path, value); }
+            get { return ZlpIOHelper.GetFileCreationTime(FullName); }
+            set { ZlpIOHelper.SetFileCreationTime(FullName, value); }
         }
 
-        public string FullName
-        {
-            get { return _path; }
-        }
+        public string FullName { get; }
 
-        public string Name
-        {
-            get { return ZlpPathHelper.GetFileNameFromFilePath(_path); }
-        }
+        public string Name => ZlpPathHelper.GetFileNameFromFilePath(FullName);
 
-        public string NameWithoutExtension
-        {
-            get { return ZlpPathHelper.GetFileNameWithoutExtension(Name); }
-        }
+        public string NameWithoutExtension => ZlpPathHelper.GetFileNameWithoutExtension(Name);
 
-        public ZlpDirectoryInfo Directory
-        {
-            get { return new ZlpDirectoryInfo(DirectoryName); }
-        }
+        public ZlpDirectoryInfo Directory => new ZlpDirectoryInfo(DirectoryName);
 
-        public string DirectoryName
-        {
-            get { return ZlpPathHelper.GetDirectoryPathNameFromFilePath(_path); }
-        }
+        public string DirectoryName => ZlpPathHelper.GetDirectoryPathNameFromFilePath(FullName);
 
-        public string Extension
-        {
-            get { return ZlpPathHelper.GetExtension(_path); }
-        }
+        public string Extension => ZlpPathHelper.GetExtension(FullName);
 
-        public long Length
-        {
-            get { return ZlpIOHelper.GetFileLength(_path); }
-        }
+        public long Length => ZlpIOHelper.GetFileLength(FullName);
 
         public FileAttributes Attributes
         {
-            get { return ZlpIOHelper.GetFileAttributes(_path); }
-            set { ZlpIOHelper.SetFileAttributes(_path, value); }
+            get { return ZlpIOHelper.GetFileAttributes(FullName); }
+            set { ZlpIOHelper.SetFileAttributes(FullName, value); }
         }
     }
 }

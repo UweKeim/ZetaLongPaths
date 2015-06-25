@@ -92,11 +92,11 @@
         public static ZlpFileInfo CombineFile(this ZlpDirectoryInfo one, string two, string three, params string[] fours)
         {
             var result = CombineFile(one, two);
-            result = CombineFile(result == null ? null : result.FullName, three);
+            result = CombineFile(result?.FullName, three);
 
             return fours.Aggregate(result,
                 (current, four) =>
-                    CombineFile(current == null ? null : current.FullName, four));
+                    CombineFile(current?.FullName, four));
         }
 
         public static ZlpFileInfo CombineFile( /*this*/ string one, string two)
@@ -168,7 +168,7 @@
 
         public static ZlpFileInfo CheckExists(this ZlpFileInfo file)
         {
-            if( file==null) throw new ArgumentNullException(@"file");
+            if( file==null) throw new ArgumentNullException(nameof(file));
 
             if (!file.Exists)
             {
@@ -180,7 +180,7 @@
 
         public static ZlpDirectoryInfo CheckExists(this ZlpDirectoryInfo folder)
         {
-            if( folder==null) throw new ArgumentNullException(@"folder");
+            if( folder==null) throw new ArgumentNullException(nameof(folder));
 
             if (!folder.Exists)
             {
@@ -192,7 +192,7 @@
 
         public static ZlpDirectoryInfo CheckCreate(this ZlpDirectoryInfo folder)
         {
-            if( folder==null) throw new ArgumentNullException(@"folder");
+            if( folder==null) throw new ArgumentNullException(nameof(folder));
 
             if (!folder.Exists) folder.Create();
 
@@ -201,7 +201,7 @@
 
         public static bool IsSame(this ZlpDirectoryInfo folder1, ZlpDirectoryInfo folder2)
         {
-            return IsSame(folder1, folder2 == null ? null : folder2.FullName);
+            return IsSame(folder1, folder2?.FullName);
         }
 
         public static bool IsSame(this ZlpDirectoryInfo folder1, string folder2)
@@ -211,12 +211,12 @@
 
         public static bool StartsWith(this ZlpDirectoryInfo folder1, ZlpDirectoryInfo folder2)
         {
-            return StartsWith(folder1, folder2 == null ? null : folder2.FullName);
+            return StartsWith(folder1, folder2?.FullName);
         }
 
         public static bool StartsWith(this ZlpDirectoryInfo folder1, string folder2)
         {
-            var f1 = folder1 == null ? null : folder1.FullName;
+            var f1 = folder1?.FullName;
 
             return !string.IsNullOrEmpty(f1) && !string.IsNullOrEmpty(folder2) &&
                       f1.TrimEnd('\\').ToLowerInvariant().StartsWith(folder2.TrimEnd('\\').ToLowerInvariant());

@@ -91,29 +91,11 @@ namespace ZetaLongPaths
             _originalPath = info.ToString();
         }
 
-        public bool IsEmpty
-        {
-            get
-            {
-                return string.IsNullOrEmpty(_fullPath);
-            }
-        }
+        public bool IsEmpty => string.IsNullOrEmpty(_fullPath);
 
-        public ZlpFileInfo File
-        {
-            get
-            {
-                return new ZlpFileInfo(_fullPath);
-            }
-        }
+        public ZlpFileInfo File => new ZlpFileInfo(_fullPath);
 
-        public ZlpDirectoryInfo Directory
-        {
-            get
-            {
-                return new ZlpDirectoryInfo(_fullPath);
-            }
-        }
+        public ZlpDirectoryInfo Directory => new ZlpDirectoryInfo(_fullPath);
 
         public ZlpDirectoryInfo EffectiveDirectory
         {
@@ -165,53 +147,23 @@ namespace ZetaLongPaths
             }
         }
 
-        public string FullName
-        {
-            get
-            {
-                return _fullPath;
-            }
-        }
+        public string FullName => _fullPath;
 
-        public string OriginalPath
-        {
-            get
-            {
-                return _originalPath;
-            }
-        }
+        public string OriginalPath => _originalPath;
 
-        public ZlpSplittedPath ZlpSplittedPath
-        {
-            get
-            {
-                return new ZlpSplittedPath(this);
-            }
-        }
+        public ZlpSplittedPath ZlpSplittedPath => new ZlpSplittedPath(this);
 
         /// <summary>
         /// Gets a value indicating whether this instance is file by querying the file system
         /// whether the file exists on disk.
         /// </summary>
-        public bool IsFile
-        {
-            get
-            {
-                return File.Exists;
-            }
-        }
+        public bool IsFile => File.Exists;
 
         /// <summary>
         /// Gets a value indicating whether this instance is directory by quering the file system
         /// whether the directory exists on disk.
         /// </summary>
-        public bool IsDirectory
-        {
-            get
-            {
-                return Directory.Exists;
-            }
-        }
+        public bool IsDirectory => Directory.Exists;
 
         public static int Compare(
             ZlpDirectoryInfo one,

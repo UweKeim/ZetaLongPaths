@@ -1,6 +1,7 @@
 ﻿namespace ZetaLongPaths.UnitTests
 {
-	using System.IO;
+    using System;
+    using System.IO;
 	using NUnit.Framework;
 
 	[TestFixture]
@@ -39,9 +40,38 @@
 		#region Tests.
 		// ------------------------------------------------------------------
 
-		[Test]
+	    [Test]
+	    public void TestMove()
+	    {
+	        var path = ZlpDirectoryInfo.GetTemp().CombineDirectory(Guid.NewGuid().ToString()).CheckCreate();
+	        try
+	        {
+	            var p1 = path.CombineDirectory(@"a").CheckCreate();
+	            var p2 = path.CombineDirectory(@"b");
+
+	            var f1 = p1.CombineFile("1.txt");
+                f1.WriteAllText("1");
+
+	            Assert.DoesNotThrow(() => p1.MoveTo(p2));
+	        }
+	        finally
+	        {
+	            path.SafeDelete();
+	        }
+	    }
+
+	    [Test]
 		public void TestGeneral()
 		{
+            // Ordner mit Punkt am Ende.
+            string dir = $@"C:\Ablage\{Guid.NewGuid():N}.";
+            Assert.IsFalse(new ZlpDirectoryInfo(dir).Exists);
+            new ZlpDirectoryInfo(dir).CheckCreate();
+            Assert.IsTrue(new ZlpDirectoryInfo(dir).Exists);
+            new ZlpDirectoryInfo(dir).Delete(true);
+            Assert.IsFalse(new ZlpDirectoryInfo(dir).Exists);
+
+
 			//Assert.IsTrue(new ZlpDirectoryInfo(Path.GetTempPath()).CreationTime>DateTime.MinValue);
 			//Assert.IsTrue(new ZlpDirectoryInfo(Path.GetTempPath()).Exists);
 			//Assert.IsFalse(new ZlpDirectoryInfo(@"C:\Ablage\doesnotexistjdlkfjsdlkfj").Exists);
@@ -72,14 +102,14 @@
 				new ZlpDirectoryInfo(path).FullName);
 
 			const string filePath = @"C:\Ablage\Test\file.txt";
-			var fn1 = new FileInfo(filePath).Directory.FullName;
+			var fn1 = new FileInfo(filePath).Directory?.FullName;
 			var fn2 = new ZlpFileInfo(filePath).Directory.FullName;
 
-			var fn1a = new FileInfo(filePath).DirectoryName;
-			var fn2a = new ZlpFileInfo(filePath).DirectoryName;
+			var fn1A = new FileInfo(filePath).DirectoryName;
+			var fn2A = new ZlpFileInfo(filePath).DirectoryName;
 
 			Assert.AreEqual(fn1,fn2);
-			Assert.AreEqual(fn1a,fn2a);
+			Assert.AreEqual(fn1A,fn2A);
 
 			var fn = new ZlpDirectoryInfo(@"\\zetac11\C$\Ablage\doesnotexistjdlkfjsdlkfj2").Parent.FullName;
 
