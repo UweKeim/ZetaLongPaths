@@ -23,6 +23,13 @@
             return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo.FullName, pathToMakeRelative.FullName);
         }
 
+        public static string MakeRelativeTo(
+            this ZlpFileInfo pathToMakeRelative,
+            string pathToWhichToMakeRelativeTo)
+        {
+            return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo, pathToMakeRelative.FullName);
+        }
+
         public static ZlpDirectoryInfo CombineDirectory(this ZlpDirectoryInfo one, ZlpDirectoryInfo two)
         {
             if (one == null) return two;
