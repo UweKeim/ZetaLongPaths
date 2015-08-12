@@ -17,6 +17,13 @@
         }
 
         public static string MakeRelativeTo(
+            this ZlpDirectoryInfo pathToMakeRelative,
+            string pathToWhichToMakeRelativeTo)
+        {
+            return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo, pathToMakeRelative.FullName);
+        }
+
+        public static string MakeRelativeTo(
             this ZlpFileInfo pathToMakeRelative,
             ZlpDirectoryInfo pathToWhichToMakeRelativeTo)
         {
