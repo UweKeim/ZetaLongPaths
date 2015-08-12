@@ -9,6 +9,20 @@
     /// </summary>
     public static class ZlpExtensions
     {
+        public static string MakeRelativeTo(
+            this ZlpDirectoryInfo pathToMakeRelative,
+            ZlpDirectoryInfo pathToWhichToMakeRelativeTo)
+        {
+            return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo.FullName, pathToMakeRelative.FullName);
+        }
+
+        public static string MakeRelativeTo(
+            this ZlpFileInfo pathToMakeRelative,
+            ZlpDirectoryInfo pathToWhichToMakeRelativeTo)
+        {
+            return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo.FullName, pathToMakeRelative.FullName);
+        }
+
         public static ZlpDirectoryInfo CombineDirectory(this ZlpDirectoryInfo one, ZlpDirectoryInfo two)
         {
             if (one == null) return two;
@@ -67,17 +81,18 @@
             else return new ZlpFileInfo(ZlpPathHelper.Combine(one.FullName, two.FullName));
         }
 
-        public static ZlpFileInfo CombineFile(this ZlpDirectoryInfo one,
+        public static ZlpFileInfo CombineFile(
+            this ZlpDirectoryInfo one,
             ZlpFileInfo two,
             ZlpFileInfo three,
             params ZlpFileInfo[] fours)
         {
             var result = CombineFile(one, two);
-            result = CombineFile(result == null ? null : result.FullName, three == null ? null : three.FullName);
+            result = CombineFile(result?.FullName, three?.FullName);
 
             return fours.Aggregate(result,
                 (current, four) =>
-                    CombineFile(current == null ? null : current.FullName, four == null ? null : four.FullName));
+                    CombineFile(current?.FullName, four?.FullName));
         }
 
         public static ZlpFileInfo CombineFile(this ZlpDirectoryInfo one, string two)
@@ -168,7 +183,7 @@
 
         public static ZlpFileInfo CheckExists(this ZlpFileInfo file)
         {
-            if( file==null) throw new ArgumentNullException(nameof(file));
+            if (file == null) throw new ArgumentNullException(nameof(file));
 
             if (!file.Exists)
             {
@@ -180,7 +195,7 @@
 
         public static ZlpDirectoryInfo CheckExists(this ZlpDirectoryInfo folder)
         {
-            if( folder==null) throw new ArgumentNullException(nameof(folder));
+            if (folder == null) throw new ArgumentNullException(nameof(folder));
 
             if (!folder.Exists)
             {
@@ -192,7 +207,7 @@
 
         public static ZlpDirectoryInfo CheckCreate(this ZlpDirectoryInfo folder)
         {
-            if( folder==null) throw new ArgumentNullException(nameof(folder));
+            if (folder == null) throw new ArgumentNullException(nameof(folder));
 
             if (!folder.Exists) folder.Create();
 
@@ -219,7 +234,7 @@
             var f1 = folder1?.FullName;
 
             return !string.IsNullOrEmpty(f1) && !string.IsNullOrEmpty(folder2) &&
-                      f1.TrimEnd('\\').ToLowerInvariant().StartsWith(folder2.TrimEnd('\\').ToLowerInvariant());
+                   f1.TrimEnd('\\').ToLowerInvariant().StartsWith(folder2.TrimEnd('\\').ToLowerInvariant());
         }
     }
 }

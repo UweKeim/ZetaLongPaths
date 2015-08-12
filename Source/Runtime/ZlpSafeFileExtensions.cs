@@ -2,19 +2,22 @@
 {
     public static class ZlpSafeFileExtensions
     {
-        public static void SafeDelete(this ZlpDirectoryInfo folderPath)
+        public static ZlpDirectoryInfo SafeDelete(this ZlpDirectoryInfo folderPath)
         {
             ZlpSafeFileOperations.SafeDeleteDirectory(folderPath);
+            return folderPath;
         }
 
-        public static void SafeDeleteContents(this ZlpDirectoryInfo folderPath)
+        public static ZlpDirectoryInfo SafeDeleteContents(this ZlpDirectoryInfo folderPath)
         {
             ZlpSafeFileOperations.SafeDeleteDirectoryContents(folderPath);
+            return folderPath;
         }
 
-        public static void SafeDelete(this ZlpFileInfo filePath)
+        public static ZlpFileInfo SafeDelete(this ZlpFileInfo filePath)
         {
             ZlpSafeFileOperations.SafeDeleteFile(filePath);
+            return filePath;
         }
 
         public static bool SafeExists(this ZlpDirectoryInfo folderPath)
@@ -27,24 +30,28 @@
             return ZlpSafeFileOperations.SafeFileExists(filePath);
         }
 
-        public static void SafeMove(this ZlpFileInfo sourcePath, string dstFilePath)
+        public static ZlpFileInfo SafeMove(this ZlpFileInfo sourcePath, string dstFilePath)
         {
             ZlpSafeFileOperations.SafeMoveFile(sourcePath, dstFilePath);
+            return sourcePath;
         }
 
-        public static void SafeMove(this ZlpFileInfo sourcePath, ZlpFileInfo dstFilePath)
+        public static ZlpFileInfo SafeMove(this ZlpFileInfo sourcePath, ZlpFileInfo dstFilePath)
         {
             ZlpSafeFileOperations.SafeMoveFile(sourcePath, dstFilePath);
+            return sourcePath;
         }
 
-        public static void SafeCopy(this ZlpFileInfo sourcePath, string dstFilePath, bool overwrite = true)
+        public static ZlpFileInfo SafeCopy(this ZlpFileInfo sourcePath, string dstFilePath, bool overwrite = true)
         {
             ZlpSafeFileOperations.SafeCopyFile(sourcePath, dstFilePath, overwrite);
+            return sourcePath;
         }
 
-        public static void SafeCopy(this ZlpFileInfo sourcePath, ZlpFileInfo dstFilePath, bool overwrite = true)
+        public static ZlpFileInfo SafeCopy(this ZlpFileInfo sourcePath, ZlpFileInfo dstFilePath, bool overwrite = true)
         {
             ZlpSafeFileOperations.SafeCopyFile(sourcePath, dstFilePath, overwrite);
+            return sourcePath;
         }
     }
 }

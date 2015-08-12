@@ -53,6 +53,7 @@
     <Compile Include="Native\FileOperations\Interop\SIGDN.cs" />
     <Compile Include="Native\PInvokeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZlpFileOrDirectoryInfoExtensions.cs" />
     <Compile Include="ZlpSafeFileExtensions.cs" />
     <Compile Include="ZlpSafeFileOperations.cs" />
     <Compile Include="ZlpSplittedPath.cs" />
