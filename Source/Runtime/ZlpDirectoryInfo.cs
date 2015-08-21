@@ -107,6 +107,16 @@
             return ZlpIOHelper.GetDirectories(FullName, pattern);
         }
 
+        public ZlpDirectoryInfo[] GetDirectories(SearchOption searchOption)
+        {
+            return ZlpIOHelper.GetDirectories(FullName, searchOption);
+        }
+
+        public ZlpDirectoryInfo[] GetDirectories(string pattern, SearchOption searchOption)
+        {
+            return ZlpIOHelper.GetDirectories(FullName, pattern, searchOption);
+        }
+
         public ZlpDirectoryInfo CreateSubdirectory(string name)
         {
             var path = ZlpPathHelper.Combine(FullName, name);

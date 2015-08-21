@@ -1354,6 +1354,16 @@
 
         public static ZlpDirectoryInfo[] GetDirectories(string directoryPath, string pattern = @"*")
         {
+            return GetDirectories(directoryPath, pattern, SearchOption.TopDirectoryOnly);
+        }
+
+        public static ZlpDirectoryInfo[] GetDirectories(string directoryPath, SearchOption searchOption)
+        {
+            return GetDirectories(directoryPath, @"*", searchOption);
+        }
+
+        public static ZlpDirectoryInfo[] GetDirectories(string directoryPath, string pattern, SearchOption searchOption)
+        {
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<ZlpDirectoryInfo>();
@@ -1389,6 +1399,14 @@
                 }
             }
 
+
+            if (searchOption == SearchOption.AllDirectories)
+            {
+                foreach (var dir in GetDirectories(directoryPath))
+                {
+                    results.AddRange(GetDirectories(dir.FullName, pattern, searchOption));
+                }
+            }
             return results.ToArray();
         }
 
