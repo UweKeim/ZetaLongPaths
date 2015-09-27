@@ -124,9 +124,9 @@
 			s4 = @"..\folder3\file1.txt";
 
 			Assert.AreEqual(s3, s4);
-		}
+        }
 
-		[Test]
+        [Test]
 		public void TestCompareWithFrameworkFunctions()
 		{
 			string s1;
@@ -170,9 +170,130 @@
 			s2 = Path.GetDirectoryName(@"c:/ablage/sitemap.xml");
 
 			Assert.AreEqual(s1, s2);
+
+            // --
+
+		    s1 = @"c:\folder1\folder2\folder3\file1.txt";
+
+		    var s3 = ZlpPathHelper.GetFileNameFromFilePath(s1);
+            var s4 = Path.GetFileName(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"c:\folder1\folder2\folder3\file1";
+
+		    s3 = ZlpPathHelper.GetFileNameFromFilePath(s1);
+		    s4 = Path.GetFileName(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"c:\folder1\folder2\folder3\file1.";
+
+		    s3 = ZlpPathHelper.GetFileNameFromFilePath(s1);
+		    s4 = Path.GetFileName(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"file1.txt";
+
+		    s3 = ZlpPathHelper.GetFileNameFromFilePath(s1);
+		    s4 = Path.GetFileName(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"file1";
+
+		    s3 = ZlpPathHelper.GetFileNameFromFilePath(s1);
+		    s4 = Path.GetFileName(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"file1.";
+
+		    s3 = ZlpPathHelper.GetFileNameFromFilePath(s1);
+		    s4 = Path.GetFileName(s1);
+
+			Assert.AreEqual(s3, s4);
+        
+            // --
+
+		    s1 = @"c:\folder1\folder2\folder3\file1.txt";
+
+		    s3 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+		    s4 = Path.GetFileNameWithoutExtension(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"c:\folder1\folder2\folder3\file1";
+
+		    s3 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+		    s4 = Path.GetFileNameWithoutExtension(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"c:\folder1\folder2\folder3\file1.";
+
+		    s3 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+		    s4 = Path.GetFileNameWithoutExtension(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"file1.txt";
+
+		    s3 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+		    s4 = Path.GetFileNameWithoutExtension(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"file1";
+
+		    s3 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+		    s4 = Path.GetFileNameWithoutExtension(s1);
+
+			Assert.AreEqual(s3, s4);
+
+            // --
+
+		    s1 = @"file1.";
+
+		    s3 = ZlpPathHelper.GetFileNameWithoutExtension(s1);
+		    s4 = Path.GetFileNameWithoutExtension(s1);
+
+			Assert.AreEqual(s3, s4);
 		}
 
-		// ------------------------------------------------------------------
-		#endregion
-	}
-}
+	    [Test]
+	    public void TestEvenMoreFunctions()
+	    {
+            var r = ZlpPathHelper.GetFileNameWithoutExtension(@"\\?\C:\Simulazioni\Albero\scratch_file.txt");
+            Assert.AreEqual(r, @"scratch_file");
+
+            r = ZlpPathHelper.GetFileNameWithoutExtension(@"\\?\C:\Simulazioni\Albero\scratch_file.");
+            Assert.AreEqual(r, @"scratch_file");
+
+            r = ZlpPathHelper.GetFileNameWithoutExtension(@"\\?\C:\Simulazioni\Albero\scratch_file");
+            Assert.AreEqual(r, @"scratch_file");
+	    }
+
+	    // ------------------------------------------------------------------
+            #endregion
+        }
+    }
