@@ -137,7 +137,7 @@ namespace ZetaLongPaths
                 }
                 catch (Win32Exception x)
                 {
-                    var newFilePath =$@"{folderPath}.{Guid.NewGuid():B}.deleted";
+                    var newFilePath = $@"{folderPath}.{Guid.NewGuid():B}.deleted";
 
                     Trace.TraceWarning(@"Caught IOException while deleting directory '{0}'. " +
                                        @"Renaming now to '{1}'. {2}", folderPath, newFilePath, x.Message);
@@ -351,6 +351,42 @@ namespace ZetaLongPaths
                         childFolderPath.Delete(true);
                     }
                 }
+            }
+        }
+
+        public static void SafeCheckCreateDirectory(
+            ZlpDirectoryInfo folderPath)
+        {
+            SafeCheckCreateDirectory(folderPath?.FullName);
+        }
+
+        public static void SafeCheckCreateDirectory(
+            string folderPath)
+        {
+            Trace.TraceInformation(@"About to safe check-create folder '{0}'.", folderPath);
+
+            if (!string.IsNullOrEmpty(folderPath) && !SafeDirectoryExists(folderPath))
+            {
+                try
+                {
+                    ZlpIOHelper.CreateDirectory(folderPath);
+                }
+                catch (UnauthorizedAccessException x)
+                {
+                    Trace.TraceWarning(
+                        @"Caught UnauthorizedAccessException while safe check-creating folder '{0}'. {1}", folderPath,
+                        x.Message);
+                }
+                catch (Win32Exception x)
+                {
+                    Trace.TraceWarning(@"Caught IOException while safe check-creating folder '{0}'. {1}", folderPath,
+                        x.Message);
+                }
+            }
+            else
+            {
+                Trace.TraceInformation(
+                    @"Not safe check-creating folder '{0}', because the folder is null or already exists.", folderPath);
             }
         }
     }
