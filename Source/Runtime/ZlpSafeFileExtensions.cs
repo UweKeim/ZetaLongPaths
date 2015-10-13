@@ -30,9 +30,10 @@
             return ZlpSafeFileOperations.SafeFileExists(filePath);
         }
 
-        public static void SafeCheckCreate(this ZlpDirectoryInfo folderPath)
+        public static ZlpDirectoryInfo SafeCheckCreate(this ZlpDirectoryInfo folderPath)
         {
             ZlpSafeFileOperations.SafeCheckCreateDirectory(folderPath);
+            return folderPath;
         }
 
         public static ZlpFileInfo SafeMove(this ZlpFileInfo sourcePath, string dstFilePath)
