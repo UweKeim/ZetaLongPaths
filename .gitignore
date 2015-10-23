@@ -5,6 +5,9 @@
 .svn/
 Deploy/
 
+NuGet.exe
+build-all.cmd
+
 Source/TestConsole/Bin/
 Source/TestConsole2/Bin/
 Source/UnitTests/Bin/
