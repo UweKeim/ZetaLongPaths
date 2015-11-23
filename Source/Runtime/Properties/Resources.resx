@@ -107,6 +107,15 @@
   <data name="ErrorCreatingFileHandle" xml:space="preserve">
     <value>Error {0} creating file handle for file path '{1}': {2}</value>
   </data>
+  <data name="ErrorReadFile" xml:space="preserve">
+    <value>Error {0} reading from file: {1}</value>
+  </data>
+  <data name="ErrorWriteFile" xml:space="preserve">
+    <value>Error {0} writing to file: {1}</value>
+  </data>
+  <data name="ErrorSeek" xml:space="preserve">
+    <value>Error {0} seeking in file: {1}</value>
+  </data>
   <data name="ErrorCopyingFile" xml:space="preserve">
     <value>Error {0} copying file '{1}' to '{2}': {3}</value>
   </data>

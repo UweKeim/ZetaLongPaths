@@ -2,7 +2,14 @@
 {
 	using System;
 
-	[Flags]
+    public enum FileSeekOrigin : uint
+    {
+        Begin = 0,
+        Current = 1,
+        End = 2
+    }
+
+    [Flags]
 	public enum FileAccess : uint
 	{
 		GenericRead = 0x80000000,

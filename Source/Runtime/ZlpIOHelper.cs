@@ -234,6 +234,98 @@
             return fileHandle;
         }
 
+        public static int ReadFile(
+            SafeFileHandle handle,
+            byte[] buffer,
+            int offset,
+            int count)
+        {
+            var gCHandle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+
+            bool flag;
+            uint result;
+
+            try
+            {
+                var q = new IntPtr(gCHandle.AddrOfPinnedObject().ToInt64() + offset);
+                flag = PInvokeHelper.ReadFile(handle, q, (uint)count, out result, IntPtr.Zero);
+            }
+            finally
+            {
+                gCHandle.Free();
+            }
+
+            var lastWin32Error = Marshal.GetLastWin32Error();
+            if (!flag)
+            {
+                throw new Win32Exception(
+                    lastWin32Error,
+                    string.Format(
+                        Resources.ErrorReadFile,
+                        lastWin32Error,
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+            }
+
+            return (int)result;
+        }
+
+        public static int WriteFile(
+            SafeFileHandle handle,
+            byte[] buffer,
+            int offset,
+            int count)
+        {
+            var gCHandle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+
+            bool flag;
+            uint result;
+
+            try
+            {
+                var q = new IntPtr(gCHandle.AddrOfPinnedObject().ToInt64() + offset);
+                flag = PInvokeHelper.WriteFile(handle, q, (uint)count, out result, IntPtr.Zero);
+            }
+            finally
+            {
+                gCHandle.Free();
+            }
+
+            var lastWin32Error = Marshal.GetLastWin32Error();
+            if (!flag)
+            {
+                throw new Win32Exception(
+                    lastWin32Error,
+                    string.Format(
+                        Resources.ErrorWriteFile,
+                        lastWin32Error,
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+            }
+
+            return (int)result;
+        }
+
+        public static long Seek(
+            SafeFileHandle handle,
+            long distance,
+            FileSeekOrigin origin)
+        {
+            long result;
+            var flag = PInvokeHelper.Seek(handle, distance, out result, origin);
+
+            var lastWin32Error = Marshal.GetLastWin32Error();
+            if (!flag)
+            {
+                throw new Win32Exception(
+                    lastWin32Error,
+                    string.Format(
+                        Resources.ErrorSeek,
+                        lastWin32Error,
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+            }
+
+            return result;
+        }
+
         public static void CopyFileExact(
             string sourceFilePath,
             string destinationFilePath,

@@ -68,6 +68,28 @@
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 14)] internal string cAlternate;
         }
 
+        [DllImport(@"kernel32.dll", SetLastError = true)]
+        internal static extern bool ReadFile(
+            SafeFileHandle hFile, 
+            IntPtr lpBuffer,
+            uint nNumberOfBytesToRead, 
+            out uint lpNumberOfBytesRead, 
+            IntPtr lpOverlapped);
+
+        [DllImport(@"kernel32.dll", SetLastError = true)]
+        internal static extern bool WriteFile(
+            SafeFileHandle hFile,
+            IntPtr lpBuffer,
+            uint nNumberOfBytesToWrite,
+            out uint lpNumberOfBytesWritten,
+            IntPtr lpOverlapped);
+
+        [DllImport(@"kernel32.dll", EntryPoint = @"SetFilePointerEx", SetLastError = true)]
+        public static extern bool Seek(
+            SafeFileHandle hFile, 
+            long distance, 
+            out long newFilePointer, 
+            FileSeekOrigin origin);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct SECURITY_ATTRIBUTES
