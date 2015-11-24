@@ -83,3 +83,5 @@ I'm using the library in several widely used real-life projects like our [CMS](h
   * *2010-03-24* - Added functions to get file owner, creation time, last access time, last write time.
   * *2010-02-16* - Maintenance release.
   * *2009-11-25* - First release to [CodePlex.com](https://zetalongpaths.codeplex.com).
+
+(This is not a complete history; only the milestones are noted)
