@@ -2,7 +2,9 @@
 {
     using System;
     using System.IO;
-	using NUnit.Framework;
+    using System.Linq;
+
+    using NUnit.Framework;
 
 	[TestFixture]
 	public class DirectoryInfoTest
@@ -59,6 +61,30 @@
 	            path.SafeDelete();
 	        }
 	    }
+
+        [Test]
+	    public void TestGetFileSystemInfos()
+	    {
+            var path = ZlpDirectoryInfo.GetTemp().CombineDirectory(Guid.NewGuid().ToString()).CheckCreate();
+            try
+            {
+                var p1 = path.CombineDirectory(@"a").CheckCreate();
+                path.CombineDirectory(@"b").CheckCreate();
+
+                var f1 = p1.CombineFile("1.txt");
+                f1.WriteAllText("1");
+                
+                Assert.IsTrue(path.GetFileSystemInfos().Length == 2);
+                Assert.IsTrue(path.GetFileSystemInfos(SearchOption.AllDirectories).Length == 3);
+                Assert.IsTrue(path.GetFileSystemInfos(SearchOption.AllDirectories).Where(f => f is ZlpFileInfo).ToList().Count == 1);
+                Assert.IsTrue(path.GetFileSystemInfos(SearchOption.AllDirectories).Where(f => f is ZlpDirectoryInfo).ToList().Count == 2);
+
+            }
+            finally
+            {
+                path.SafeDelete();
+            }
+        }
 
 	    [Test]
 		public void TestGeneral()

@@ -6,7 +6,7 @@
     using FileAttributes = Native.FileAttributes;
 
     [DebuggerDisplay(@"{FullName}")]
-    public class ZlpDirectoryInfo
+    public class ZlpDirectoryInfo : IZlpFileSystemInfo
     {
         public static ZlpDirectoryInfo GetTemp()
         {
@@ -95,6 +95,26 @@
         public ZlpFileInfo[] GetFiles(System.IO.SearchOption searchOption)
         {
             return ZlpIOHelper.GetFiles(FullName, searchOption);
+        }
+
+        public IZlpFileSystemInfo[] GetFileSystemInfos()
+        {
+            return ZlpIOHelper.GetFileSystemInfos(FullName);
+        }
+
+        public IZlpFileSystemInfo[] GetFileSystemInfos(string pattern)
+        {
+            return ZlpIOHelper.GetFileSystemInfos(FullName, pattern);
+        }
+
+        public IZlpFileSystemInfo[] GetFileSystemInfos(string pattern, System.IO.SearchOption searchOption)
+        {
+            return ZlpIOHelper.GetFileSystemInfos(FullName, pattern, searchOption);
+        }
+
+        public IZlpFileSystemInfo[] GetFileSystemInfos(System.IO.SearchOption searchOption)
+        {
+            return ZlpIOHelper.GetFileSystemInfos(FullName, searchOption);
         }
 
         public ZlpDirectoryInfo[] GetDirectories()

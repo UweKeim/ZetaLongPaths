@@ -10,7 +10,7 @@
     using FileShare = Native.FileShare;
 
     [DebuggerDisplay(@"{FullName}")]
-    public class ZlpFileInfo
+    public class ZlpFileInfo : IZlpFileSystemInfo
     {
         public static ZlpFileInfo GetTemp() => new ZlpFileInfo(ZlpPathHelper.GetTempFilePath());
 
