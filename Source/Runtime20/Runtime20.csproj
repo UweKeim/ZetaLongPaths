@@ -32,6 +32,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Runtime\IZlpFileSystemInfo.cs">
+      <Link>IZlpFileSystemInfo.cs</Link>
+    </Compile>
     <Compile Include="..\Runtime\Native\Enumerations.cs">
       <Link>Native\Enumerations.cs</Link>
     </Compile>

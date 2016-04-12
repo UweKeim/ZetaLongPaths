@@ -1454,6 +1454,68 @@
             return GetDirectories(directoryPath, @"*", searchOption);
         }
 
+        public static IZlpFileSystemInfo[] GetFileSystemInfos(string directoryPath, string pattern = @"*.*")
+        {
+            return GetFileSystemInfos(directoryPath, pattern, SearchOption.TopDirectoryOnly);
+        }
+
+        public static IZlpFileSystemInfo[] GetFileSystemInfos(string directoryPath, SearchOption searchOption)
+        {
+            return GetFileSystemInfos(directoryPath, @"*.*", searchOption);
+        }
+
+        public static IZlpFileSystemInfo[] GetFileSystemInfos(string directoryPath, string pattern, SearchOption searchOption)
+        {
+            directoryPath = CheckAddLongPathPrefix(directoryPath);
+
+            var results = new List<IZlpFileSystemInfo>();
+            PInvokeHelper.WIN32_FIND_DATA findData;
+            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out findData);
+
+            if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
+            {
+                try
+                {
+                    bool found;
+                    do
+                    {
+                        var currentFileName = findData.cFileName;
+
+                        // if this is a directory, find its contents
+                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        {
+                            if (currentFileName != @"." && currentFileName != @"..")
+                            {
+                                results.Add(new ZlpDirectoryInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
+                            }
+                        }
+                        else
+                        {
+                            results.Add(new ZlpFileInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
+                        }
+
+                        // find next
+                        found = PInvokeHelper.FindNextFile(findHandle, out findData);
+                    } while (found);
+                }
+                finally
+                {
+                    // close the find handle
+                    PInvokeHelper.FindClose(findHandle);
+                }
+            }
+
+
+            if (searchOption == SearchOption.AllDirectories)
+            {
+                foreach (var dir in GetDirectories(directoryPath))
+                {
+                    results.AddRange(GetFileSystemInfos(dir.FullName, pattern, searchOption));
+                }
+            }
+            return results.ToArray();
+        }
+
         public static ZlpDirectoryInfo[] GetDirectories(string directoryPath, string pattern, SearchOption searchOption)
         {
             directoryPath = CheckAddLongPathPrefix(directoryPath);
