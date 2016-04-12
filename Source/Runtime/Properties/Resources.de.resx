@@ -132,4 +132,7 @@
   <data name="ErrorSeek" xml:space="preserve">
     <value>Fehler {0} beim Positionieren in Datei: {1}</value>
   </data>
+  <data name="TriedTooOften" xml:space="preserve">
+    <value>Fehler bei Dateioperation, mehr als {0} Mal probiert.</value>
+  </data>
 </root>

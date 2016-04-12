@@ -230,5 +230,14 @@ namespace ZetaLongPaths.Properties {
                 return ResourceManager.GetString("FolderNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error during file operation, tried more than {0} times..
+        /// </summary>
+        internal static string TriedTooOften {
+            get {
+                return ResourceManager.GetString("TriedTooOften", resourceCulture);
+            }
+        }
     }
 }

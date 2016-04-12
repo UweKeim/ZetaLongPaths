@@ -57,6 +57,8 @@
     <Compile Include="ZlpFileOrDirectoryInfoExtensions.cs" />
     <Compile Include="ZlpSafeFileExtensions.cs" />
     <Compile Include="ZlpSafeFileOperations.cs" />
+    <Compile Include="ZlpSimpleFileAccessProtector.cs" />
+    <Compile Include="ZlpSimpleFileAccessProtectorInformation.cs" />
     <Compile Include="ZlpSplittedPath.cs" />
     <Compile Include="ZlpDirectoryInfo.cs" />
     <Compile Include="ZlpExtensions.cs" />

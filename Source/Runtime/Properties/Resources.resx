@@ -155,4 +155,7 @@
   <data name="ErrorSettingCreationTime" xml:space="preserve">
     <value>Error {0} setting file creation time '{1}': {2}</value>
   </data>
+  <data name="TriedTooOften" xml:space="preserve">
+    <value>Error during file operation, tried more than {0} times.</value>
+  </data>
 </root>
