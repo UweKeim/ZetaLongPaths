@@ -58,6 +58,11 @@
             ZlpIOHelper.DeleteDirectory(FullName, recursive);
         }
 
+        public void DeleteContents(bool recursive)
+        {
+            ZlpIOHelper.DeleteDirectoryContents(FullName, recursive);
+        }
+
         public void Create()
         {
             ZlpIOHelper.CreateDirectory(FullName);

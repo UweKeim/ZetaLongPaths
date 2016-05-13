@@ -642,6 +642,30 @@
             }
         }
 
+        public static void DeleteDirectoryContents(string folderPath, bool recursive)
+        {
+            folderPath = CheckAddLongPathPrefix(folderPath);
+
+            if (DirectoryExists(folderPath))
+            {
+                if (recursive)
+                {
+                    var files = GetFiles(folderPath);
+                    var dirs = GetDirectories(folderPath);
+
+                    foreach (var file in files)
+                    {
+                        DeleteFile(file.FullName);
+                    }
+
+                    foreach (var dir in dirs)
+                    {
+                        DeleteDirectory(dir.FullName, true);
+                    }
+                }
+            }
+        }
+
         public static bool FileExists(string filePath)
         {
             filePath = CheckAddLongPathPrefix(filePath);

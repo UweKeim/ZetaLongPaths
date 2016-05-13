@@ -153,6 +153,8 @@ namespace ZetaLongPaths
 
         public ZlpSplittedPath ZlpSplittedPath => new ZlpSplittedPath(this);
 
+        public string Name => IsFile ? File?.Name : Directory?.Name;
+
         /// <summary>
         /// Gets a value indicating whether this instance is file by querying the file system
         /// whether the file exists on disk.
