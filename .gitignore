@@ -12,6 +12,7 @@ do-build-all.cs
 Source/TestConsole/Bin/
 Source/TestConsole2/Bin/
 Source/UnitTests/Bin/
+Source/packages/
 
 #################
 ## Eclipse
