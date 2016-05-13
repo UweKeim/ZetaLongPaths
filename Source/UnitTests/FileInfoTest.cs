@@ -1,107 +1,71 @@
 ﻿namespace ZetaLongPaths.UnitTests
 {
-	using System.IO;
-	using NUnit.Framework;
+    using System.IO;
+    using NUnit.Framework;
 
-	[TestFixture]
-	public class FileInfoTest
-	{
-		#region Set up and tear down.
-		// ------------------------------------------------------------------
+    [TestFixture]
+    public class FileInfoTest
+    {
+        [Test]
+        public void TestToString()
+        {
+            var a = new ZlpFileInfo(@"C:\ablage\test.txt");
+            var b = new FileInfo(@"C:\ablage\test.txt");
 
-		[TestFixtureSetUp]
-		public void TestFixtureSetUp()
-		{
-			//...
-		}
+            var x = a.ToString();
+            var y = b.ToString();
 
-		[TestFixtureTearDown]
-		public void TestFixtureTearDown()
-		{
-			//...
-		}
+            Assert.AreEqual(x, y);
 
-		[SetUp]
-		public void SetUp()
-		{
-			//...
-		}
+            // --
 
-		[TearDown]
-		public void TearDown()
-		{
-			//...
-		}
+            a = new ZlpFileInfo(@"C:\ablage\");
+            b = new FileInfo(@"C:\ablage\");
 
-		// ------------------------------------------------------------------
-		#endregion
+            x = a.ToString();
+            y = b.ToString();
 
-		#region Tests.
-		// ------------------------------------------------------------------
+            Assert.AreEqual(x, y);
 
-		[Test]
-		public void TestToString()
-		{
-			var a = new ZlpFileInfo(@"C:\ablage\test.txt");
-			var b = new FileInfo(@"C:\ablage\test.txt");
+            // --
 
-			var x = a.ToString();
-			var y = b.ToString();
+            a = new ZlpFileInfo(@"test.txt");
+            b = new FileInfo(@"test.txt");
 
-			Assert.AreEqual(x,y);
+            x = a.ToString();
+            y = b.ToString();
 
-			// --
+            Assert.AreEqual(x, y);
 
-			a = new ZlpFileInfo(@"C:\ablage\");
-			b = new FileInfo(@"C:\ablage\");
+            // --
 
-			x = a.ToString();
-			y = b.ToString();
+            a = new ZlpFileInfo(@"c:\ablage\..\ablage\test.txt");
+            b = new FileInfo(@"c:\ablage\..\ablage\test.txt");
 
-			Assert.AreEqual(x,y);
+            x = a.ToString();
+            y = b.ToString();
 
-			// --
+            Assert.AreEqual(x, y);
 
-			a = new ZlpFileInfo(@"test.txt");
-			b = new FileInfo(@"test.txt");
+            // --
 
-			x = a.ToString();
-			y = b.ToString();
+            a = new ZlpFileInfo(@"\ablage\test.txt");
+            b = new FileInfo(@"\ablage\test.txt");
 
-			Assert.AreEqual(x,y);
+            x = a.ToString();
+            y = b.ToString();
 
-			// --
+            Assert.AreEqual(x, y);
 
-			a = new ZlpFileInfo(@"c:\ablage\..\ablage\test.txt");
-			b = new FileInfo(@"c:\ablage\..\ablage\test.txt");
+            // --
 
-			x = a.ToString();
-			y = b.ToString();
+            a = new ZlpFileInfo(@"ablage\test.txt");
+            b = new FileInfo(@"ablage\test.txt");
 
-			Assert.AreEqual(x,y);
+            x = a.ToString();
+            y = b.ToString();
 
-			// --
-
-			a = new ZlpFileInfo(@"\ablage\test.txt");
-			b = new FileInfo(@"\ablage\test.txt");
-
-			x = a.ToString();
-			y = b.ToString();
-
-			Assert.AreEqual(x,y);
-
-			// --
-
-			a = new ZlpFileInfo(@"ablage\test.txt");
-			b = new FileInfo(@"ablage\test.txt");
-
-			x = a.ToString();
-			y = b.ToString();
-
-			Assert.AreEqual(x,y);
-		}
-
-		// ------------------------------------------------------------------
-		#endregion
-	}
+            Assert.AreEqual(x, y);
+        }
+    }
 }

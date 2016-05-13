@@ -2,50 +2,14 @@
 {
     using System;
     using System.IO;
-
     using NUnit.Framework;
-
-    using ZetaLongPaths.Native;
-
-    using FileAccess = ZetaLongPaths.Native.FileAccess;
-    using FileShare = ZetaLongPaths.Native.FileShare;
+    using Native;
+    using FileAccess = Native.FileAccess;
+    using FileShare = Native.FileShare;
 
     [TestFixture]
     public class IOHelperTest
     {
-        #region Set up and tear down.
-        // ------------------------------------------------------------------
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            //...
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            //...
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            //...
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            //...
-        }
-
-        // ------------------------------------------------------------------
-        #endregion
-
-        #region Tests.
-        // ------------------------------------------------------------------
-
         [Test]
         public void TestFolderVsFile()
         {
@@ -122,7 +86,7 @@
                 Assert.Greater(time, DateTime.MinValue);
 
                 var owner = ZlpIOHelper.GetFileOwner(@"c:\Windows\notepad.exe");
-                Assert.IsNotNullOrEmpty(owner);
+                Assert.IsNotEmpty(owner ?? string.Empty);
 
                 var l = ZlpIOHelper.GetFileLength(anotherFile);
                 Assert.IsTrue(l > 0);
@@ -193,8 +157,5 @@
             Assert.DoesNotThrow(() => ZlpIOHelper.DeleteFile(filePath));
             Assert.DoesNotThrow(() => ZlpIOHelper.DeleteDirectory(directoryPath, true));
         }
-
-        // ------------------------------------------------------------------
-        #endregion
     }
 }
