@@ -7,6 +7,7 @@ Deploy/
 
 NuGet.exe
 build-all.cmd
+build-all-unoptimized.cmd
 do-build-all.cs
 
 Source/TestConsole/Bin/
