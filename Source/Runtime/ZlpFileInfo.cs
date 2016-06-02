@@ -111,6 +111,17 @@
                 System.IO.FileAccess.ReadWrite);
         }
 
+        public System.IO.FileStream OpenCreate()
+        {
+            return new System.IO.FileStream(
+                ZlpIOHelper.CreateFileHandle(
+                    FullName,
+                    CreationDisposition.CreateAlways,
+                    FileAccess.GenericRead | FileAccess.GenericWrite,
+                    FileShare.Read | FileShare.Write),
+                System.IO.FileAccess.ReadWrite);
+        }
+
         public string ReadAllText() => ZlpIOHelper.ReadAllText(FullName);
 
         public string ReadAllText(Encoding encoding) => ZlpIOHelper.ReadAllText(FullName, encoding);
