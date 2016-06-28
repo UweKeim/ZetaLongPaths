@@ -1612,6 +1612,12 @@
             {
                 return true;
             }
+            else if (path.Contains(@"~"))
+            {
+                // See https://github.com/UweKeim/ZetaLongPaths/issues/12
+                // Example: "C:\\Users\\cliente\\Desktop\\DRIVES~2\\mdzip\\PASTAC~1\\SUBPAS~1\\PASTAC~1\\SUBPAS~1\\SUBDAS~1\\bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.txt"
+                return true;
+            }
             else if (path.Length > PInvokeHelper.MAX_PATH)
             {
                 return true;
@@ -1628,7 +1634,10 @@
             {
                 return path;
             }
-            else if (path.Length > PInvokeHelper.MAX_PATH)
+            else if (path.Length > PInvokeHelper.MAX_PATH ||
+                // See https://github.com/UweKeim/ZetaLongPaths/issues/12
+                // Example: "C:\\Users\\cliente\\Desktop\\DRIVES~2\\mdzip\\PASTAC~1\\SUBPAS~1\\PASTAC~1\\SUBPAS~1\\SUBDAS~1\\bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.txt"
+                path.Contains(@"~"))
             {
                 return ForceAddLongPathPrefix(path);
             }

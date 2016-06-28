@@ -7,7 +7,15 @@
     public class PathHelperTest
     {
         [Test]
-        public void TestGeneral()
+        public void TestGeneral1()
+        {
+            const string path = "C:\\Users\\cliente\\Desktop\\DRIVES~2\\mdzip\\PASTAC~1\\SUBPAS~1\\PASTAC~1\\SUBPAS~1\\SUBDAS~1\\bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.txt";
+            var info = new ZlpFileInfo(path);
+            Assert.AreEqual(info.Length, 0);
+        }
+
+        [Test]
+        public void TestGeneral2()
         {
             var s1 =
                 @"C:\Users\ukeim\Documents\Visual Studio 2008\Projects\Zeta Producer 9\Zeta Producer Main\Deploy\Origin\Enterprise\C-Allgaier\Windows\Packaging\Stationary\DEU\FirstStart\StandardProject";
