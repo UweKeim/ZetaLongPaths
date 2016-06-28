@@ -221,6 +221,18 @@
             /*[MarshalAs(UnmanagedType.LPTStr), Out]*/StringBuilder lpBuffer,
             IntPtr mustBeZero);
 
+        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern uint GetShortPathName(
+            [MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath,
+            [MarshalAs(UnmanagedType.LPTStr), Out] StringBuilder lpszShortPath,
+            uint cchBuffer);
+
+        [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern uint GetLongPathName(
+            [MarshalAs(UnmanagedType.LPTStr)] string lpszShortPath,
+            [MarshalAs(UnmanagedType.LPTStr), Out] StringBuilder lpszLongPath,
+            uint cchBuffer);
+
         //internal static extern uint GetFullPathName(
         //    string lpFileName,
         //    uint nBufferLength,

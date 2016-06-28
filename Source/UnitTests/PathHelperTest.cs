@@ -1,6 +1,7 @@
 ﻿namespace ZetaLongPaths.UnitTests
 {
     using System.IO;
+    using System.Reflection;
     using NUnit.Framework;
 
     [TestFixture]
@@ -9,9 +10,29 @@
         [Test]
         public void TestGeneral1()
         {
-            const string path = "C:\\Users\\cliente\\Desktop\\DRIVES~2\\mdzip\\PASTAC~1\\SUBPAS~1\\PASTAC~1\\SUBPAS~1\\SUBDAS~1\\bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.txt";
-            var info = new ZlpFileInfo(path);
-            Assert.AreEqual(info.Length, 0);
+            // --
+            // Conversion between short and long paths.
+
+            var lp1 = Assembly.GetExecutingAssembly().Location;
+            var sp1 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetShortPath(lp1));
+            var lp2 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetLongPath(sp1));
+            var sp2 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetShortPath(lp2));
+
+            Assert.AreEqual(lp1.ToLower(), lp2.ToLower());
+            Assert.AreEqual(sp1.ToLower(), sp2.ToLower());
+            
+            // --
+            // Getting file sizes for short and long paths.
+
+            var lengthA1 = new ZlpFileInfo(sp1).Length;
+            var lengthA2 = new ZlpFileInfo(sp2).Length;
+
+            var lengthB1 = new ZlpFileInfo(lp1).Length;
+            var lengthB2 = new ZlpFileInfo(lp2).Length;
+
+            Assert.AreEqual(lengthA1, lengthA2);
+            Assert.AreEqual(lengthA1, lengthB1);
+            Assert.AreEqual(lengthA1, lengthB2);
         }
 
         [Test]

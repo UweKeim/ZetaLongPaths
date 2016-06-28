@@ -350,6 +350,64 @@
             }
         }
 
+        public static string GetShortPath(string path)
+        {
+            path = ZlpIOHelper.CheckAddLongPathPrefix(path);
+
+            // --
+            // Determine length.
+
+            var sb = new StringBuilder();
+
+            var realLength = PInvokeHelper.GetShortPathName(path, sb, 0);
+
+            // --
+
+            sb.Length = (int) realLength;
+            realLength = PInvokeHelper.GetShortPathName(path, sb, (uint) sb.Length);
+
+            if (realLength <= 0)
+            {
+                var lastWin32Error = Marshal.GetLastWin32Error();
+                throw new Win32Exception(
+                    lastWin32Error,
+                    $"Error {lastWin32Error} getting short path for '{path}': {ZlpIOHelper.CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)}");
+            }
+            else
+            {
+                return sb.ToString();
+            }
+        }
+
+        public static string GetLongPath(string path)
+        {
+            path = ZlpIOHelper.CheckAddLongPathPrefix(path);
+
+            // --
+            // Determine length.
+
+            var sb = new StringBuilder();
+
+            var realLength = PInvokeHelper.GetLongPathName(path, sb, 0);
+
+            // --
+
+            sb.Length = (int) realLength;
+            realLength = PInvokeHelper.GetLongPathName(path, sb, (uint) sb.Length);
+
+            if (realLength <= 0)
+            {
+                var lastWin32Error = Marshal.GetLastWin32Error();
+                throw new Win32Exception(
+                    lastWin32Error,
+                    $"Error {lastWin32Error} getting long path for '{path}': {ZlpIOHelper.CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)}");
+            }
+            else
+            {
+                return sb.ToString();
+            }
+        }
+
         public static string GetExtension(string path)
         {
             if (IsNullOrEmpty(path))

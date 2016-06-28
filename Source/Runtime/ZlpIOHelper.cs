@@ -1647,7 +1647,7 @@
             }
         }
 
-        internal static string ForceRemoveLongPathPrefix(string path)
+        public static string ForceRemoveLongPathPrefix(string path)
         {
             if (string.IsNullOrEmpty(path) || !path.StartsWith(@"\\?\"))
             {
