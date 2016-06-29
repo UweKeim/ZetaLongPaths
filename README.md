@@ -72,6 +72,9 @@ I'm using the library in several widely used real-life projects like our [CMS](h
 
 ## History
 
+(The full history is always available in the [commits list](https://github.com/UweKeim/ZetaLongPaths/commits/master)).
+
+  * *2016-09-28* - Added functions to deal with short (8.3 "DOS") and long paths.
   * *2014-09-18* - Added functions like `MoveFileToRecycleBin()` to delete files and folders by moving them to the recycle bin.
   * *2014-06-25* - First release to GitHub. Also available at [The Code Project](http://www.codeproject.com/Articles/44904/Zeta-Long-Paths).
   * *2012-12-21* - Added an [NuGet package](http://nuget.org/packages/ZetaLongPaths).
