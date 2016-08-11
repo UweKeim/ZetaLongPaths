@@ -1,4 +1,4 @@
-namespace ZetaLongPaths.Native.FileOperations
+﻿namespace ZetaLongPaths.Native.FileOperations
 {
     using System;
     using System.IO;

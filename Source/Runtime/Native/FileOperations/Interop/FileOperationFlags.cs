@@ -1,4 +1,4 @@
-namespace ZetaLongPaths.Native.FileOperations.Interop
+﻿namespace ZetaLongPaths.Native.FileOperations.Interop
 {
     using System;
 

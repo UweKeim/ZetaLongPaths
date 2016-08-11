@@ -1,5 +1,6 @@
 ﻿namespace ZetaLongPaths
 {
+    using Native;
     using System;
     using System.ComponentModel;
     using System.Diagnostics;
@@ -8,7 +9,6 @@
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Text;
-    using Native;
     using static System.String;
 
     public static class ZlpPathHelper
@@ -627,7 +627,7 @@
                         str = str.Remove(0, n + 1);
 
                         // Jetzt nach Slash nach Share-Name suchen.
-                        // Dieser Slash darf ebenfalls nicht unmittelbar 
+                        // Dieser Slash darf ebenfalls nicht unmittelbar
                         // nach dem jetzigen Slash stehen.
                         n = str.IndexOf('\\');
                         if (n < 0)
@@ -639,7 +639,7 @@
                             return Empty;
                         }
 
-                        // Wiederum übernehmen in Rückgabestring, 
+                        // Wiederum übernehmen in Rückgabestring,
                         // aber ohne letzten Slash.
                         ret += str.Substring(0, n);
 

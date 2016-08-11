@@ -1,4 +1,4 @@
-NUnit 3.0 is based on earlier versions of NUnit, with Portions
+﻿NUnit 3.0 is based on earlier versions of NUnit, with Portions
 
 Copyright (c) 2002-2014 Charlie Poole or 
 Copyright (c) 2002-2004 James W. Newkirk, Michael C. Two, Alexei A. Vorontsov or 

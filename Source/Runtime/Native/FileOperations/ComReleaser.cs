@@ -1,4 +1,4 @@
-// Stephen Toub
+﻿// Stephen Toub
 
 namespace ZetaLongPaths.Native.FileOperations
 {

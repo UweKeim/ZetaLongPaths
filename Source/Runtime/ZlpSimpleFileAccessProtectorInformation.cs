@@ -1,4 +1,4 @@
-namespace ZetaLongPaths
+﻿namespace ZetaLongPaths
 {
     public class ZlpSimpleFileAccessProtectorInformation
     {
@@ -9,6 +9,7 @@ namespace ZetaLongPaths
         public const int DefaultSleepDelaySeconds = 2;
 
         // ReSharper disable once UnusedMember.Global
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
         public bool Use { get; set; } = true;
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
@@ -20,6 +21,7 @@ namespace ZetaLongPaths
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
         public int SleepDelaySeconds { get; set; } = DefaultSleepDelaySeconds;
 
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
         public bool DoGarbageCollectBeforeSleep { get; set; } = true;
     }
 }

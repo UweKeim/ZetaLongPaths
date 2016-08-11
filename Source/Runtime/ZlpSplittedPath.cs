@@ -1,4 +1,4 @@
-namespace ZetaLongPaths
+﻿namespace ZetaLongPaths
 {
 
     public sealed class ZlpSplittedPath

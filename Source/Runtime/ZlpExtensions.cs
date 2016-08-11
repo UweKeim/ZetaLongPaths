@@ -1,8 +1,9 @@
 ﻿namespace ZetaLongPaths
 {
+    using Properties;
     using System;
     using System.Linq;
-    using Properties;
+    using System.Text;
 
     /// <summary>
     /// "Nice to have" extensions.
@@ -193,6 +194,103 @@
                 o.FullName.TrimEnd('\\', '/'),
                 p.TrimEnd('\\', '/'),
                 StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static string ReplaceNoCase(this string s1, string s2, string s3)
+        {
+            if (s1 == null && s2 == null) return null;
+            else if (s1 == null || s2 == null) return null;
+
+            else return Replace(s1, s2, s3 ?? string.Empty, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static string Replace(
+            this string str,
+            string oldValue,
+            string newValue,
+            StringComparison comparison)
+        {
+            // http://stackoverflow.com/questions/244531/is-there-an-alternative-to-string-replace-that-is-case-insensitive
+
+            var sb = new StringBuilder();
+
+            var previousIndex = 0;
+            var index = str.IndexOf(oldValue, comparison);
+            while (index != -1)
+            {
+                sb.Append(str.Substring(previousIndex, index - previousIndex));
+                sb.Append(newValue);
+                index += oldValue.Length;
+
+                previousIndex = index;
+                index = str.IndexOf(oldValue, index, comparison);
+            }
+            sb.Append(str.Substring(previousIndex));
+
+            return sb.ToString();
+        }
+
+        public static int IndexOfNoCase(this string s1, string s2)
+        {
+            if (s1 == null && s2 == null) return 0;
+            else if (s1 == null || s2 == null) return -1;
+            else return s1.IndexOf(s2, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static int LastIndexOfNoCase(this string s1, string s2)
+        {
+            if (s1 == null && s2 == null) return 0;
+            else if (s1 == null || s2 == null) return -1;
+            else return s1.LastIndexOf(s2, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool EqualsNoCase(this string s1, string s2)
+        {
+            if (s1 == null && s2 == null) return true;
+            else if (s1 == null || s2 == null) return false;
+            else return string.Equals(s1, s2, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool StartsWithNoCase(this string s1, string s2)
+        {
+            if (s1 == null && s2 == null) return true;
+            else if (s1 == null || s2 == null) return false;
+            else return s1.StartsWith(s2, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool ContainsNoCase(this string s1, string s2)
+        {
+            if (s1 == null && s2 == null) return true;
+            else if (s1 == null || s2 == null) return false;
+            else return s1.IndexOf(s2, StringComparison.InvariantCultureIgnoreCase) >= 0;
+        }
+
+        public static bool ContainsNoCase(this string s1, string s2, int startIndex)
+        {
+            if (s1 == null && s2 == null) return true;
+            else if (s1 == null || s2 == null) return false;
+            else return s1.IndexOf(s2, startIndex, StringComparison.InvariantCultureIgnoreCase) >= 0;
+        }
+
+        public static bool EndsWithNoCase(this string s1, string s2)
+        {
+            if (s1 == null && s2 == null) return true;
+            else if (s1 == null || s2 == null) return false;
+            else return s1.EndsWith(s2, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static int CompareNoCase(this string s1, string s2)
+        {
+            if (s1 == null && s2 == null) return 0;
+            else if (s1 == null) return 1;
+            else if (s2 == null) return -1;
+            else return string.Compare(s1, s2, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool EndsWithAnyNoCase(this string s1, params string[] s2)
+        {
+            if (s1 == null || (s2 == null)) return false;
+            return s2.Any(s22 => !string.IsNullOrEmpty(s22) && s1.EndsWithNoCase(s22));
         }
 
         public static ZlpFileInfo CheckExists(this ZlpFileInfo file)
