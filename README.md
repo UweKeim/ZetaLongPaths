@@ -8,6 +8,11 @@ A .NET library to access files and directories with more than 260 characters len
 
 This article describes a library that provides several classes and functions to perform basic operations on file paths and folder paths that are longer than the `MAX_PATH` limit of 260 characters.
 
+## Quick usage
+
+- **[NuGet .NET 2.0 and 4.0 package](https://www.nuget.org/packages/ZetaLongPaths)**
+- **[NuGet .NET Core / .NET Standard package](https://www.nuget.org/packages/ZetaLongPaths.NetStandard)**
+
 ## Background
 
 All .NET functions I came across that access the file system are limited to file paths and folder paths with less than 260 characters. This includes most (all?) of the classes in the [System.IO](http://msdn.microsoft.com/en-us/library/system.io.aspx) namespace like e.g. the [System.IO.FileInfo](http://msdn.microsoft.com/en-us/library/system.io.fileinfo.aspx) class.
@@ -74,8 +79,9 @@ I'm using the library in several widely used real-life projects like our [CMS](h
 
 (The full history is always available in the [commits list](https://github.com/UweKeim/ZetaLongPaths/commits/master)).
 
-  * *2016-09-28* - Added functions to deal with short (8.3 "DOS") and long paths.
-  * *2014-09-18* - Added functions like `MoveFileToRecycleBin()` to delete files and folders by moving them to the recycle bin.
+  * *2016-08-12* - First introduction of a .NET Core library (.NET Standard 1.6). See [this NuGet package](https://www.nuget.org/packages/ZetaLongPaths.NetStandard).
+  * *2016-07-28* - Added functions to deal with short (8.3 "DOS") and long paths.
+  * *2014-07-18* - Added functions like `MoveFileToRecycleBin()` to delete files and folders by moving them to the recycle bin.
   * *2014-06-25* - First release to GitHub. Also available at [The Code Project](http://www.codeproject.com/Articles/44904/Zeta-Long-Paths).
   * *2012-12-21* - Added an [NuGet package](http://nuget.org/packages/ZetaLongPaths).
   * *2012-09-20* - Some very few methods added. Stability release.
