@@ -1,0 +1,22 @@
+{
+  "copyright": "© 2009-2016 Zeta Software GmbH",
+  "language": "en-US",
+  "description": "Library with functions to bypass the MAX_PATH limit of several .NET classes",
+  "title": "Zeta Long Paths",
+  "version": "1.0.0-13",
+  "dependencies": {
+    "NETStandard.Library": "1.6.0",
+    "System.Diagnostics.TraceSource": "4.0.0",
+    "System.Threading.Thread": "4.0.0"
+  },
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+  "buildOptions": {
+    "define": [ "NETCORE" ],
+    "keyFile": "ZetaLongPaths.snk",
+    "outputName": "ZetaLongPaths"
+  }
+}
