@@ -3,7 +3,7 @@
   "language": "en-US",
   "description": "Library with functions to bypass the MAX_PATH limit of several .NET classes",
   "title": "Zeta Long Paths",
-  "version": "1.0.0-13",
+  "version": "1.0.0-14",
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "System.Diagnostics.TraceSource": "4.0.0",

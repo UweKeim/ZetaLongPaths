@@ -12,7 +12,7 @@
           "Microsoft.DiaSymReader": "1.0.8",
           "Microsoft.DiaSymReader.Native": "1.5.0-beta1",
           "NUnit": "3.4.1",
-          "RuntimeNetCore": "1.0.0-13"
+          "RuntimeNetCore": "1.0.0-14"
         },
         "runtime": {
           "UnitTestsNetCore.dll": {}
@@ -188,7 +188,7 @@
           "lib/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {}
         }
       },
-      "RuntimeNetCore/1.0.0-13": {
+      "RuntimeNetCore/1.0.0-14": {
         "dependencies": {
           "System.Diagnostics.TraceSource": "4.0.0"
         },
@@ -304,7 +304,7 @@
       "serviceable": true,
       "sha512": "sha512-HZ6Du5QrTG8MNJbf4e4qMO3JRAkIboGT5Fk804uZtg3Gq516S7hAqTm2UZKUHa7/6HUGdVy3AqMQKbns06G/cg=="
     },
-    "RuntimeNetCore/1.0.0-13": {
+    "RuntimeNetCore/1.0.0-14": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

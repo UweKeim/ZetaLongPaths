@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v1.0": {
       "TestConsoleNetCore/1.0.0": {
         "dependencies": {
-          "RuntimeNetCore": "1.0.0-13"
+          "RuntimeNetCore": "1.0.0-14"
         },
         "runtime": {
           "TestConsoleNetCore.dll": {}
@@ -26,7 +26,7 @@
           }
         }
       },
-      "RuntimeNetCore/1.0.0-13": {
+      "RuntimeNetCore/1.0.0-14": {
         "dependencies": {
           "System.Diagnostics.TraceSource": "4.0.0"
         },
@@ -52,7 +52,7 @@
       "serviceable": true,
       "sha512": "sha512-6WVCczFZKXwpWpzd/iJkYnsmWTSFFiU24Xx/YdHXBcu+nFI/ehTgeqdJQFbtRPzbrO3KtRNjvkhtj4t5/WwWsA=="
     },
-    "RuntimeNetCore/1.0.0-13": {
+    "RuntimeNetCore/1.0.0-14": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

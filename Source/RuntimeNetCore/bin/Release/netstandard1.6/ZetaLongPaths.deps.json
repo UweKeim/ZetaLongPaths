@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v1.6": {},
     ".NETStandard,Version=v1.6/": {
-      "RuntimeNetCore/1.0.0-13": {
+      "RuntimeNetCore/1.0.0-14": {
         "dependencies": {
           "NETStandard.Library": "1.6.0",
           "System.Diagnostics.TraceSource": "4.0.0",
@@ -754,7 +754,7 @@
     }
   },
   "libraries": {
-    "RuntimeNetCore/1.0.0-13": {
+    "RuntimeNetCore/1.0.0-14": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
