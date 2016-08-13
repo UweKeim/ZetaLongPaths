@@ -6,7 +6,6 @@
     "Microsoft.DiaSymReader": "1.0.8",
     "Microsoft.DiaSymReader.Native": "1.5.0-beta1",
     "NUnit": "3.4.1",
-    "NUnit.Portable.Agent": "3.4.0-beta-2",
     "RuntimeNetCore": {
       "target": "project"
     }

@@ -1,4 +1,5 @@
 {
+  "locked": false,
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
@@ -7476,7 +7477,6 @@
       "Microsoft.DiaSymReader >= 1.0.8",
       "Microsoft.DiaSymReader.Native >= 1.5.0-beta1",
       "NUnit >= 3.4.1",
-      "NUnit.Portable.Agent >= 3.4.0-beta-2",
       "RuntimeNetCore",
       "dotnet-test-nunit >= 3.4.0-beta-2"
     ],
@@ -7485,8 +7485,5 @@
     ]
   },
   "tools": {},
-  "projectFileToolGroups": {},
-  "packageFolders": {
-    "C:\\Users\\ukeim\\.nuget\\packages\\": {}
-  }
+  "projectFileToolGroups": {}
 }
