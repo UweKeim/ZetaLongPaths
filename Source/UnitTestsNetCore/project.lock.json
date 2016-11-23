@@ -1,5 +1,4 @@
 {
-  "locked": false,
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
@@ -2507,7 +2506,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "RuntimeNetCore/1.0.0-13": {
+      "RuntimeNetCore/1.0.0-14": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -7466,7 +7465,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RuntimeNetCore/1.0.0-13": {
+    "RuntimeNetCore/1.0.0-14": {
       "type": "project",
       "path": "../RuntimeNetCore/project.json",
       "msbuildProject": "../RuntimeNetCore/RuntimeNetCore.xproj"
@@ -7485,5 +7484,8 @@
     ]
   },
   "tools": {},
-  "projectFileToolGroups": {}
+  "projectFileToolGroups": {},
+  "packageFolders": {
+    "C:\\Users\\ukeim\\.nuget\\packages\\": {}
+  }
 }

@@ -6,9 +6,11 @@
 
 #if NETCORE
     using RuntimeNetCore;
+
 #else
     using Properties;
 #endif
+
 
     /// <summary>
     /// Execute an action. On error retry multiple times, sleep between the retries.
@@ -38,11 +40,12 @@
                     }
                     catch (Exception x)
                     {
-                        Trace.TraceWarning($@"Error during file operation. ('{info.Info}').", x);
+                        Trace.TraceWarning($@"Error during file operation. ('{info.Info}'): {x.Message}");
 
                         if (count++ > info.RetryCount)
                         {
-                            throw new Exception(string.Format(Resources.TriedTooOften, info.RetryCount), x);
+                            throw new ZlpSimpleFileAccessProtectorException(
+                                string.Format(Resources.TriedTooOften, info.RetryCount), x);
                         }
                         else
                         {

@@ -104,6 +104,9 @@
     <Compile Include="..\RuntimeNetCore\ZlpSimpleFileAccessProtector.cs">
       <Link>ZlpSimpleFileAccessProtector.cs</Link>
     </Compile>
+    <Compile Include="..\RuntimeNetCore\ZlpSimpleFileAccessProtectorException.cs">
+      <Link>ZlpSimpleFileAccessProtectorException.cs</Link>
+    </Compile>
     <Compile Include="..\RuntimeNetCore\ZlpSimpleFileAccessProtectorInformation.cs">
       <Link>ZlpSimpleFileAccessProtectorInformation.cs</Link>
     </Compile>
