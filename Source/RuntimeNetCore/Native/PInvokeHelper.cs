@@ -130,7 +130,7 @@
         internal static extern bool MoveFileEx(
             [MarshalAs(UnmanagedType.LPTStr)] string lpExistingFileName,
             [MarshalAs(UnmanagedType.LPTStr)] string lpNewFileName,
-            uint dwFlags);
+            MoveFileExFlags dwFlags);
 
         [DllImport(@"kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
