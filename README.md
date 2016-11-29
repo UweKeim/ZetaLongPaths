@@ -2,7 +2,7 @@
 
 A .NET library to access files and directories with more than 260 characters length.
 
-[![Build state](https://travis-ci.org/UweKeim/ZetaLongPaths.svg?branch=master)](https://travis-ci.org/UweKeim/ZetaLongPaths "Travis CI build status")
+<!--[![Build state](https://travis-ci.org/UweKeim/ZetaLongPaths.svg?branch=master)](https://travis-ci.org/UweKeim/ZetaLongPaths "Travis CI build status")-->
 
 ## Introduction
 
@@ -79,6 +79,7 @@ I'm using the library in several widely used real-life projects like our [CMS](h
 
 (The full history is always available in the [commits list](https://github.com/UweKeim/ZetaLongPaths/commits/master)).
 
+  * *2016-09-27* - I've just discovered that [.NET 4.6.2 now supports long paths natively](https://blogs.msdn.microsoft.com/dotnet/2016/08/02/announcing-net-framework-4-6-2/). So if you are using my library you probably don't need it anymore if you target .NET 4.6.2 or above. (Or maybe [it is not yet ready for prime time](https://blogs.msdn.microsoft.com/jeremykuhne/2016/07/30/net-4-6-2-and-long-paths-on-windows-10/))
   * *2016-08-12* - First introduction of a .NET Core library (.NET Standard 1.6). See [this NuGet package](https://www.nuget.org/packages/ZetaLongPaths.NetStandard).
   * *2016-07-28* - Added functions to deal with short (8.3 "DOS") and long paths.
   * *2014-07-18* - Added functions like `MoveFileToRecycleBin()` to delete files and folders by moving them to the recycle bin.

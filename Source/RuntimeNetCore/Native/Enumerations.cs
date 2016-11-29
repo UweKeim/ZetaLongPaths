@@ -67,4 +67,17 @@
         OpenNoRecall = 0x00100000,
         FirstPipeInstance = 0x00080000
     }
+
+    [Flags]
+    public enum MoveFileExFlags : uint
+    {
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/aa365240(v=vs.85).aspx
+        None = 0x0,
+        ReplaceExisting = 0x1,
+        CopyAllowed = 0x2,
+        DelayUntilReboot = 0x4,
+        WriteThrough = 0x8,
+        CreateHardlink = 0x10,
+        FailIfNotTrackable = 0x20
+    }
 }
