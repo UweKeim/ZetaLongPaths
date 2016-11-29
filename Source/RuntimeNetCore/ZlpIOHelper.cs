@@ -389,12 +389,14 @@
 
         public static void MoveFile(
             string sourceFilePath,
-            string destinationFilePath)
+            string destinationFilePath,
+            bool overwriteExisting = false)
         {
             sourceFilePath = CheckAddLongPathPrefix(sourceFilePath);
             destinationFilePath = CheckAddLongPathPrefix(destinationFilePath);
+            var flags = overwriteExisting ? MoveFileExFlags.ReplaceExisting : MoveFileExFlags.None;
 
-            if (!PInvokeHelper.MoveFile(sourceFilePath, destinationFilePath))
+            if (!PInvokeHelper.MoveFileEx(sourceFilePath, destinationFilePath, flags))
             {
                 // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
 
@@ -420,7 +422,7 @@
 
             // Aus der Doku:
             // "...This value can be used only if the process is in the context of a user who belongs to the administrators group or the LocalSystem account..."
-            if (!PInvokeHelper.MoveFileEx(sourceFilePath, null, 4))
+            if (!PInvokeHelper.MoveFileEx(sourceFilePath, null, MoveFileExFlags.DelayUntilReboot))
             {
                 var lastWin32Error = Marshal.GetLastWin32Error();
 
