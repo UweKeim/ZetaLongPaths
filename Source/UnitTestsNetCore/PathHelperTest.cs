@@ -13,12 +13,12 @@
             // --
             // Conversion between short and long paths.
 
-            var lp1 = Assembly.GetEntryAssembly().Location;
+            var lp1 = Assembly.GetEntryAssembly()?.Location;
             var sp1 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetShortPath(lp1));
             var lp2 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetLongPath(sp1));
             var sp2 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetShortPath(lp2));
 
-            Assert.AreEqual(lp1.ToLower(), lp2.ToLower());
+            Assert.AreEqual(lp1?.ToLower(), lp2.ToLower());
             Assert.AreEqual(sp1.ToLower(), sp2.ToLower());
 
             // --
@@ -91,6 +91,15 @@
             //--
 
             s1 = @"c:\ablage\..\windows\notepad.exe";
+            s2 = ZlpPathHelper.GetExtension(s1);
+
+            Assert.AreEqual(@".exe", s2);
+
+            //--
+
+            //--
+
+            s1 = @"c:\ablage\..\windows\notepad.file.exe";
             s2 = ZlpPathHelper.GetExtension(s1);
 
             Assert.AreEqual(@".exe", s2);

@@ -74,7 +74,7 @@
         public ZlpFileOrDirectoryInfo(
             // ReSharper disable SuggestBaseTypeForParameter
             ZlpFileInfo info)
-            // ReSharper restore SuggestBaseTypeForParameter
+        // ReSharper restore SuggestBaseTypeForParameter
         {
             _preferedType = PreferedType.File;
             _fullPath = info.FullName;
@@ -84,11 +84,16 @@
         public ZlpFileOrDirectoryInfo(
             // ReSharper disable SuggestBaseTypeForParameter
             ZlpDirectoryInfo info)
-            // ReSharper restore SuggestBaseTypeForParameter
+        // ReSharper restore SuggestBaseTypeForParameter
         {
             _preferedType = PreferedType.Directory;
             _fullPath = info.FullName;
             _originalPath = info.ToString();
+        }
+
+        public ZlpFileOrDirectoryInfo Clone()
+        {
+            return new ZlpFileOrDirectoryInfo(this);
         }
 
         public bool IsEmpty => string.IsNullOrEmpty(_fullPath);

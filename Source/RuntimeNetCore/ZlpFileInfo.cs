@@ -1,16 +1,18 @@
 ﻿namespace ZetaLongPaths
 {
+    using Microsoft.Win32.SafeHandles;
+    using Native;
     using System;
     using System.Diagnostics;
     using System.Text;
-    using Microsoft.Win32.SafeHandles;
-    using Native;
     using FileAccess = Native.FileAccess;
     using FileAttributes = Native.FileAttributes;
     using FileShare = Native.FileShare;
 
+    // ReSharper disable once UseNameofExpression
     [DebuggerDisplay(@"{FullName}")]
-    public class ZlpFileInfo : IZlpFileSystemInfo
+    public class ZlpFileInfo :
+        IZlpFileSystemInfo
     {
         public static ZlpFileInfo GetTemp() => new ZlpFileInfo(ZlpPathHelper.GetTempFilePath());
 
@@ -19,8 +21,48 @@
             FullName = path;
         }
 
+        public ZlpFileInfo(System.IO.FileInfo path)
+        {
+            FullName = path?.FullName;
+        }
+
+        public ZlpFileInfo(ZlpFileInfo path)
+        {
+            FullName = path?.FullName;
+        }
+
+        public static ZlpFileInfo FromOther(ZlpFileInfo path)
+        {
+            return new ZlpFileInfo(path);
+        }
+
+        public static ZlpFileInfo FromString(string path)
+        {
+            return new ZlpFileInfo(path);
+        }
+
+        public static ZlpFileInfo FromBuiltIn(System.IO.FileInfo path)
+        {
+            return new ZlpFileInfo(path);
+        }
+
+        public System.IO.FileInfo ToBuiltIn()
+        {
+            return new System.IO.FileInfo(FullName);
+        }
+
+        public ZlpFileInfo ToOther()
+        {
+            return Clone();
+        }
+
         public void Refresh()
         {
+        }
+
+        public ZlpFileInfo Clone()
+        {
+            return new ZlpFileInfo(FullName);
         }
 
         public void MoveToRecycleBin() => ZlpIOHelper.MoveFileToRecycleBin(FullName);

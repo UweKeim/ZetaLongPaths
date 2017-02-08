@@ -5,6 +5,7 @@
     using System.IO;
     using FileAttributes = Native.FileAttributes;
 
+    // ReSharper disable once UseNameofExpression
     [DebuggerDisplay(@"{FullName}")]
     public class ZlpDirectoryInfo : IZlpFileSystemInfo
     {
@@ -35,8 +36,48 @@
             FullName = path;
         }
 
+        public ZlpDirectoryInfo(System.IO.DirectoryInfo path)
+        {
+            FullName = path?.FullName;
+        }
+
+        public ZlpDirectoryInfo(ZlpDirectoryInfo path)
+        {
+            FullName = path?.FullName;
+        }
+
+        public static ZlpDirectoryInfo FromOther(ZlpDirectoryInfo path)
+        {
+            return new ZlpDirectoryInfo(path);
+        }
+
+        public static ZlpDirectoryInfo FromString(string path)
+        {
+            return new ZlpDirectoryInfo(path);
+        }
+
+        public static ZlpDirectoryInfo FromBuiltIn(System.IO.DirectoryInfo path)
+        {
+            return new ZlpDirectoryInfo(path);
+        }
+
+        public System.IO.DirectoryInfo ToBuiltIn()
+        {
+            return new System.IO.DirectoryInfo(FullName);
+        }
+
+        public ZlpDirectoryInfo ToOther()
+        {
+            return Clone();
+        }
+
         public void Refresh()
         {
+        }
+
+        public ZlpDirectoryInfo Clone()
+        {
+            return new ZlpDirectoryInfo(FullName);
         }
 
         public bool Exists => ZlpIOHelper.DirectoryExists(FullName);
