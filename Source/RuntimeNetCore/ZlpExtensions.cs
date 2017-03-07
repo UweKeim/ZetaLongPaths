@@ -142,6 +142,11 @@
             else return new ZlpFileInfo(ZlpPathHelper.Combine(one, two));
         }
 
+        /// <summary>
+        /// Creates a copy of the calling instance with a changed extension.
+        /// This calling instance remains unmodified.
+        /// </summary>
+        /// <returns></returns>
         public static ZlpFileInfo ChangeExtension(
             this ZlpFileInfo o,
             string extension)

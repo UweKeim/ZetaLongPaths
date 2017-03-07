@@ -71,10 +71,21 @@
 
         public override string ToString() => FullName;
 
-        public void MoveTo(string destinationFilePath) => ZlpIOHelper.MoveFile(FullName, destinationFilePath);
+        public void MoveTo(
+            string destinationFilePath) => ZlpIOHelper.MoveFile(FullName, destinationFilePath);
 
-        public void MoveTo(ZlpFileInfo destinationFilePath)
+        public void MoveTo(
+            ZlpFileInfo destinationFilePath)
             => ZlpIOHelper.MoveFile(FullName, destinationFilePath.FullName);
+
+        public void MoveTo(
+            string destinationFilePath,
+            bool overwriteExisting) => ZlpIOHelper.MoveFile(FullName, destinationFilePath, overwriteExisting);
+
+        public void MoveTo(
+            ZlpFileInfo destinationFilePath,
+            bool overwriteExisting)
+            => ZlpIOHelper.MoveFile(FullName, destinationFilePath.FullName, overwriteExisting);
 
         /// <summary>
         /// Pass the file handle to the <see cref="System.IO.FileStream"/> constructor. 

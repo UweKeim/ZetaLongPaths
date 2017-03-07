@@ -396,7 +396,7 @@
             destinationFilePath = CheckAddLongPathPrefix(destinationFilePath);
             var flags = overwriteExisting ? MoveFileExFlags.ReplaceExisting : MoveFileExFlags.None;
 
-            if (!PInvokeHelper.MoveFileEx(sourceFilePath, destinationFilePath, flags))
+            if (!PInvokeHelper.MoveFileEx(sourceFilePath, destinationFilePath, flags | MoveFileExFlags.CopyAllowed))
             {
                 // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
 

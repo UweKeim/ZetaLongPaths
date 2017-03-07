@@ -1,9 +1,9 @@
 ﻿namespace ZetaLongPaths.UnitTests
 {
+    using Native;
+    using NUnit.Framework;
     using System;
     using System.IO;
-    using NUnit.Framework;
-    using Native;
     using FileAccess = Native.FileAccess;
     using FileShare = Native.FileShare;
 
@@ -160,6 +160,20 @@
             Assert.DoesNotThrow(() => ZlpIOHelper.WriteAllText(filePath, @"test"));
             Assert.DoesNotThrow(() => ZlpIOHelper.DeleteFile(filePath));
             Assert.DoesNotThrow(() => ZlpIOHelper.DeleteDirectory(directoryPath, true));
+        }
+
+        [Test]
+        public void TestGitHub()
+        {
+            var file = new ZlpFileInfo(@"C:\Ablage\test.txt");
+            file.Directory.CheckCreate();
+            file.WriteAllText(@"Ein Test.");
+
+            Assert.DoesNotThrow(() => file.MoveTo(@"C:\Ablage\test2.txt", true));
+
+            file.WriteAllText(@"Ein Test.");
+            new DirectoryInfo(@"D:\Ablage").Create();
+            Assert.DoesNotThrow(() => file.MoveTo(@"D:\Ablage\test3.txt", true));
         }
     }
 }

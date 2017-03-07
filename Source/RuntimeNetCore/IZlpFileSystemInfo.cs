@@ -1,7 +1,7 @@
 ﻿namespace ZetaLongPaths
 {
-    using System;
     using Native;
+    using System;
 
     public interface IZlpFileSystemInfo
     {
