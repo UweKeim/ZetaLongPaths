@@ -14,6 +14,8 @@
             // Conversion between short and long paths.
 
             var lp1 = Assembly.GetEntryAssembly()?.Location;
+            if (lp1 == null) return;
+
             var sp1 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetShortPath(lp1));
             var lp2 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetLongPath(sp1));
             var sp2 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetShortPath(lp2));

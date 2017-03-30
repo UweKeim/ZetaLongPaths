@@ -1,9 +1,9 @@
 ﻿namespace ZetaLongPaths.UnitTests
 {
+    using NUnit.Framework;
     using System;
     using System.IO;
     using System.Linq;
-    using NUnit.Framework;
 
     [TestFixture]
     public class DirectoryInfoTest
@@ -26,6 +26,23 @@
             {
                 path.SafeDelete();
             }
+        }
+
+        [Test]
+        public void TestKimikoMuffin()
+        {
+            var dirInfo1 = new ZlpDirectoryInfo(@"C:\Foo\Bar");
+            Console.WriteLine(dirInfo1.Name); //"Bar"
+            var dirInfo2 = new ZlpDirectoryInfo(@"C:\Foo\Bar\");
+            Console.WriteLine(dirInfo2.Name); //"", an empty string
+
+            var dirInfo3 = new DirectoryInfo(@"C:\Foo\Bar");
+            Console.WriteLine(dirInfo1.Name);
+            var dirInfo4 = new DirectoryInfo(@"C:\Foo\Bar\");
+            Console.WriteLine(dirInfo2.Name);
+
+            Assert.AreEqual(dirInfo1.Name, dirInfo3.Name);
+            Assert.AreEqual(dirInfo2.Name, dirInfo4.Name);
         }
 
         [Test]
@@ -62,7 +79,7 @@
         public void TestGeneral()
         {
             // Ordner mit Punkt am Ende.
-            string dir = $@"C:\Ablage\{Guid.NewGuid():N}.";
+            var dir = $@"C:\Ablage\{Guid.NewGuid():N}.";
             Assert.IsFalse(new ZlpDirectoryInfo(dir).Exists);
             new ZlpDirectoryInfo(dir).CheckCreate();
             Assert.IsTrue(new ZlpDirectoryInfo(dir).Exists);

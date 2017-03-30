@@ -79,11 +79,31 @@
 
         public static string GetDirectoryNameOnlyFromFilePath(string filePath)
         {
+            // https://referencesource.microsoft.com/#mscorlib/system/io/directoryinfo.cs,e3b20cb1c28ea93f,references
+
             if (filePath == null) return null;
 
-            var ls = filePath.LastIndexOfAny(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar/*, Path.VolumeSeparatorChar*/ });
+            string dirName;
+            if (filePath.Length > 3)
+            {
+                var s = filePath;
+                if (filePath.EndsWith(Path.DirectorySeparatorChar.ToString()) ||
+                    filePath.EndsWith(Path.AltDirectorySeparatorChar.ToString()))
+                {
+                    s = filePath.Substring(0, filePath.Length - 1);
+                }
+                dirName = Path.GetFileName(s);
+            }
+            else
+            {
+                dirName = filePath; // For rooted paths, like "c:\"
+            }
 
-            return ls < 0 ? filePath : filePath.Substring(ls + 1);
+            return dirName;
+
+            //var ls = filePath.LastIndexOfAny(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar/*, Path.VolumeSeparatorChar*/ });
+
+            //return ls < 0 ? filePath : filePath.Substring(ls + 1);
         }
 
         /// <summary>
@@ -362,8 +382,8 @@
 
             // --
 
-            sb.Length = (int) realLength;
-            realLength = PInvokeHelper.GetShortPathName(path, sb, (uint) sb.Length);
+            sb.Length = (int)realLength;
+            realLength = PInvokeHelper.GetShortPathName(path, sb, (uint)sb.Length);
 
             if (realLength <= 0)
             {
@@ -391,8 +411,8 @@
 
             // --
 
-            sb.Length = (int) realLength;
-            realLength = PInvokeHelper.GetLongPathName(path, sb, (uint) sb.Length);
+            sb.Length = (int)realLength;
+            realLength = PInvokeHelper.GetLongPathName(path, sb, (uint)sb.Length);
 
             if (realLength <= 0)
             {
