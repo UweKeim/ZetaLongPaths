@@ -73,7 +73,7 @@ This article quickly introduced a library to deal with long file names when acce
 
 Please note that the library currently is limited in the number of provided functions. I will add more functions in the future, just tell me which you require.
 
-I'm using the library in several widely used real-life projects like our [CMS](http://www.zeta-producer.com), our [Test Management tool](http://www.zeta-test.com) or our [Large File Uploader](https://www.zeta-uploader.com), so the library should be rather stable and reliable.
+I'm using the library in several widely used real-life projects like our **[Content Management System (CMS)](https://www.zeta-producer.com)**, our **[Test and Requirements Management tool](https://www.zeta-test.com)** and our **[Large File Uploader](https://www.zeta-uploader.com)**, so the library should be rather stable and reliable.
 
 ## History
 
