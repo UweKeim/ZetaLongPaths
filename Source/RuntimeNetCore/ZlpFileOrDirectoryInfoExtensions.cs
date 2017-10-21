@@ -1,7 +1,11 @@
 ﻿namespace ZetaLongPaths
 {
+    using JetBrains.Annotations;
+
+    [UsedImplicitly]
     public static class ZlpFileOrDirectoryInfoExtensions
     {
+        [UsedImplicitly]
         public static bool SafeExists(this ZlpFileOrDirectoryInfo i)
         {
             if (i == null || i.IsEmpty) return false;

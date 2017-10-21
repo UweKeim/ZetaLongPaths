@@ -5,9 +5,11 @@
     using System.ComponentModel;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Text;
+    using JetBrains.Annotations;
     using Microsoft.Win32.SafeHandles;
     using Native;
     using Native.FileOperations;
@@ -15,7 +17,6 @@
     using FileAccess = Native.FileAccess;
     using FileAttributes = Native.FileAttributes;
     using FileShare = Native.FileShare;
-
 #if NETCORE
     using RuntimeNetCore;
 #else
@@ -87,6 +88,7 @@
             return ReadAllLines(path, encoding);
         }
 
+        [UsedImplicitly]
         public static bool IsDirectoryEmpty(
             string path)
         {
@@ -226,19 +228,27 @@
             var lastWin32Error = Marshal.GetLastWin32Error();
             if (fileHandle.IsInvalid)
             {
-                throw new Win32Exception(
+                var x = new Win32Exception(
                     lastWin32Error,
                     string.Format(
                         Resources.ErrorCreatingFileHandle,
                         lastWin32Error,
                         filePath,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                x.Data[nameof(filePath)] = filePath;
+                x.Data[nameof(creationDisposition)] = creationDisposition;
+                x.Data[nameof(fileAccess)] = fileAccess;
+                x.Data[nameof(fileShare)] = fileShare;
+
+                throw x;
             }
 
             // Pass the file handle to FileStream. FileStream will close the handle.
             return fileHandle;
         }
 
+        [UsedImplicitly]
         public static int ReadFile(
             SafeFileHandle handle,
             byte[] buffer,
@@ -263,17 +273,23 @@
             var lastWin32Error = Marshal.GetLastWin32Error();
             if (!flag)
             {
-                throw new Win32Exception(
+                var x = new Win32Exception(
                     lastWin32Error,
                     string.Format(
                         Resources.ErrorReadFile,
                         lastWin32Error,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                x.Data[nameof(offset)] = offset;
+                x.Data[nameof(count)] = count;
+
+                throw x;
             }
 
             return (int)result;
         }
 
+        [UsedImplicitly]
         public static int WriteFile(
             SafeFileHandle handle,
             byte[] buffer,
@@ -298,17 +314,23 @@
             var lastWin32Error = Marshal.GetLastWin32Error();
             if (!flag)
             {
-                throw new Win32Exception(
+                var x = new Win32Exception(
                     lastWin32Error,
                     string.Format(
                         Resources.ErrorWriteFile,
                         lastWin32Error,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                x.Data[nameof(offset)] = offset;
+                x.Data[nameof(count)] = count;
+
+                throw x;
             }
 
             return (int)result;
         }
 
+        [UsedImplicitly]
         public static long Seek(
             SafeFileHandle handle,
             long distance,
@@ -320,12 +342,17 @@
             var lastWin32Error = Marshal.GetLastWin32Error();
             if (!flag)
             {
-                throw new Win32Exception(
+                var x = new Win32Exception(
                     lastWin32Error,
                     string.Format(
                         Resources.ErrorSeek,
                         lastWin32Error,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                x.Data[nameof(distance)] = distance;
+                x.Data[nameof(origin)] = origin;
+
+                throw x;
             }
 
             return result;
@@ -354,6 +381,12 @@
             if (sw > DateTime.MinValue) d.LastWriteTime = sw;
         }
 
+        public static bool DriveExists(char driveLetter)
+        {
+            return DriveInfo.GetDrives().Any(di =>
+                di.Name.StartsWith($@"{driveLetter}:", StringComparison.InvariantCultureIgnoreCase));
+        }
+
         public static void Touch(string filePath)
         {
             var now = DateTime.Now;
@@ -376,7 +409,7 @@
                 // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
 
                 var lastWin32Error = Marshal.GetLastWin32Error();
-                throw new Win32Exception(
+                var x = new Win32Exception(
                     lastWin32Error,
                     string.Format(
                         Resources.ErrorCopyingFile,
@@ -384,6 +417,12 @@
                         sourceFilePath,
                         destinationFilePath,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                x.Data[nameof(sourceFilePath)] = sourceFilePath;
+                x.Data[nameof(destinationFilePath)] = destinationFilePath;
+                x.Data[nameof(overwriteExisting)] = overwriteExisting;
+
+                throw x;
             }
         }
 
@@ -401,7 +440,7 @@
                 // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
 
                 var lastWin32Error = Marshal.GetLastWin32Error();
-                throw new Win32Exception(
+                var x = new Win32Exception(
                     lastWin32Error,
                     string.Format(
                         Resources.ErrorMovingFile,
@@ -409,6 +448,12 @@
                         sourceFilePath,
                         destinationFilePath,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                x.Data[nameof(sourceFilePath)] = sourceFilePath;
+                x.Data[nameof(destinationFilePath)] = destinationFilePath;
+                x.Data[nameof(overwriteExisting)] = overwriteExisting;
+
+                throw x;
             }
         }
 
@@ -430,16 +475,22 @@
                 {
                     // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
 
-                    throw new Win32Exception(
+                    var x = new Win32Exception(
                         lastWin32Error,
                         string.Format(
                             Resources.ErrorMarkingFileForDeletion,
                             lastWin32Error,
                             sourceFilePath,
                             CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                    x.Data[nameof(sourceFilePath)] = sourceFilePath;
+                    x.Data[nameof(throwIfFails)] = true;
+
+                    throw x;
                 }
                 else
                 {
+                    // ReSharper disable once InvocationIsSkipped
                     Trace.TraceWarning(@"Error {0} marking file '{1}' for deletion after reboot: {2}",
                         lastWin32Error,
                         sourceFilePath,
@@ -988,7 +1039,7 @@
                 {
                     var ft = fd.ftLastWriteTime;
 
-                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1021,7 +1072,7 @@
                 {
                     var ft = fd.ftLastAccessTime;
 
-                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1054,7 +1105,7 @@
                 {
                     var ft = fd.ftCreationTime;
 
-                    var hft2 = (((long)ft.dwHighDateTime) << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1092,13 +1143,18 @@
                     if (!PInvokeHelper.SetFileTime3(handle.DangerousGetHandle(), IntPtr.Zero, IntPtr.Zero, ref d))
                     {
                         var lastWin32Error = Marshal.GetLastWin32Error();
-                        throw new Win32Exception(
+                        var x = new Win32Exception(
                             lastWin32Error,
                             string.Format(
                                 Resources.ErrorSettingsWriteTime,
                                 lastWin32Error,
                                 filePath,
                                 CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                        x.Data[nameof(filePath)] = filePath;
+                        x.Data[nameof(date)] = date;
+
+                        throw x;
                     }
                 }
             }
@@ -1119,7 +1175,12 @@
                 }
                 else
                 {
-                    throw new FileNotFoundException(Resources.FileNotFound, filePath);
+                    var x = new FileNotFoundException(Resources.FileNotFound, filePath);
+
+                    x.Data[nameof(filePath)] = filePath;
+                    x.Data[nameof(date)] = date;
+
+                    throw x;
                 }
             }
         }
@@ -1146,13 +1207,18 @@
                     if (!PInvokeHelper.SetFileTime2(handle.DangerousGetHandle(), IntPtr.Zero, ref d, IntPtr.Zero))
                     {
                         var lastWin32Error = Marshal.GetLastWin32Error();
-                        throw new Win32Exception(
+                        var x = new Win32Exception(
                             lastWin32Error,
                             string.Format(
                                 Resources.ErrorSettingAccessTime,
                                 lastWin32Error,
                                 filePath,
                                 CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                        x.Data[nameof(filePath)] = filePath;
+                        x.Data[nameof(date)] = date;
+
+                        throw x;
                     }
                 }
             }
@@ -1173,7 +1239,12 @@
                 }
                 else
                 {
-                    throw new FileNotFoundException(Resources.FileNotFound, filePath);
+                    var x = new FileNotFoundException(Resources.FileNotFound, filePath);
+
+                    x.Data[nameof(filePath)] = filePath;
+                    x.Data[nameof(date)] = date;
+
+                    throw x;
                 }
             }
         }
@@ -1200,13 +1271,18 @@
                     if (!PInvokeHelper.SetFileTime1(handle.DangerousGetHandle(), ref d, IntPtr.Zero, IntPtr.Zero))
                     {
                         var lastWin32Error = Marshal.GetLastWin32Error();
-                        throw new Win32Exception(
+                        var x = new Win32Exception(
                             lastWin32Error,
                             string.Format(
                                 Resources.ErrorSettingCreationTime,
                                 lastWin32Error,
                                 filePath,
                                 CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                        x.Data[nameof(filePath)] = filePath;
+                        x.Data[nameof(date)] = date;
+
+                        throw x;
                     }
                 }
             }
@@ -1227,7 +1303,12 @@
                 }
                 else
                 {
-                    throw new FileNotFoundException(Resources.FileNotFound, filePath);
+                    var x = new FileNotFoundException(Resources.FileNotFound, filePath);
+
+                    x.Data[nameof(filePath)] = filePath;
+                    x.Data[nameof(date)] = date;
+
+                    throw x;
                 }
             }
         }
@@ -1306,7 +1387,7 @@
                     if (sfh.IsInvalid)
                     {
                         var num = Marshal.GetLastWin32Error();
-                        if ((num == 2 || num == 3 || num == 21))
+                        if (num == 2 || num == 3 || num == 21)
                         // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
                         {
                             return 0;
@@ -1317,31 +1398,28 @@
                         }
                     }
 
-
-
-
                     // http://zetalongpaths.codeplex.com/discussions/580478#post1351470
                     // https://mcdrummerman.wordpress.com/2010/07/13/win32_find_data-and-negative-file-sizes/
 
                     //store nFileSizeLow
-                    long fDataFSize = (long)fd.nFileSizeLow;
+                    var fDataFSize = (long)fd.nFileSizeLow;
 
                     //store individual file size for later accounting usage
-                    long fileSize = 0;
+                    long fileSize;
 
                     if (fDataFSize < 0 && (long)fd.nFileSizeHigh > 0)
                     {
-                        fileSize = fDataFSize + 0x100000000 + ((long)fd.nFileSizeHigh * 0x100000000);
+                        fileSize = fDataFSize + 0x100000000 + fd.nFileSizeHigh * 0x100000000;
                     }
                     else
                     {
                         if ((long)fd.nFileSizeHigh > 0)
                         {
-                            fileSize = fDataFSize + ((long)fd.nFileSizeHigh * 0x100000000);
+                            fileSize = fDataFSize + fd.nFileSizeHigh * 0x100000000;
                         }
                         else if (fDataFSize < 0)
                         {
-                            fileSize = (fDataFSize + 0x100000000);
+                            fileSize = fDataFSize + 0x100000000;
                         }
                         else
                         {
@@ -1372,7 +1450,7 @@
 
                     try
                     {
-                        return (long)high << 32 | ((long)low & (long)(0xffffffffL));
+                        return (long)high << 32 | (low & 0xffffffffL);
 
                         //try
                         //{
@@ -1435,8 +1513,7 @@
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<ZlpFileInfo>();
-            PInvokeHelper.WIN32_FIND_DATA findData;
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + "\\" + pattern, out findData);
+            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + "\\" + pattern, out PInvokeHelper.WIN32_FIND_DATA findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1604,12 +1681,13 @@
         /// <returns>
         /// True, if path longer then MAX_PATH constant, or is UNC path, else - False
         /// </returns>
+        [UsedImplicitly]
         public static bool IsPathLong(string path)
         {
             return MustBeLongPath(path);
         }
 
-        internal static bool MustBeLongPath(string path)
+        private static bool MustBeLongPath(string path)
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -1670,7 +1748,7 @@
             }
         }
 
-        internal static string ForceAddLongPathPrefix(string path)
+        private static string ForceAddLongPathPrefix(string path)
         {
             if (string.IsNullOrEmpty(path) || path.StartsWith(@"\\?\"))
             {

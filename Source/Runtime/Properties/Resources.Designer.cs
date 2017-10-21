@@ -232,6 +232,15 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid paths characters..
+        /// </summary>
+        internal static string InvalidPathsCharacters {
+            get {
+                return ResourceManager.GetString("InvalidPathsCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error during file operation, tried more than {0} times..
         /// </summary>
         internal static string TriedTooOften {

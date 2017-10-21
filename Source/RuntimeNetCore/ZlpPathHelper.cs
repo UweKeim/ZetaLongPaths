@@ -1,5 +1,6 @@
 ﻿namespace ZetaLongPaths
 {
+    using JetBrains.Annotations;
     using Native;
     using System;
     using System.ComponentModel;
@@ -12,6 +13,7 @@
 
     public static class ZlpPathHelper
     {
+        [UsedImplicitly]
         public static string GetPathRoot(string path)
         {
             if (IsNullOrEmpty(path))
@@ -41,7 +43,8 @@
                         text = path.Substring(0, num);
                         break;
                     }
-                    if (c == Path.DirectorySeparatorChar || c == Path.AltDirectorySeparatorChar || c == Path.VolumeSeparatorChar)
+                    if (c == Path.DirectorySeparatorChar || c == Path.AltDirectorySeparatorChar ||
+                        c == Path.VolumeSeparatorChar)
                     {
                         break;
                     }
@@ -63,7 +66,8 @@
         {
             if (filePath == null) return null;
 
-            var ls = filePath.LastIndexOfAny(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar, Path.VolumeSeparatorChar });
+            var ls = filePath.LastIndexOfAny(new[]
+                {Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar, Path.VolumeSeparatorChar});
             return ls < 0 ? filePath : filePath.Substring(ls + 1);
         }
 
@@ -114,7 +118,8 @@
             if (filePath == null) return null;
             //filePath = filePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
-            var ls = filePath.LastIndexOfAny(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar/*, Path.VolumeSeparatorChar*/ });
+            var ls = filePath.LastIndexOfAny(new[]
+                {Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar /*, Path.VolumeSeparatorChar*/});
 
             if (ls < 0)
             {
@@ -135,58 +140,64 @@
             }
         }
 
-        internal static void CheckInvalidPathChars(string path)
-        {
-            for (int i = 0; i < path.Length; i++)
-            {
-                var num = (int)path[i];
-                if (num == 34 || num == 60 || num == 62 || num == 124 || num < 32)
+        /*
+                private static void CheckInvalidPathChars(string path)
                 {
-                    throw new ArgumentException("Invalid paths characters.");
-                }
-            }
-        }
-
-        internal static bool IsDirectorySeparator(char c)
-        {
-            return c == Path.DirectorySeparatorChar || c == Path.AltDirectorySeparatorChar;
-        }
-
-        internal static int GetRootLength(string path)
-        {
-            CheckInvalidPathChars(path);
-            int i = 0;
-            int length = path.Length;
-            if (length >= 1 && IsDirectorySeparator(path[0]))
-            {
-                i = 1;
-                if (length >= 2 && IsDirectorySeparator(path[1]))
-                {
-                    i = 2;
-                    int num = 2;
-                    while (i < length)
+                    foreach (var t in path)
                     {
-                        if ((path[i] == Path.DirectorySeparatorChar || path[i] == Path.AltDirectorySeparatorChar) && --num <= 0)
+                        var num = (int)t;
+                        if (num == 34 || num == 60 || num == 62 || num == 124 || num < 32)
                         {
-                            break;
+                            throw new ArgumentException(Resources.InvalidPathsCharacters);
                         }
-                        i++;
                     }
                 }
-            }
-            else
-            {
-                if (length >= 2 && path[1] == Path.VolumeSeparatorChar)
+        */
+
+        /*
+                private static bool IsDirectorySeparator(char c)
                 {
-                    i = 2;
-                    if (length >= 3 && IsDirectorySeparator(path[2]))
-                    {
-                        i++;
-                    }
+                    return c == Path.DirectorySeparatorChar || c == Path.AltDirectorySeparatorChar;
                 }
-            }
-            return i;
-        }
+        */
+
+        /*
+                internal static int GetRootLength(string path)
+                {
+                    CheckInvalidPathChars(path);
+                    var i = 0;
+                    var length = path.Length;
+                    if (length >= 1 && IsDirectorySeparator(path[0]))
+                    {
+                        i = 1;
+                        if (length >= 2 && IsDirectorySeparator(path[1]))
+                        {
+                            i = 2;
+                            var num = 2;
+                            while (i < length)
+                            {
+                                if ((path[i] == Path.DirectorySeparatorChar || path[i] == Path.AltDirectorySeparatorChar) && --num <= 0)
+                                {
+                                    break;
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (length >= 2 && path[1] == Path.VolumeSeparatorChar)
+                        {
+                            i = 2;
+                            if (length >= 3 && IsDirectorySeparator(path[2]))
+                            {
+                                i++;
+                            }
+                        }
+                    }
+                    return i;
+                }
+        */
 
         /// <summary>
         /// Makes 'path' an absolute path, based on 'basePath'.
@@ -289,7 +300,7 @@
                         // If not matching at a slash-boundary, navigate back until slash.
                         if (!(pos == ol || o[pos] == '\\' || o[pos] == '/'))
                         {
-                            while (pos > 0 && (o[pos] != '\\' && o[pos] != '/'))
+                            while (pos > 0 && o[pos] != '\\' && o[pos] != '/')
                             {
                                 pos--;
                             }
@@ -461,6 +472,7 @@
             }
         }
 
+        [UsedImplicitly]
         public static ZlpDirectoryInfo CombineDirectory(
             string path1,
             string path2)
@@ -468,6 +480,7 @@
             return new ZlpDirectoryInfo(Combine(path1, path2));
         }
 
+        [UsedImplicitly]
         public static ZlpFileInfo CombineFile(
             string path1,
             string path2)
@@ -496,8 +509,10 @@
             }
         }
 
+        [UsedImplicitly]
         public static char DirectorySeparatorChar => Path.DirectorySeparatorChar;
 
+        [UsedImplicitly]
         public static char AltDirectorySeparatorChar => Path.AltDirectorySeparatorChar;
 
         public static string GetTempDirectoryPath()
@@ -512,6 +527,7 @@
             return Path.GetTempFileName();
         }
 
+        [UsedImplicitly]
         public static ZlpDirectoryInfo CombineDirectory(
             string path1,
             string path2,
@@ -521,6 +537,7 @@
             return new ZlpDirectoryInfo(Combine(path1, path2, path3, paths));
         }
 
+        [UsedImplicitly]
         public static ZlpFileInfo CombineFile(
             string path1,
             string path2,
@@ -530,6 +547,7 @@
             return new ZlpFileInfo(Combine(path1, path2, path3, paths));
         }
 
+        [UsedImplicitly]
         public static string Combine(
             string path1,
             string path2,
@@ -547,12 +565,14 @@
             return resultPath;
         }
 
+        [UsedImplicitly]
         public static string ConvertBackSlashsToForwardSlashs(
             string text)
         {
             return IsNullOrEmpty(text) ? text : text.Replace('\\', '/');
         }
 
+        [UsedImplicitly]
         public static string ConvertForwardSlashsToBackSlashs(
             string text)
         {
@@ -696,8 +716,7 @@
         /// <summary>
         /// Gets the drive or share and directory.
         /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns></returns>
+        [UsedImplicitly]
         public static string GetDriveOrShareAndDirectory(
             string path)
         {
@@ -772,6 +791,7 @@
         /// "C:\Team\Text\Test.Txt" would return "Test.Txt".
         /// "C:\Team\Text\Test" would return "Test".
         /// </remarks>
+        [UsedImplicitly]
         public static string GetNameWithExtension(
             ZlpFileInfo path)
         {
@@ -792,30 +812,35 @@
             return IsNullOrEmpty(path) ? path : GetFileNameFromFilePath(path);
         }
 
+        [UsedImplicitly]
         public static ZlpSplittedPath SplitPath(
             string path)
         {
             return new ZlpFileOrDirectoryInfo(path).ZlpSplittedPath;
         }
 
+        [UsedImplicitly]
         public static ZlpSplittedPath SplitPath(
             ZlpFileInfo path)
         {
             return new ZlpFileOrDirectoryInfo(path).ZlpSplittedPath;
         }
 
+        [UsedImplicitly]
         public static ZlpSplittedPath SplitPath(
             ZlpDirectoryInfo path)
         {
             return new ZlpFileOrDirectoryInfo(path).ZlpSplittedPath;
         }
 
+        [UsedImplicitly]
         public static ZlpSplittedPath SplitPath(
             ZlpFileOrDirectoryInfo path)
         {
             return path.ZlpSplittedPath;
         }
 
+        [UsedImplicitly]
         public static bool IsDriveLetterPath(
             string filePath)
         {
@@ -829,6 +854,7 @@
             }
         }
 
+        [UsedImplicitly]
         public static bool IsUncPath(
             string filePath)
         {
@@ -862,6 +888,7 @@
             }
         }
 
+        [UsedImplicitly]
         public static string SetBackSlashEnd(
             string path,
             bool setSlash)
@@ -869,6 +896,7 @@
             return setSlashEnd(path, setSlash, '\\');
         }
 
+        [UsedImplicitly]
         public static string SetForwardSlashEnd(
             string path,
             bool setSlash)
@@ -876,6 +904,7 @@
             return setSlashEnd(path, setSlash, '/');
         }
 
+        [UsedImplicitly]
         public static string SetBackSlashBegin(
             string path,
             bool setSlash)
@@ -883,6 +912,7 @@
             return setSlashBegin(path, setSlash, '\\');
         }
 
+        [UsedImplicitly]
         public static string SetForwardSlashBegin(
             string path,
             bool setSlash)
@@ -890,6 +920,7 @@
             return setSlashBegin(path, setSlash, '/');
         }
 
+        [UsedImplicitly]
         public static string GetParentPath(
             string text)
         {
@@ -903,6 +934,7 @@
         /// No disk-access is performed, only the syntax of the given string
         /// is checked.
         /// </summary>
+        [UsedImplicitly]
         public static bool IsAbsolutePath(
             string path)
         {
@@ -932,6 +964,7 @@
         /// A "less intelligent" Combine (in contrast to to Path.Combine).
         /// For paths with forward slash.
         /// </summary>
+        [UsedImplicitly]
         public static string CombineVirtual(
             string path1,
             string path2)
@@ -984,6 +1017,7 @@
         /// A "less intelligent" Combine (in contrast to to Path.Combine).
         /// For paths with forward slash.
         /// </summary>
+        [UsedImplicitly]
         public static string CombineVirtual(
             string path1,
             string path2,

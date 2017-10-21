@@ -1,9 +1,10 @@
 ﻿namespace ZetaLongPaths
 {
+    using JetBrains.Annotations;
+    using Native;
     using System;
     using System.ComponentModel;
     using System.Diagnostics;
-    using Native;
 
     /// <summary>
     /// The goal of this class is to provide more error-tolerant functions
@@ -27,6 +28,7 @@
             }
         }
 
+        [UsedImplicitly]
         public static void SafeDeleteFile(
             string filePath)
         {
@@ -44,7 +46,7 @@
                     {
                         ZlpIOHelper.SetFileAttributes(
                             filePath,
-                            attributes & (~(FileAttributes.Readonly)));
+                            attributes & ~FileAttributes.Readonly);
                     }
 
                     ZlpIOHelper.DeleteFile(filePath);
@@ -103,6 +105,7 @@
             return filePath != null && SafeFileExists(filePath.FullName);
         }
 
+        [UsedImplicitly]
         public static bool SafeFileExists(
             string filePath)
         {
@@ -124,6 +127,7 @@
         /// <summary>
         /// Deep-deletes the contents, as well as the folder itself.
         /// </summary>
+        [UsedImplicitly]
         public static void SafeDeleteDirectory(
             string folderPath)
         {
@@ -168,6 +172,7 @@
             return folderPath != null && SafeDirectoryExists(folderPath.FullName);
         }
 
+        [UsedImplicitly]
         public static bool SafeDirectoryExists(
             string folderPath)
         {
@@ -183,6 +188,7 @@
                 dstFilePath);
         }
 
+        [UsedImplicitly]
         public static void SafeMoveFile(
             string sourcePath,
             ZlpFileInfo dstFilePath)
@@ -201,6 +207,7 @@
                 dstFilePath?.FullName);
         }
 
+        [UsedImplicitly]
         public static void SafeMoveFile(
             string sourcePath,
             string dstFilePath)
@@ -246,6 +253,7 @@
             SafeCopyFile(sourcePath?.FullName, dstFilePath, overwrite);
         }
 
+        [UsedImplicitly]
         public static void SafeCopyFile(
             string sourcePath,
             ZlpFileInfo dstFilePath,
@@ -265,6 +273,7 @@
                 overwrite);
         }
 
+        [UsedImplicitly]
         public static void SafeCopyFile(
             string sourcePath,
             string dstFilePath,
@@ -318,6 +327,7 @@
         /// <summary>
         /// Deep-deletes the contents, but not the folder itself.
         /// </summary>
+        [UsedImplicitly]
         public static void SafeDeleteDirectoryContents(
             string folderPath)
         {
@@ -360,6 +370,7 @@
             SafeCheckCreateDirectory(folderPath?.FullName);
         }
 
+        [UsedImplicitly]
         public static void SafeCheckCreateDirectory(
             string folderPath)
         {

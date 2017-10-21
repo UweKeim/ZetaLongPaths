@@ -20,7 +20,7 @@
             var lp2 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetLongPath(sp1));
             var sp2 = ZlpIOHelper.ForceRemoveLongPathPrefix(ZlpPathHelper.GetShortPath(lp2));
 
-            Assert.AreEqual(lp1?.ToLower(), lp2.ToLower());
+            Assert.AreEqual(lp1.ToLower(), lp2.ToLower());
             Assert.AreEqual(sp1.ToLower(), sp2.ToLower());
 
             // --
@@ -136,13 +136,10 @@
         [Test]
         public void TestCompareWithFrameworkFunctions()
         {
-            string s1;
-            string s2;
-
             // --
 
-            s1 = ZlpPathHelper.GetFileNameFromFilePath(@"/suchen.html");
-            s2 = Path.GetFileName(@"/suchen.html");
+            var s1 = ZlpPathHelper.GetFileNameFromFilePath(@"/suchen.html");
+            var s2 = Path.GetFileName(@"/suchen.html");
 
             Assert.AreEqual(s1, s2);
 

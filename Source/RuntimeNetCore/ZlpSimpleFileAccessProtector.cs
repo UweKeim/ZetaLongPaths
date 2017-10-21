@@ -3,7 +3,6 @@
     using System;
     using System.Diagnostics;
     using System.Threading;
-
 #if NETCORE
     using RuntimeNetCore;
 
@@ -54,6 +53,7 @@
                                 Trace.TraceInformation(
                                     $@"Error '{x}' during file operation, tried {count} times, doing a garbage collect now.");
                                 GC.Collect();
+                                GC.WaitForPendingFinalizers();
                             }
 
                             Trace.TraceInformation(

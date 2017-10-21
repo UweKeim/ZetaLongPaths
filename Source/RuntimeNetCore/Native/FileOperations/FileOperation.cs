@@ -1,6 +1,7 @@
 ﻿namespace ZetaLongPaths.Native.FileOperations
 {
     using Interop;
+    using JetBrains.Annotations;
     using System;
     using System.IO;
     using System.Runtime.InteropServices;
@@ -13,6 +14,7 @@
         private readonly FileOperationProgressSink _callbackSink;
         private readonly uint _sinkCookie;
 
+        [UsedImplicitly]
         public FileOperation() : this(null)
         {
         }
@@ -24,11 +26,11 @@
         public FileOperation(FileOperationProgressSink callbackSink, IntPtr ownerHandle)
         {
             _callbackSink = callbackSink;
-            _fileOperation = (IFileOperation) Activator.CreateInstance(FileOperationType);
+            _fileOperation = (IFileOperation)Activator.CreateInstance(FileOperationType);
 
             _fileOperation.SetOperationFlags(FileOperationFlags.FOF_NOCONFIRMMKDIR);
             if (_callbackSink != null) _sinkCookie = _fileOperation.Advise(_callbackSink);
-            if (ownerHandle != IntPtr.Zero) _fileOperation.SetOwnerWindow((uint) ownerHandle);
+            if (ownerHandle != IntPtr.Zero) _fileOperation.SetOwnerWindow((uint)ownerHandle);
         }
 
         public void SetOperationFlags(FileOperationFlags operationFlags)
@@ -36,30 +38,33 @@
             _fileOperation.SetOperationFlags(operationFlags);
         }
 
+        [UsedImplicitly]
         public void CopyItem(string source, string destination, string newName)
         {
             ThrowIfDisposed();
-            using (ComReleaser<IShellItem> sourceItem = CreateShellItem(source))
-            using (ComReleaser<IShellItem> destinationItem = CreateShellItem(destination))
+            using (var sourceItem = CreateShellItem(source))
+            using (var destinationItem = CreateShellItem(destination))
             {
                 _fileOperation.CopyItem(sourceItem.Item, destinationItem.Item, newName, null);
             }
         }
 
+        [UsedImplicitly]
         public void MoveItem(string source, string destination, string newName)
         {
             ThrowIfDisposed();
-            using (ComReleaser<IShellItem> sourceItem = CreateShellItem(source))
-            using (ComReleaser<IShellItem> destinationItem = CreateShellItem(destination))
+            using (var sourceItem = CreateShellItem(source))
+            using (var destinationItem = CreateShellItem(destination))
             {
                 _fileOperation.MoveItem(sourceItem.Item, destinationItem.Item, newName, null);
             }
         }
 
+        [UsedImplicitly]
         public void RenameItem(string source, string newName)
         {
             ThrowIfDisposed();
-            using (ComReleaser<IShellItem> sourceItem = CreateShellItem(source))
+            using (var sourceItem = CreateShellItem(source))
             {
                 _fileOperation.RenameItem(sourceItem.Item, newName, null);
             }
@@ -74,6 +79,7 @@
             }
         }
 
+        [UsedImplicitly]
         public void NewItem(string folderName, string name, FileAttributes attrs)
         {
             ThrowIfDisposed();
@@ -107,7 +113,7 @@
         private static ComReleaser<IShellItem> CreateShellItem(string path)
         {
             return new ComReleaser<IShellItem>(
-                (IShellItem) SHCreateItemFromParsingName(path, null, ref _shellItemGuid));
+                (IShellItem)SHCreateItemFromParsingName(path, null, ref _shellItemGuid));
         }
 
         [DllImport("shell32.dll", SetLastError = true, CharSet = CharSet.Unicode, PreserveSig = false)]
@@ -123,7 +129,7 @@
         private static Guid _shellItemGuid = Guid.Parse(@"43826d1e-e718-42ee-bc55-a1e261c37bfe");
 #else
         private static readonly Type FileOperationType = Type.GetTypeFromCLSID(ClsidFileOperation);
-        private static Guid _shellItemGuid = typeof (IShellItem).GUID;
+        private static Guid _shellItemGuid = typeof(IShellItem).GUID;
 #endif
     }
 }

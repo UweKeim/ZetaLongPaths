@@ -6,7 +6,7 @@
 
     internal static class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             const string name = @"D:\SomeStuff\Name Space\More.Stuff\Test";
 

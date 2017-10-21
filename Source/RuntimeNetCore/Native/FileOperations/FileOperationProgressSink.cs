@@ -2,55 +2,55 @@
 
 namespace ZetaLongPaths.Native.FileOperations
 {
-    using System.Diagnostics;
     using Interop;
+    using System.Diagnostics;
 
     public sealed class FileOperationProgressSink : IFileOperationProgressSink
     {
         public void StartOperations()
         {
-            TraceAction("StartOperations", "", 0);
+            TraceAction(@"StartOperations", @"", 0);
         }
 
         public void FinishOperations(uint hrResult)
         {
-            TraceAction("FinishOperations", "", hrResult);
+            TraceAction(@"FinishOperations", @"", hrResult);
         }
 
-        public void PreRenameItem(uint dwFlags, 
+        public void PreRenameItem(uint dwFlags,
             IShellItem psiItem, string pszNewName)
         {
-            TraceAction("PreRenameItem", psiItem, 0);
+            TraceAction(@"PreRenameItem", psiItem, 0);
         }
 
-        public void PostRenameItem(uint dwFlags, 
-            IShellItem psiItem, string pszNewName, 
+        public void PostRenameItem(uint dwFlags,
+            IShellItem psiItem, string pszNewName,
             uint hrRename, IShellItem psiNewlyCreated)
         {
-            TraceAction("PostRenameItem", psiNewlyCreated, hrRename);
+            TraceAction(@"PostRenameItem", psiNewlyCreated, hrRename);
         }
 
         public void PreMoveItem(
-            uint dwFlags, IShellItem psiItem, 
+            uint dwFlags, IShellItem psiItem,
             IShellItem psiDestinationFolder, string pszNewName)
         {
-            TraceAction("PreMoveItem", psiItem, 0);
+            TraceAction(@"PreMoveItem", psiItem, 0);
         }
 
         public void PostMoveItem(
-            uint dwFlags, IShellItem psiItem, 
+            uint dwFlags, IShellItem psiItem,
             IShellItem psiDestinationFolder,
-            string pszNewName, uint hrMove, 
+            string pszNewName, uint hrMove,
             IShellItem psiNewlyCreated)
         {
-            TraceAction("PostMoveItem", psiNewlyCreated, hrMove);
+            TraceAction(@"PostMoveItem", psiNewlyCreated, hrMove);
         }
 
         public void PreCopyItem(
             uint dwFlags, IShellItem psiItem,
             IShellItem psiDestinationFolder, string pszNewName)
         {
-            TraceAction("PreCopyItem", psiItem, 0);
+            TraceAction(@"PreCopyItem", psiItem, 0);
         }
 
         public void PostCopyItem(
@@ -58,61 +58,64 @@ namespace ZetaLongPaths.Native.FileOperations
             IShellItem psiDestinationFolder, string pszNewName,
             uint hrCopy, IShellItem psiNewlyCreated)
         {
-            TraceAction("PostCopyItem", psiNewlyCreated, hrCopy);
+            TraceAction(@"PostCopyItem", psiNewlyCreated, hrCopy);
         }
 
         public void PreDeleteItem(
             uint dwFlags, IShellItem psiItem)
         {
-            TraceAction("PreDeleteItem", psiItem, 0);
+            TraceAction(@"PreDeleteItem", psiItem, 0);
         }
 
         public void PostDeleteItem(
-            uint dwFlags, IShellItem psiItem, 
+            uint dwFlags, IShellItem psiItem,
             uint hrDelete, IShellItem psiNewlyCreated)
         {
-            TraceAction("PostDeleteItem", psiItem, hrDelete);
+            TraceAction(@"PostDeleteItem", psiItem, hrDelete);
         }
 
-        public void PreNewItem(uint dwFlags, 
+        public void PreNewItem(uint dwFlags,
             IShellItem psiDestinationFolder, string pszNewName)
         {
-            TraceAction("PreNewItem", pszNewName, 0);
+            TraceAction(@"PreNewItem", pszNewName, 0);
         }
 
-        public void PostNewItem(uint dwFlags, 
+        public void PostNewItem(uint dwFlags,
             IShellItem psiDestinationFolder, string pszNewName,
-            string pszTemplateName, uint dwFileAttributes, 
+            string pszTemplateName, uint dwFileAttributes,
             uint hrNew, IShellItem psiNewItem)
         {
-            TraceAction("PostNewItem", psiNewItem, hrNew);
+            TraceAction(@"PostNewItem", psiNewItem, hrNew);
         }
 
         public void UpdateProgress(
             uint iWorkTotal, uint iWorkSoFar)
         {
-            Debug.WriteLine("UpdateProgress: " + iWorkSoFar + "/" + iWorkTotal);
+            Debug.WriteLine($@"UpdateProgress: {iWorkSoFar}/{iWorkTotal}");
         }
 
         public void ResetTimer() { }
         public void PauseTimer() { }
         public void ResumeTimer() { }
 
-        [Conditional("DEBUG")]
+        [Conditional(@"DEBUG")]
         private static void TraceAction(
             string action, string item, uint hresult)
         {
-            string message = $"{action} ({ hresult})";
-            if (!string.IsNullOrEmpty(item)) message += " : " + item;
+            var message = $@"{action} ({ hresult})";
+            // ReSharper disable once RedundantAssignment
+            if (!string.IsNullOrEmpty(item)) message += $@" : {item}";
+            // ReSharper disable once InvocationIsSkipped
             Debug.WriteLine(message);
         }
 
-        [Conditional("DEBUG")]
+        [Conditional(@"DEBUG")]
         private static void TraceAction(
             string action, IShellItem item, uint hresult)
         {
-            TraceAction(action, 
-                item?.GetDisplayName(SIGDN.SIGDN_NORMALDISPLAY), 
+            // ReSharper disable once InvocationIsSkipped
+            TraceAction(action,
+                item?.GetDisplayName(SIGDN.SIGDN_NORMALDISPLAY),
                 hresult);
         }
     }

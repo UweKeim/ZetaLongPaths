@@ -4,6 +4,7 @@
     using NUnit.Framework;
     using System;
     using System.IO;
+    using System.Linq;
     using FileAccess = Native.FileAccess;
     using FileShare = Native.FileShare;
 
@@ -171,9 +172,21 @@
 
             Assert.DoesNotThrow(() => file.MoveTo(@"C:\Ablage\test2.txt", true));
 
-            file.WriteAllText(@"Ein Test.");
-            new DirectoryInfo(@"D:\Ablage").Create();
-            Assert.DoesNotThrow(() => file.MoveTo(@"D:\Ablage\test3.txt", true));
+            if (DriveInfo.GetDrives().Any(di => di.Name.StartsWith(@"D:", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                file.WriteAllText(@"Ein Test.");
+                new DirectoryInfo(@"D:\Ablage").Create();
+                Assert.DoesNotThrow(() => file.MoveTo(@"D:\Ablage\test3.txt", true));
+            }
+        }
+
+        [Test]
+        public void TestDriveLetter()
+        {
+            Assert.IsTrue(ZlpIOHelper.DriveExists('C'));
+            Assert.IsTrue(ZlpIOHelper.DriveExists('c'));
+            Assert.IsFalse(ZlpIOHelper.DriveExists('Q'));
+            Assert.IsFalse(ZlpIOHelper.DriveExists('q'));
         }
     }
 }

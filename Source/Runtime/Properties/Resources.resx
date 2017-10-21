@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,122 +59,125 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="ErrorCopyingFile" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ErrorCopyingFile" xml:space="preserve">
     <value>Error {0} copying file '{1}' to '{2}': {3}</value>
   </data>
-  <data name="ErrorCreatingDirectory" xml:space="preserve">
+	<data name="ErrorCreatingDirectory" xml:space="preserve">
     <value>Error {0} creating directory '{1}': {2}</value>
   </data>
-  <data name="ErrorCreatingFileHandle" xml:space="preserve">
+	<data name="ErrorCreatingFileHandle" xml:space="preserve">
     <value>Error {0} creating file handle for file path '{1}': {2}</value>
   </data>
-  <data name="ErrorDeletingFile" xml:space="preserve">
+	<data name="ErrorDeletingFile" xml:space="preserve">
     <value>Error {0} deleting file '{1}': {2}</value>
   </data>
-  <data name="ErrorDeletingFolder" xml:space="preserve">
+	<data name="ErrorDeletingFolder" xml:space="preserve">
     <value>Error {0} deleting folder '{1}': {2}</value>
   </data>
-  <data name="ErrorGettingSecurityInfo" xml:space="preserve">
+	<data name="ErrorGettingSecurityInfo" xml:space="preserve">
     <value>Error {0} getting names security info while getting file owner for file '{1}': {2}</value>
   </data>
-  <data name="ErrorLookingUpSid" xml:space="preserve">
+	<data name="ErrorLookingUpSid" xml:space="preserve">
     <value>Error {0} looking up account SID while getting file owner for file '{1}': {2}</value>
   </data>
-  <data name="ErrorMarkingFileForDeletion" xml:space="preserve">
+	<data name="ErrorMarkingFileForDeletion" xml:space="preserve">
     <value>Error {0} marking file '{1}' for deletion after reboot: {2}</value>
   </data>
-  <data name="ErrorMovingFile" xml:space="preserve">
+	<data name="ErrorMovingFile" xml:space="preserve">
     <value>Error {0} moving file '{1}' to '{2}': {3}</value>
   </data>
-  <data name="ErrorMovingFolder" xml:space="preserve">
+	<data name="ErrorMovingFolder" xml:space="preserve">
     <value>Error {0} moving directory '{1}' to '{2}': {3}</value>
   </data>
-  <data name="ErrorReadFile" xml:space="preserve">
+	<data name="ErrorReadFile" xml:space="preserve">
     <value>Error {0} reading from file: {1}</value>
   </data>
-  <data name="ErrorSeek" xml:space="preserve">
+	<data name="ErrorSeek" xml:space="preserve">
     <value>Error {0} seeking in file: {1}</value>
   </data>
-  <data name="ErrorSettingAccessTime" xml:space="preserve">
+	<data name="ErrorSettingAccessTime" xml:space="preserve">
     <value>Error {0} setting file last access time '{1}': {2}</value>
   </data>
-  <data name="ErrorSettingAttributes" xml:space="preserve">
+	<data name="ErrorSettingAttributes" xml:space="preserve">
     <value>Error {0} setting file attribute of file '{1}' to '{2}': {3}</value>
   </data>
-  <data name="ErrorSettingCreationTime" xml:space="preserve">
+	<data name="ErrorSettingCreationTime" xml:space="preserve">
     <value>Error {0} setting file creation time '{1}': {2}</value>
   </data>
-  <data name="ErrorSettingsWriteTime" xml:space="preserve">
+	<data name="ErrorSettingsWriteTime" xml:space="preserve">
     <value>Error {0} setting file last write time '{1}': {2}</value>
   </data>
-  <data name="ErrorWriteFile" xml:space="preserve">
+	<data name="ErrorWriteFile" xml:space="preserve">
     <value>Error {0} writing to file: {1}</value>
   </data>
-  <data name="FileNotFound" xml:space="preserve">
+	<data name="FileNotFound" xml:space="preserve">
     <value>File '{0}' does not exist.</value>
   </data>
-  <data name="FolderNotFound" xml:space="preserve">
+	<data name="FolderNotFound" xml:space="preserve">
     <value>Folder '{0}' does not exist.</value>
   </data>
-  <data name="TriedTooOften" xml:space="preserve">
+	<data name="TriedTooOften" xml:space="preserve">
     <value>Error during file operation, tried more than {0} times.</value>
+  </data>
+  <data name="InvalidPathsCharacters" xml:space="preserve">
+    <value>Invalid paths characters.</value>
   </data>
 </root>

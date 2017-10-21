@@ -91,6 +91,6 @@ namespace ZetaLongPaths.Native.FileOperations.Interop
         //  error codes without a more specific group use FACILITY_SHELL and 0x01 in the second lowest byte.
         NETCACHE_E_NEGATIVE_CACHE = 0x80270100, // The item requested is in the negative net parsing cache
         EXECUTE_E_LAUNCH_APPLICATION = 0x80270101, // for returned by command delegates to indicate that they did no work 
-        SHELL_E_WRONG_BITDEPTH = 0x80270102, // returned when trying to create a thumbnail extractor at too low a bitdepth for high fidelity
+        SHELL_E_WRONG_BITDEPTH = 0x80270102 // returned when trying to create a thumbnail extractor at too low a bitdepth for high fidelity
     }
 }

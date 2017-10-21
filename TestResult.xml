@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="2" testcasecount="16" result="Passed" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="115" engine-version="3.7.0.0" clr-version="4.0.30319.42000" start-time="2017-10-20 09:55:28Z" end-time="2017-10-20 09:55:29Z" duration="1.076615">
+  <command-line><![CDATA["c:\P\ZetaLongPaths\Source\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" "c:\P\ZetaLongPaths\Source\UnitTests\bin\Release\ZetaLongPaths.UnitTests.dll"]]></command-line>
+  <test-suite type="Assembly" id="0-1020" name="ZetaLongPaths.UnitTests.dll" fullname="c:\P\ZetaLongPaths\Source\UnitTests\bin\Release\ZetaLongPaths.UnitTests.dll" runstate="Runnable" testcasecount="16" result="Passed" start-time="2017-10-20 09:55:28Z" end-time="2017-10-20 09:55:29Z" duration="0.211992" total="16" passed="16" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="115">
+    <environment framework-version="3.8.1.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.15063.0" platform="Win32NT" cwd="c:\P\ZetaLongPaths" machine-name="PC-UWEKEIM" user="ukeim" user-domain="OFFICE" culture="de-DE" uiculture="de-DE" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="c:\P\ZetaLongPaths" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageTargetFrameworkName" value=".NETFramework,Version=v4.0" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="NumberOfTestWorkers" value="8" />
+    </settings>
+    <properties>
+      <property name="_PID" value="38680" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <test-suite type="TestSuite" id="0-1021" name="ZetaLongPaths" fullname="ZetaLongPaths" runstate="Runnable" testcasecount="16" result="Passed" start-time="2017-10-20 09:55:28Z" end-time="2017-10-20 09:55:29Z" duration="0.191858" total="16" passed="16" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="115">
+      <test-suite type="TestSuite" id="0-1022" name="UnitTests" fullname="ZetaLongPaths.UnitTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2017-10-20 09:55:28Z" end-time="2017-10-20 09:55:29Z" duration="0.191013" total="16" passed="16" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="115">
+        <test-suite type="TestFixture" id="0-1000" name="DirectoryInfoTest" fullname="ZetaLongPaths.UnitTests.DirectoryInfoTest" classname="ZetaLongPaths.UnitTests.DirectoryInfoTest" runstate="Runnable" testcasecount="5" result="Passed" start-time="2017-10-20 09:55:28Z" end-time="2017-10-20 09:55:29Z" duration="0.089212" total="5" passed="5" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="25">
+          <test-case id="0-1004" name="TestGeneral" fullname="ZetaLongPaths.UnitTests.DirectoryInfoTest.TestGeneral" methodname="TestGeneral" classname="ZetaLongPaths.UnitTests.DirectoryInfoTest" runstate="Runnable" seed="329195792" result="Passed" start-time="2017-10-20 09:55:28Z" end-time="2017-10-20 09:55:29Z" duration="0.051071" asserts="12" />
+          <test-case id="0-1003" name="TestGetFileSystemInfos" fullname="ZetaLongPaths.UnitTests.DirectoryInfoTest.TestGetFileSystemInfos" methodname="TestGetFileSystemInfos" classname="ZetaLongPaths.UnitTests.DirectoryInfoTest" runstate="Runnable" seed="1188579496" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.010051" asserts="4" />
+          <test-case id="0-1002" name="TestKimikoMuffin" fullname="ZetaLongPaths.UnitTests.DirectoryInfoTest.TestKimikoMuffin" methodname="TestKimikoMuffin" classname="ZetaLongPaths.UnitTests.DirectoryInfoTest" runstate="Runnable" seed="1888106893" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.001050" asserts="2">
+            <output><![CDATA[Bar
+Bar
+Bar
+Bar
+]]></output>
+          </test-case>
+          <test-case id="0-1001" name="TestMove" fullname="ZetaLongPaths.UnitTests.DirectoryInfoTest.TestMove" methodname="TestMove" classname="ZetaLongPaths.UnitTests.DirectoryInfoTest" runstate="Runnable" seed="1393795387" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.011750" asserts="1" />
+          <test-case id="0-1005" name="TestToString" fullname="ZetaLongPaths.UnitTests.DirectoryInfoTest.TestToString" methodname="TestToString" classname="ZetaLongPaths.UnitTests.DirectoryInfoTest" runstate="Runnable" seed="2100987374" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.001658" asserts="6" />
+        </test-suite>
+        <test-suite type="TestFixture" id="0-1006" name="FileInfoTest" fullname="ZetaLongPaths.UnitTests.FileInfoTest" classname="ZetaLongPaths.UnitTests.FileInfoTest" runstate="Runnable" testcasecount="1" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.004559" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="6">
+          <test-case id="0-1007" name="TestToString" fullname="ZetaLongPaths.UnitTests.FileInfoTest.TestToString" methodname="TestToString" classname="ZetaLongPaths.UnitTests.FileInfoTest" runstate="Runnable" seed="1056837687" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.001232" asserts="6" />
+        </test-suite>
+        <test-suite type="TestFixture" id="0-1008" name="IOHelperTest" fullname="ZetaLongPaths.UnitTests.IOHelperTest" classname="ZetaLongPaths.UnitTests.IOHelperTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.075474" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="51">
+          <test-case id="0-1011" name="TestAttributes" fullname="ZetaLongPaths.UnitTests.IOHelperTest.TestAttributes" methodname="TestAttributes" classname="ZetaLongPaths.UnitTests.IOHelperTest" runstate="Runnable" seed="1679239048" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.022423" asserts="9" />
+          <test-case id="0-1012" name="TestCodePlex" fullname="ZetaLongPaths.UnitTests.IOHelperTest.TestCodePlex" methodname="TestCodePlex" classname="ZetaLongPaths.UnitTests.IOHelperTest" runstate="Runnable" seed="1371556706" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.003074" asserts="4" />
+          <test-case id="0-1014" name="TestDriveLetter" fullname="ZetaLongPaths.UnitTests.IOHelperTest.TestDriveLetter" methodname="TestDriveLetter" classname="ZetaLongPaths.UnitTests.IOHelperTest" runstate="Runnable" seed="1387966615" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.001292" asserts="4" />
+          <test-case id="0-1009" name="TestFolderVsFile" fullname="ZetaLongPaths.UnitTests.IOHelperTest.TestFolderVsFile" methodname="TestFolderVsFile" classname="ZetaLongPaths.UnitTests.IOHelperTest" runstate="Runnable" seed="2131228134" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.000954" asserts="9" />
+          <test-case id="0-1010" name="TestGeneral" fullname="ZetaLongPaths.UnitTests.IOHelperTest.TestGeneral" methodname="TestGeneral" classname="ZetaLongPaths.UnitTests.IOHelperTest" runstate="Runnable" seed="161626535" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.037029" asserts="23" />
+          <test-case id="0-1013" name="TestGitHub" fullname="ZetaLongPaths.UnitTests.IOHelperTest.TestGitHub" methodname="TestGitHub" classname="ZetaLongPaths.UnitTests.IOHelperTest" runstate="Runnable" seed="314390845" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.008068" asserts="2" />
+        </test-suite>
+        <test-suite type="TestFixture" id="0-1015" name="PathHelperTest" fullname="ZetaLongPaths.UnitTests.PathHelperTest" classname="ZetaLongPaths.UnitTests.PathHelperTest" runstate="Runnable" testcasecount="4" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.011374" total="4" passed="4" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="33">
+          <test-case id="0-1018" name="TestCompareWithFrameworkFunctions" fullname="ZetaLongPaths.UnitTests.PathHelperTest.TestCompareWithFrameworkFunctions" methodname="TestCompareWithFrameworkFunctions" classname="ZetaLongPaths.UnitTests.PathHelperTest" runstate="Runnable" seed="1985980094" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.002143" asserts="18" />
+          <test-case id="0-1019" name="TestEvenMoreFunctions" fullname="ZetaLongPaths.UnitTests.PathHelperTest.TestEvenMoreFunctions" methodname="TestEvenMoreFunctions" classname="ZetaLongPaths.UnitTests.PathHelperTest" runstate="Runnable" seed="1521873841" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.000674" asserts="3" />
+          <test-case id="0-1016" name="TestGeneral1" fullname="ZetaLongPaths.UnitTests.PathHelperTest.TestGeneral1" methodname="TestGeneral1" classname="ZetaLongPaths.UnitTests.PathHelperTest" runstate="Runnable" seed="717464210" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.001179" asserts="0" />
+          <test-case id="0-1017" name="TestGeneral2" fullname="ZetaLongPaths.UnitTests.PathHelperTest.TestGeneral2" methodname="TestGeneral2" classname="ZetaLongPaths.UnitTests.PathHelperTest" runstate="Runnable" seed="1896553246" result="Passed" start-time="2017-10-20 09:55:29Z" end-time="2017-10-20 09:55:29Z" duration="0.005902" asserts="12" />
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

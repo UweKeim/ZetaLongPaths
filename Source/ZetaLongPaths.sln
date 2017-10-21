@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime", "Runtime\Runtime.csproj", "{9944F644-9216-4FEF-B46A-0E58A9FFB473}"
 EndProject
@@ -9,13 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{50ADE462-0A01-498A-8B70-FCED2B8D4906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole2", "TestConsole2\TestConsole2.csproj", "{18583C74-DC75-42FE-900C-080EFE295DFB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime20", "Runtime20\Runtime20.csproj", "{1BEB776E-FEBE-4B29-AEA1-B34017697D55}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-4", "dotnet-4", "{8D804F26-C5D2-4F94-A600-2500BBA781EE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-2", "dotnet-2", "{E145977E-64E6-45A3-93C2-2ED48AD105D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-core", "dotnet-core", "{65A02E8A-B70B-4728-A92F-49BB83907F4F}"
 EndProject
@@ -42,16 +36,6 @@ Global
 		{50ADE462-0A01-498A-8B70-FCED2B8D4906}.Release|Mixed Platforms.Build.0 = Release|x86
 		{50ADE462-0A01-498A-8B70-FCED2B8D4906}.Release|x86.ActiveCfg = Release|x86
 		{50ADE462-0A01-498A-8B70-FCED2B8D4906}.Release|x86.Build.0 = Release|x86
-		{18583C74-DC75-42FE-900C-080EFE295DFB}.Release|Any CPU.ActiveCfg = Release|x86
-		{18583C74-DC75-42FE-900C-080EFE295DFB}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{18583C74-DC75-42FE-900C-080EFE295DFB}.Release|Mixed Platforms.Build.0 = Release|x86
-		{18583C74-DC75-42FE-900C-080EFE295DFB}.Release|x86.ActiveCfg = Release|x86
-		{18583C74-DC75-42FE-900C-080EFE295DFB}.Release|x86.Build.0 = Release|x86
-		{1BEB776E-FEBE-4B29-AEA1-B34017697D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BEB776E-FEBE-4B29-AEA1-B34017697D55}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BEB776E-FEBE-4B29-AEA1-B34017697D55}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1BEB776E-FEBE-4B29-AEA1-B34017697D55}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1BEB776E-FEBE-4B29-AEA1-B34017697D55}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,7 +44,5 @@ Global
 		{9944F644-9216-4FEF-B46A-0E58A9FFB473} = {8D804F26-C5D2-4F94-A600-2500BBA781EE}
 		{51F7509C-6123-42FB-935E-1FFF3954F5A9} = {8D804F26-C5D2-4F94-A600-2500BBA781EE}
 		{50ADE462-0A01-498A-8B70-FCED2B8D4906} = {8D804F26-C5D2-4F94-A600-2500BBA781EE}
-		{18583C74-DC75-42FE-900C-080EFE295DFB} = {E145977E-64E6-45A3-93C2-2ED48AD105D7}
-		{1BEB776E-FEBE-4B29-AEA1-B34017697D55} = {E145977E-64E6-45A3-93C2-2ED48AD105D7}
 	EndGlobalSection
 EndGlobal

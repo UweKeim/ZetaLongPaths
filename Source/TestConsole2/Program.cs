@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TestConsole2
+﻿namespace TestConsole2
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			Console.WriteLine("Hello world.");
-			Console.ReadLine();
-		}
-	}
+    using System;
+
+    internal static class Program
+    {
+        private static void Main()
+        {
+            Console.WriteLine("Hello world.");
+            Console.ReadLine();
+        }
+    }
 }

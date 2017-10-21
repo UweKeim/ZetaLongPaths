@@ -33,6 +33,6 @@
         FOFX_NOMINIMIZEBOX = 0x01000000,  // Don't allow minimizing the progress dialog
         FOFX_MOVEACLSACROSSVOLUMES = 0x02000000,  // Copy security information when performing a cross-volume move operation
         FOFX_DONTDISPLAYSOURCEPATH = 0x04000000,  // Don't display the path of source file in progress dialog
-        FOFX_DONTDISPLAYDESTPATH = 0x08000000,  // Don't display the path of destination file in progress dialog
+        FOFX_DONTDISPLAYDESTPATH = 0x08000000  // Don't display the path of destination file in progress dialog
     }
 }
