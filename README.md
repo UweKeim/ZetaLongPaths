@@ -10,7 +10,7 @@ This article describes a library that provides several classes and functions to 
 
 ## Quick usage
 
-- **[NuGet .NET 2.0 and 4.0 package](https://www.nuget.org/packages/ZetaLongPaths)**
+- **[NuGet .NET 4.0 package](https://www.nuget.org/packages/ZetaLongPaths)**
 - **[NuGet .NET Core / .NET Standard package](https://www.nuget.org/packages/ZetaLongPaths.NetStandard)**
 
 ## Background
