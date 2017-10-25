@@ -1,27 +1,55 @@
 ﻿namespace ZetaLongPaths
 {
+    using JetBrains.Annotations;
+    using System;
+    using System.ComponentModel;
+
     public class ZlpSimpleFileAccessProtectorInformation
     {
-        // ReSharper disable once MemberCanBePrivate.Global
-        public const int DefaultRetryCount = 3;
+        [UsedImplicitly] public const int DefaultRetryCount = 3;
 
-        // ReSharper disable once MemberCanBePrivate.Global
-        public const int DefaultSleepDelaySeconds = 2;
+        [UsedImplicitly] public const int DefaultSleepDelaySeconds = 2;
 
-        // ReSharper disable once UnusedMember.Global
-        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
+        [UsedImplicitly]
         public bool Use { get; set; } = true;
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        [UsedImplicitly]
         public string Info { get; set; }
 
-        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
+        [UsedImplicitly]
         public int RetryCount { get; set; } = DefaultRetryCount;
 
-        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
+        [UsedImplicitly]
         public int SleepDelaySeconds { get; set; } = DefaultSleepDelaySeconds;
 
-        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
+        [UsedImplicitly]
         public bool DoGarbageCollectBeforeSleep { get; set; } = true;
+
+        [UsedImplicitly]
+        public HandleExceptionDelegate HandleException { get; set; }
+    }
+
+    public delegate void HandleExceptionDelegate(HandleExceptionInfo hei);
+
+    public class HandleExceptionInfo
+    {
+        [UsedImplicitly]
+        public Exception Exception { get; }
+
+        [UsedImplicitly]
+        public int CurrentRetryCount { get; }
+
+        public HandleExceptionInfo(Exception exception, int currentRetryCount)
+        {
+            Exception = exception;
+            CurrentRetryCount = currentRetryCount;
+        }
+
+        /// <summary>
+        /// Return value. Set optionally to TRUE to force premature throwing.
+        /// </summary>
+        [DefaultValue(false)]
+        [UsedImplicitly]
+        public bool WantThrow { get; set; }
     }
 }
