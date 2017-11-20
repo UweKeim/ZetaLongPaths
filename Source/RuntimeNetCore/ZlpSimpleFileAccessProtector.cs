@@ -46,7 +46,10 @@
                         if (count++ > info.RetryCount)
                         {
                             throw new ZlpSimpleFileAccessProtectorException(
-                                string.Format(Resources.TriedTooOften, info.RetryCount), x);
+                                string.Format(
+                                    info.RetryCount == 1
+                                        ? Resources.TriedTooOftenSingular
+                                        : Resources.TriedTooOftenPlural, info.RetryCount), x);
                         }
                         else
                         {
@@ -56,7 +59,10 @@
                             if (p.WantThrow)
                             {
                                 throw new ZlpSimpleFileAccessProtectorException(
-                                    string.Format(Resources.TriedTooOften, info.RetryCount), x);
+                                    string.Format(
+                                        info.RetryCount == 1
+                                            ? Resources.TriedTooOftenSingular
+                                            : Resources.TriedTooOftenPlural, info.RetryCount), x);
                             }
 
                             if (info.DoGarbageCollectBeforeSleep)
@@ -110,7 +116,10 @@
                         if (count++ > info.RetryCount)
                         {
                             throw new ZlpSimpleFileAccessProtectorException(
-                                string.Format(Resources.TriedTooOften, info.RetryCount), x);
+                                string.Format(
+                                    info.RetryCount == 1
+                                        ? Resources.TriedTooOftenSingular
+                                        : Resources.TriedTooOftenPlural, info.RetryCount), x);
                         }
                         else
                         {
@@ -120,7 +129,10 @@
                             if (p.WantThrow)
                             {
                                 throw new ZlpSimpleFileAccessProtectorException(
-                                    string.Format(Resources.TriedTooOften, info.RetryCount), x);
+                                    string.Format(
+                                        info.RetryCount == 1
+                                            ? Resources.TriedTooOftenSingular
+                                            : Resources.TriedTooOftenPlural, info.RetryCount), x);
                             }
 
                             if (info.DoGarbageCollectBeforeSleep)

@@ -49,6 +49,46 @@
         }
 
         [UsedImplicitly]
+        public static string MakeAbsoluteTo(
+            this ZlpDirectoryInfo pathToMakeAbsolute,
+            ZlpDirectoryInfo basePathToWhichToMakeAbsoluteTo)
+        {
+            return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute.FullName, basePathToWhichToMakeAbsoluteTo.FullName);
+        }
+
+        [UsedImplicitly]
+        public static string MakeAbsoluteTo(
+            this string pathToMakeAbsolute,
+            ZlpDirectoryInfo basePathToWhichToMakeAbsoluteTo)
+        {
+            return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute, basePathToWhichToMakeAbsoluteTo.FullName);
+        }
+
+        [UsedImplicitly]
+        public static string MakeAbsoluteTo(
+            this ZlpDirectoryInfo pathToMakeAbsolute,
+            string basePathToWhichToMakeAbsoluteTo)
+        {
+            return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute.FullName, basePathToWhichToMakeAbsoluteTo);
+        }
+
+        [UsedImplicitly]
+        public static string MakeAbsoluteTo(
+            this ZlpFileInfo pathToMakeAbsolute,
+            ZlpDirectoryInfo basePathToWhichToMakeAbsoluteTo)
+        {
+            return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute.FullName, basePathToWhichToMakeAbsoluteTo.FullName);
+        }
+
+        [UsedImplicitly]
+        public static string MakeAbsoluteTo(
+            this ZlpFileInfo pathToMakeAbsolute,
+            string basePathToWhichToMakeAbsoluteTo)
+        {
+            return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute.FullName, basePathToWhichToMakeAbsoluteTo);
+        }
+
+        [UsedImplicitly]
         public static ZlpDirectoryInfo CombineDirectory(this ZlpDirectoryInfo one, ZlpDirectoryInfo two)
         {
             if (one == null) return two;

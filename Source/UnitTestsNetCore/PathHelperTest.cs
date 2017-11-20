@@ -122,6 +122,10 @@
 
             Assert.AreEqual(s3, s4);
 
+            var s5 = s1.MakeAbsoluteTo(new ZlpDirectoryInfo(s2));
+
+            Assert.AreEqual(s3, s5);
+
             // --
 
             s1 = @"c:\folder1\folder2\folder4\";

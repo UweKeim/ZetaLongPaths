@@ -132,8 +132,11 @@
   <data name="FolderNotFound" xml:space="preserve">
     <value>Ordner '{0}' ist nicht vorhanden.</value>
   </data>
-  <data name="TriedTooOften" xml:space="preserve">
-    <value>Fehler bei Dateioperation, mehr als {0} Mal probiert.</value>
+  <data name="TriedTooOftenSingular" xml:space="preserve">
+    <value>Fehler bei Operation, mehr als {0} Mal probiert.</value>
+  </data>
+  <data name="TriedTooOftenPlural" xml:space="preserve">
+    <value>Fehler bei Operation, mehr als {0} Mal probiert.</value>
   </data>
   <data name="ErrorCopyingFile" xml:space="preserve">
     <value>Fehler {0} beim Kopieren von Datei '{1}' nach '{2}': {3}</value>
