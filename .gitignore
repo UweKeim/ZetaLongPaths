@@ -5,6 +5,9 @@
 .svn/
 Deploy/
 
+TestResult.xml
+ZetaLongPaths.zreproj
+
 NuGet.exe
 build-all.cmd
 build-all-unoptimized.cmd
