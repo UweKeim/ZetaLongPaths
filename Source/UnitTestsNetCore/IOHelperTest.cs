@@ -178,6 +178,8 @@
                 new DirectoryInfo(@"D:\Ablage").Create();
                 Assert.DoesNotThrow(() => file.MoveTo(@"D:\Ablage\test3.txt", true));
             }
+
+			new ZlpFileInfo(@"C:\Ablage\test2.txt").Delete();
         }
 
         [Test]
