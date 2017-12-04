@@ -206,7 +206,8 @@
             string filePath,
             CreationDisposition creationDisposition,
             FileAccess fileAccess,
-            FileShare fileShare)
+            FileShare fileShare,
+            bool useAsync = false)
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
@@ -221,7 +222,7 @@
                     // Fix by Richard, 2015-04-14.
                     // See https://msdn.microsoft.com/en-us/library/aa363858(VS.85).aspx#DIRECTORIES,
                     // See http://stackoverflow.com/q/4998814/107625
-                    FileAttributes.BackupSemantics,
+                    FileAttributes.BackupSemantics | (useAsync ? FileAttributes.Overlapped : 0),
                     IntPtr.Zero);
 
             // Check for errors.
