@@ -8,6 +8,7 @@
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Security;
+    using System.Security.Cryptography;
     using System.Text;
     using JetBrains.Annotations;
     using Microsoft.Win32.SafeHandles;
@@ -95,6 +96,30 @@
             return GetFiles(path).Length <= 0 && GetDirectories(path).Length <= 0;
         }
 
+        /// <summary>
+        /// Returns the same MD5 hash as the PHP function call http://php.net/manual/de/function.hash-file.php 
+        /// with 'md5' as the first parameter.
+        /// </summary>
+        public static string CalculateMD5Hash(
+            string path)
+        {
+            // https://stackoverflow.com/a/10520086/107625
+
+            using (var fs =
+                new FileStream(
+                    CreateFileHandle(
+                        path,
+                        CreationDisposition.OpenExisting,
+                        FileAccess.GenericRead,
+                        FileShare.Read),
+                    System.IO.FileAccess.Read))
+            using (var md5 = MD5.Create())
+            {
+                var hash = md5.ComputeHash(fs);
+                return BitConverter.ToString(hash).Replace(@"-", string.Empty).ToLowerInvariant();
+            }
+        }
+
         public static string ReadAllText(
             string path,
             Encoding encoding)
@@ -135,6 +160,14 @@
             }
 
             return lines.ToArray();
+        }
+
+        public static void WriteAllLines(
+            string path,
+            string[] lines,
+            Encoding encoding = null)
+        {
+            WriteAllText(path, string.Join(Environment.NewLine, lines), encoding);
         }
 
         public static void WriteAllText(
@@ -337,8 +370,7 @@
             long distance,
             FileSeekOrigin origin)
         {
-            long result;
-            var flag = PInvokeHelper.Seek(handle, distance, out result, origin);
+            var flag = PInvokeHelper.Seek(handle, distance, out var result, origin);
 
             var lastWin32Error = Marshal.GetLastWin32Error();
             if (!flag)
@@ -528,21 +560,18 @@
             string filePath)
         {
             filePath = CheckAddLongPathPrefix(filePath);
-
-            IntPtr pZero;
-            IntPtr pSid;
-            IntPtr psd; // Not used here
+            // Not used here
 
             var errorReturn =
                 PInvokeHelper.GetNamedSecurityInfo(
                     filePath,
                     PInvokeHelper.SeFileObject,
                     PInvokeHelper.OwnerSecurityInformation,
-                    out pSid,
-                    out pZero,
-                    out pZero,
-                    out pZero,
-                    out psd);
+                    out var pSid,
+                    out IntPtr _,
+                    out _,
+                    out _,
+                    out IntPtr _);
 
             if (errorReturn == 0)
             {
@@ -550,7 +579,6 @@
                 var buffer = new StringBuilder();
                 var accounLength = bufferSize;
                 var domainLength = bufferSize;
-                int sidNameUse;
                 var account = new StringBuilder(bufferSize);
                 var domain = new StringBuilder(bufferSize);
 
@@ -562,7 +590,7 @@
                         ref accounLength,
                         domain,
                         ref domainLength,
-                        out sidNameUse);
+                        out int _);
 
                 if (errorReturn == 0)
                 {
@@ -772,10 +800,7 @@
                 throw new ArgumentNullException(nameof(directoryPath));
             }
 
-            string basePart;
-            string[] childParts;
-
-            splitFolderPath(directoryPath, out basePart, out childParts);
+            splitFolderPath(directoryPath, out string basePart, out string[] childParts);
 
             var path = basePart;
 
@@ -1022,8 +1047,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            PInvokeHelper.WIN32_FIND_DATA fd;
-            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out fd);
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out PInvokeHelper.WIN32_FIND_DATA fd);
 
             if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1055,8 +1079,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            PInvokeHelper.WIN32_FIND_DATA fd;
-            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out fd);
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out PInvokeHelper.WIN32_FIND_DATA fd);
 
             if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1088,8 +1111,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            PInvokeHelper.WIN32_FIND_DATA fd;
-            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out fd);
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out PInvokeHelper.WIN32_FIND_DATA fd);
 
             if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1368,8 +1390,7 @@
 
             filePath = CheckAddLongPathPrefix(filePath);
 
-            PInvokeHelper.WIN32_FIND_DATA fd;
-            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out fd);
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out PInvokeHelper.WIN32_FIND_DATA fd);
 
             if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1578,8 +1599,7 @@
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<IZlpFileSystemInfo>();
-            PInvokeHelper.WIN32_FIND_DATA findData;
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out findData);
+            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out PInvokeHelper.WIN32_FIND_DATA findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1630,8 +1650,7 @@
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<ZlpDirectoryInfo>();
-            PInvokeHelper.WIN32_FIND_DATA findData;
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out findData);
+            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out PInvokeHelper.WIN32_FIND_DATA findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {

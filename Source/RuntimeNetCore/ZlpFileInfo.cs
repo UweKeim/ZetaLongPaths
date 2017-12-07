@@ -227,8 +227,13 @@
         [UsedImplicitly]
         public string[] ReadAllLines(Encoding encoding) => ZlpIOHelper.ReadAllLines(FullName, encoding);
 
+        [UsedImplicitly]
         public void WriteAllText(string text, Encoding encoding = null)
             => ZlpIOHelper.WriteAllText(FullName, text, encoding);
+
+        [UsedImplicitly]
+        public void WriteAllLines(string[] lines, Encoding encoding = null)
+            => ZlpIOHelper.WriteAllLines(FullName, lines, encoding);
 
         [UsedImplicitly]
         public void AppendText(string text, Encoding encoding = null)
@@ -258,6 +263,12 @@
         public string FullName { get; }
 
         public string Name => ZlpPathHelper.GetFileNameFromFilePath(FullName);
+
+        /// <summary>
+        /// Returns the same MD5 hash as the PHP function call http://php.net/manual/de/function.hash-file.php 
+        /// with 'md5' as the first parameter.
+        /// </summary>
+        public string MD5Hash => ZlpIOHelper.CalculateMD5Hash(FullName);
 
         [UsedImplicitly]
         public string NameWithoutExtension => ZlpPathHelper.GetFileNameWithoutExtension(Name);

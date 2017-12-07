@@ -148,6 +148,29 @@
         }
 
         [Test]
+        public void TestMD5()
+        {
+            var tempRootFolder = ZlpDirectoryInfo.GetTemp();
+            Assert.True(tempRootFolder.Exists);
+
+            var tempFolderPath = tempRootFolder.CombineDirectory(Guid.NewGuid().ToString(@"N"));
+            tempFolderPath.CheckCreate();
+
+            try
+            {
+                var file = tempFolderPath.CombineFile(@"one.txt");
+                file.WriteAllText(@"Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.");
+
+                var hash = file.MD5Hash;
+                Assert.AreEqual(hash, @"ba4b9da310763a91f8edc7c185a1e4bf");
+            }
+            finally
+            {
+                tempFolderPath.Delete(true);
+            }
+        }
+
+        [Test]
         public void TestCodePlex()
         {
             // http://zetalongpaths.codeplex.com/discussions/396147
@@ -172,14 +195,17 @@
 
             Assert.DoesNotThrow(() => file.MoveTo(@"C:\Ablage\test2.txt", true));
 
-            if (DriveInfo.GetDrives().Any(di => di.Name.StartsWith(@"D:", StringComparison.InvariantCultureIgnoreCase)))
+            if (DriveInfo.GetDrives().Any(
+                di =>
+                    di.DriveType == DriveType.Fixed &&
+                    di.Name.StartsWith(@"D:", StringComparison.InvariantCultureIgnoreCase)))
             {
                 file.WriteAllText(@"Ein Test.");
                 new DirectoryInfo(@"D:\Ablage").Create();
                 Assert.DoesNotThrow(() => file.MoveTo(@"D:\Ablage\test3.txt", true));
             }
 
-			new ZlpFileInfo(@"C:\Ablage\test2.txt").Delete();
+            new ZlpFileInfo(@"C:\Ablage\test2.txt").Delete();
         }
 
         [Test]
