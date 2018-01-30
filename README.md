@@ -6,7 +6,7 @@ A .NET library to access files and directories with more than 260 characters len
 
 ## Introduction
 
-This article describes a library that provides several classes and functions to perform basic operations on file paths and folder paths that are longer than the `MAX_PATH` limit of 260 characters.
+This is a library that provides several classes and functions to perform basic operations on file paths and folder paths that are longer than the `MAX_PATH` limit of 260 characters.
 
 ## Quick usage
 
