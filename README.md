@@ -31,7 +31,7 @@ These resources helped me finding more:
 
 I started by using several functions from the BCL Team blog postings and added the functions they did not cover but which I needed in my project.
 
-Currently there are the following classes:
+Among others, there are the following classes:
 
   * `ZlpFileInfo` - A class similar to [System.IO.FileInfo](http://msdn.microsoft.com/en-us/library/system.io.fileinfo.aspx) that wraps functions to work on file paths.
   * `ZlpDirectoryInfo` - A class similar to [System.IO.DirectoryInfo](http://msdn.microsoft.com/en-us/library/system.io.directoryinfo.aspx) that wraps functions to work on folder paths.
@@ -67,9 +67,7 @@ Personally, I've used none of these libraries. When I started developing this li
 
 According to user comments, the _Long Path_ library is rather restricted in terms of functionality; the _Delimon_ library is apparently much more powerful than my library.
 
-## Summary
-
-This article quickly introduced a library to deal with long file names when accessing files and folders.
+## Conclusion
 
 Please note that the library currently is limited in the number of provided functions. I will add more functions in the future, just tell me which you require.
 
