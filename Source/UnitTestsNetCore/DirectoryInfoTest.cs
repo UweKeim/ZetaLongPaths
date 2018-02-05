@@ -29,7 +29,7 @@
         }
 
         [Test]
-        public void TestKimikoMuffin()
+        public void TestFolders()
         {
             var dirInfo1 = new ZlpDirectoryInfo(@"C:\Foo\Bar");
             Console.WriteLine(dirInfo1.Name); //"Bar"

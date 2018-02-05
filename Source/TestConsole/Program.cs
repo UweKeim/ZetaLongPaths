@@ -16,7 +16,7 @@
             var dirInfo6 = new DirectoryInfo(name);
             Console.WriteLine($@"'{dirInfo6.Name}'.");
 
-            if (dirInfo5.Name != dirInfo6.Name) throw new Exception(@"5-6");
+            if (dirInfo5.Name != dirInfo6.Name) throw new ZlpException(@"5-6");
 
             // --
 
@@ -30,8 +30,8 @@
             var dirInfo4 = new DirectoryInfo(@"C:\Foo\Bar\");
             Console.WriteLine(dirInfo2.Name);
 
-            if (dirInfo1.Name != dirInfo3.Name) throw new Exception(@"1-3");
-            if (dirInfo2.Name != dirInfo4.Name) throw new Exception(@"2-4");
+            if (dirInfo1.Name != dirInfo3.Name) throw new ZlpException(@"1-3");
+            if (dirInfo2.Name != dirInfo4.Name) throw new ZlpException(@"2-4");
 
             // --
 

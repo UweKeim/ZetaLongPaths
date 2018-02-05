@@ -380,7 +380,7 @@
 
             if (!file.Exists)
             {
-                throw new Exception(string.Format(Resources.FileNotFound, file));
+                throw new ZlpException(string.Format(Resources.FileNotFound, file));
             }
 
             return file;
@@ -393,7 +393,7 @@
 
             if (!folder.Exists)
             {
-                throw new Exception(string.Format(Resources.FolderNotFound, folder));
+                throw new ZlpException(string.Format(Resources.FolderNotFound, folder));
             }
 
             return folder;
