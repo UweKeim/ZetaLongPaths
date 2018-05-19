@@ -46,7 +46,7 @@ If you are familiar with the [System.IO](http://msdn.microsoft.com/en-us/library
 
 For example to get all files in a given folder path, use the following snippet:
 
-    var folderPath = new ZetaDirectoryInfo( @"C:\My\Long\Folder\Path" );
+    var folderPath = new ZlpDirectoryInfo( @"C:\My\Long\Folder\Path" );
 	 
     foreach ( var filePath in folderPath.GetFiles() )
     {
