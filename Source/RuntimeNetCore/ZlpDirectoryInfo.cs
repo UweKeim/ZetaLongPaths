@@ -94,6 +94,12 @@
             return new ZlpDirectoryInfo(FullName);
         }
 
+        [UsedImplicitly]
+        public ZlpDirectoryInfo GetFullPath()
+        {
+            return new ZlpDirectoryInfo(ZlpPathHelper.GetFullPath(FullName));
+        }
+
         public bool Exists => ZlpIOHelper.DirectoryExists(FullName);
 
         [UsedImplicitly]

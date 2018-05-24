@@ -78,6 +78,12 @@
         }
 
         [UsedImplicitly]
+        public ZlpFileInfo GetFullPath()
+        {
+            return new ZlpFileInfo(ZlpPathHelper.GetFullPath(FullName));
+        }
+
+        [UsedImplicitly]
         public bool IsReadOnly
         {
             get => (Attributes & FileAttributes.Readonly) != 0;
