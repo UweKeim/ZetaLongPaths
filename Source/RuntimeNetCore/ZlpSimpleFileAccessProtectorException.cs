@@ -20,5 +20,10 @@
         public ZlpSimpleFileAccessProtectorException(string message, Exception inner) : base(message, inner)
         {
         }
+
+        //public override string Message =>
+        //    string.IsNullOrEmpty(InnerException?.Message)
+        //        ? base.Message
+        //        : $@"{InnerException.Message} ({base.Message})";
     }
 }
