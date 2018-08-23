@@ -1405,112 +1405,114 @@
                 }
                 else
                 {
-                    var sfh = new SafeFileHandle(result, false);
-                    if (sfh.IsInvalid)
+                    using (var sfh = new SafeFileHandle(result, false))
                     {
-                        var num = Marshal.GetLastWin32Error();
-                        if (num == 2 || num == 3 || num == 21)
-                        // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
+                        if (sfh.IsInvalid)
                         {
-                            return 0;
+                            var num = Marshal.GetLastWin32Error();
+                            if (num == 2 || num == 3 || num == 21)
+                            // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
+                            {
+                                return 0;
+                            }
+                            else
+                            {
+                                return 0;
+                            }
+                        }
+
+                        // http://zetalongpaths.codeplex.com/discussions/580478#post1351470
+                        // https://mcdrummerman.wordpress.com/2010/07/13/win32_find_data-and-negative-file-sizes/
+
+                        //store nFileSizeLow
+                        var fDataFSize = (long)fd.nFileSizeLow;
+
+                        //store individual file size for later accounting usage
+                        long fileSize;
+
+                        if (fDataFSize < 0 && (long)fd.nFileSizeHigh > 0)
+                        {
+                            fileSize = fDataFSize + 0x100000000 + fd.nFileSizeHigh * 0x100000000;
                         }
                         else
                         {
-                            return 0;
+                            if ((long)fd.nFileSizeHigh > 0)
+                            {
+                                fileSize = fDataFSize + fd.nFileSizeHigh * 0x100000000;
+                            }
+                            else if (fDataFSize < 0)
+                            {
+                                fileSize = fDataFSize + 0x100000000;
+                            }
+                            else
+                            {
+                                fileSize = fDataFSize;
+                            }
                         }
-                    }
 
-                    // http://zetalongpaths.codeplex.com/discussions/580478#post1351470
-                    // https://mcdrummerman.wordpress.com/2010/07/13/win32_find_data-and-negative-file-sizes/
-
-                    //store nFileSizeLow
-                    var fDataFSize = (long)fd.nFileSizeLow;
-
-                    //store individual file size for later accounting usage
-                    long fileSize;
-
-                    if (fDataFSize < 0 && (long)fd.nFileSizeHigh > 0)
-                    {
-                        fileSize = fDataFSize + 0x100000000 + fd.nFileSizeHigh * 0x100000000;
-                    }
-                    else
-                    {
-                        if ((long)fd.nFileSizeHigh > 0)
-                        {
-                            fileSize = fDataFSize + fd.nFileSizeHigh * 0x100000000;
-                        }
-                        else if (fDataFSize < 0)
-                        {
-                            fileSize = fDataFSize + 0x100000000;
-                        }
-                        else
-                        {
-                            fileSize = fDataFSize;
-                        }
-                    }
-
-                    return fileSize;
+                        return fileSize;
 
 
 
 
-                    /*
-                    var low = fd.nFileSizeLow;
-                    var high = fd.nFileSizeHigh;
+                        /*
+                        var low = fd.nFileSizeLow;
+                        var high = fd.nFileSizeHigh;
+    
+                        //return (high * (0xffffffff + 1)) + low;
+                        //return (((ulong)high) << 32) + low;
+                        var l = ((high << 0x20) | (low & 0xffffffffL));
+                            // Copied from FileInfo.Length via Reflector.NET.
+                        return (ulong) l;*/
 
-                    //return (high * (0xffffffff + 1)) + low;
-                    //return (((ulong)high) << 32) + low;
-                    var l = ((high << 0x20) | (low & 0xffffffffL));
-                        // Copied from FileInfo.Length via Reflector.NET.
-                    return (ulong) l;*/
+                        var low = fd.nFileSizeLow;
+                        var high = fd.nFileSizeHigh;
 
-                    var low = fd.nFileSizeLow;
-                    var high = fd.nFileSizeHigh;
-
-                    Trace.TraceInformation(@"FindFirstFile returned LOW = {0}, HIGH = {1}.", low, high);
-                    Trace.Flush();
-
-                    try
-                    {
-                        return (long)high << 32 | (low & 0xffffffffL);
-
-                        //try
-                        //{
-                        //var sign = ((long) high << 32 | (low & 0xffffffffL));
-
-                        //try
-                        //{
-                        //return sign <= 0 ? 0 : unchecked((ulong) sign);
-                        //}
-                        //    catch (OverflowException x)
-                        //    {
-                        //        var y = new OverflowException(@"Error getting file length (cast).", x);
-
-                        //        y.Data[@"low"] = low;
-                        //        y.Data[@"high"] = high;
-                        //        y.Data[@"signed value"] = sign;
-
-                        //        throw y;
-                        //    }
-                        //}
-                        //catch (OverflowException x)
-                        //{
-                        //    var y = new OverflowException(@"Error getting file length (sign).", x);
-
-                        //    y.Data[@"low"] = low;
-                        //    y.Data[@"high"] = high;
-
-                        //    throw y;
-                        //}
-                    }
-                    catch (OverflowException x)
-                    {
-                        Trace.TraceInformation(
-                            @"Got overflow exception ('{3}') for path '{0}'. LOW = {1}, HIGH = {2}.", filePath, low,
-                            high, x.Message);
+                        Trace.TraceInformation(@"FindFirstFile returned LOW = {0}, HIGH = {1}.", low, high);
                         Trace.Flush();
 
-                        throw;
+                        try
+                        {
+                            return (long)high << 32 | (low & 0xffffffffL);
+
+                            //try
+                            //{
+                            //var sign = ((long) high << 32 | (low & 0xffffffffL));
+
+                            //try
+                            //{
+                            //return sign <= 0 ? 0 : unchecked((ulong) sign);
+                            //}
+                            //    catch (OverflowException x)
+                            //    {
+                            //        var y = new OverflowException(@"Error getting file length (cast).", x);
+
+                            //        y.Data[@"low"] = low;
+                            //        y.Data[@"high"] = high;
+                            //        y.Data[@"signed value"] = sign;
+
+                            //        throw y;
+                            //    }
+                            //}
+                            //catch (OverflowException x)
+                            //{
+                            //    var y = new OverflowException(@"Error getting file length (sign).", x);
+
+                            //    y.Data[@"low"] = low;
+                            //    y.Data[@"high"] = high;
+
+                            //    throw y;
+                            //}
+                        }
+                        catch (OverflowException x)
+                        {
+                            Trace.TraceInformation(
+                                @"Got overflow exception ('{3}') for path '{0}'. LOW = {1}, HIGH = {2}.", filePath, low,
+                                high, x.Message);
+                            Trace.Flush();
+
+                            throw;
+                        }
                     }
                 }
             }

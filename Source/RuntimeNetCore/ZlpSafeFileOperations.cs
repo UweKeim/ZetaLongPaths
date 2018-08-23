@@ -63,7 +63,8 @@
                     {
                         ZlpIOHelper.MoveFile(
                             filePath,
-                            newFilePath);
+                            newFilePath,
+							true );
                     }
                     catch (Win32Exception x2)
                     {
@@ -83,7 +84,8 @@
                     {
                         ZlpIOHelper.MoveFile(
                             filePath,
-                            newFilePath);
+                            newFilePath,
+							true);
                     }
                     catch (Win32Exception x2)
                     {
@@ -236,7 +238,7 @@
                         ZlpIOHelper.CreateDirectory(d);
                     }
 
-                    ZlpIOHelper.MoveFile(sourcePath, dstFilePath);
+                    ZlpIOHelper.MoveFile(sourcePath, dstFilePath, true);
                 }
                 else
                 {
