@@ -62,6 +62,20 @@
             return null;
         }
 
+        public static string ChangeFileNameWithoutExtension(string path, string fileNameWithoutExtension)
+        {
+            var dir = GetDirectoryPathNameFromFilePath(path);
+            var ext = GetExtension(path);
+
+            return Combine(dir, fileNameWithoutExtension + ext);
+        }
+
+        public static string ChangeFileName(string path, string fileName)
+        {
+            var dir = GetDirectoryPathNameFromFilePath(path);
+            return Combine(dir, fileName);
+        }
+
         public static string GetFileNameFromFilePath(string filePath)
         {
             if (filePath == null) return null;

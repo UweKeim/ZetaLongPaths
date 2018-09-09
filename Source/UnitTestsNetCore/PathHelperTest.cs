@@ -300,5 +300,19 @@
             r = ZlpPathHelper.GetFileNameWithoutExtension(@"\\?\C:\Simulazioni\Albero\scratch_file");
             Assert.AreEqual(r, @"scratch_file");
         }
+
+        [Test]
+        public void TestGeneral3()
+        {
+            var s1 = @"c:\folder1\folder2\folder3\file1.txt";
+            var s2 = ZlpPathHelper.ChangeFileNameWithoutExtension(s1, @"file2");
+
+            Assert.AreEqual(s2, @"c:\folder1\folder2\folder3\file2.txt");
+
+            s1 = @"c:\folder1\folder2\folder3\file1.txt";
+            s2 = ZlpPathHelper.ChangeFileName(s1, @"file2.md");
+
+            Assert.AreEqual(s2, @"c:\folder1\folder2\folder3\file2.md");
+        }
     }
 }
