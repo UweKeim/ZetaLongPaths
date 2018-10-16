@@ -21,46 +21,96 @@
     {
         private string _networkName;
 
+        [UsedImplicitly]
+        public ZlpNetworkConnection()
+        {
+        }
+
+        [UsedImplicitly]
+        public ZlpNetworkConnection(
+            string networkName,
+            string userName,
+            string password,
+            ZlpNetworkConnectionResourceScope scope = ZlpNetworkConnectionResourceScope.GlobalNetwork,
+            ZlpNetworkConnectionResourceType resourceType = ZlpNetworkConnectionResourceType.Disk,
+            ZlpNetworkConnectionResourceDisplayType displayType = ZlpNetworkConnectionResourceDisplayType.Share,
+            ZlpNetworkConnectionResourceUsage usage = ZlpNetworkConnectionResourceUsage.None,
+            ZlpNetworkConnectionFlags flags = ZlpNetworkConnectionFlags.None)
+        {
+            Connect(networkName, userName, password, scope, resourceType, displayType, usage, flags);
+        }
+
+        [UsedImplicitly]
         public ZlpNetworkConnection(
             string networkName,
             bool activate,
             string userName,
-            string password)
+            string password,
+            ZlpNetworkConnectionResourceScope scope = ZlpNetworkConnectionResourceScope.GlobalNetwork,
+            ZlpNetworkConnectionResourceType resourceType = ZlpNetworkConnectionResourceType.Disk,
+            ZlpNetworkConnectionResourceDisplayType displayType = ZlpNetworkConnectionResourceDisplayType.Share,
+            ZlpNetworkConnectionResourceUsage usage = ZlpNetworkConnectionResourceUsage.None,
+            ZlpNetworkConnectionFlags flags = ZlpNetworkConnectionFlags.None)
         {
-            if (activate)
-            {
-                doNetUse(networkName, userName, password, null);
-            }
+            Connect(networkName, activate, userName, password, scope, resourceType, displayType, usage, flags);
         }
 
-        protected ZlpNetworkConnection(
+        [UsedImplicitly]
+        public void Connect(
+            string networkName,
+            string userName,
+            string password,
+            ZlpNetworkConnectionResourceScope scope = ZlpNetworkConnectionResourceScope.GlobalNetwork,
+            ZlpNetworkConnectionResourceType resourceType = ZlpNetworkConnectionResourceType.Disk,
+            ZlpNetworkConnectionResourceDisplayType displayType = ZlpNetworkConnectionResourceDisplayType.Share,
+            ZlpNetworkConnectionResourceUsage usage = ZlpNetworkConnectionResourceUsage.None,
+            ZlpNetworkConnectionFlags flags = ZlpNetworkConnectionFlags.None)
+        {
+            doNetUse(networkName, userName, password, scope, resourceType, displayType, usage, flags);
+        }
+
+        [UsedImplicitly]
+        public void Connect(
             string networkName,
             bool activate,
             string userName,
             string password,
-            NetResource netResource)
+            ZlpNetworkConnectionResourceScope scope = ZlpNetworkConnectionResourceScope.GlobalNetwork,
+            ZlpNetworkConnectionResourceType resourceType = ZlpNetworkConnectionResourceType.Disk,
+            ZlpNetworkConnectionResourceDisplayType displayType = ZlpNetworkConnectionResourceDisplayType.Share,
+            ZlpNetworkConnectionResourceUsage usage = ZlpNetworkConnectionResourceUsage.None,
+            ZlpNetworkConnectionFlags flags = ZlpNetworkConnectionFlags.None)
         {
             if (activate)
             {
-                doNetUse(networkName, userName, password, netResource);
+                Connect(networkName, userName, password, scope, resourceType, displayType, usage, flags);
             }
         }
 
-        private void doNetUse(string networkName, string userName, string password, NetResource netResource)
+        private void doNetUse(
+            string networkName,
+            string userName,
+            string password,
+            ZlpNetworkConnectionResourceScope scope,
+            ZlpNetworkConnectionResourceType resourceType,
+            ZlpNetworkConnectionResourceDisplayType displayType,
+            ZlpNetworkConnectionResourceUsage usage,
+            ZlpNetworkConnectionFlags flags)
         {
-            netResource = netResource ?? new NetResource
+            var netResource = new NetResource
             {
-                Scope = ResourceScope.GlobalNetwork,
-                ResourceType = ResourceType.Disk,
-                DisplayType = ResourceDisplaytype.Share,
-                RemoteName = networkName
+                Scope = scope,
+                ResourceType = resourceType,
+                DisplayType = displayType,
+                RemoteName = networkName,
+                Usage = usage
             };
 
             var result = WNetAddConnection2(
                 netResource,
                 password,
                 userName,
-                0);
+                flags);
 
             if (result != 0)
             {
@@ -87,7 +137,7 @@
             if (!string.IsNullOrEmpty(_networkName))
             {
                 var result = WNetCancelConnection2(_networkName, 0, true);
-                Trace.TraceInformation("Result for canceling network connection: {0}.", result);
+                Trace.TraceInformation($@"Result for canceling network connection: {result}.");
             }
         }
 
@@ -96,7 +146,7 @@
             NetResource netResource,
             string password,
             string username,
-            int flags);
+            ZlpNetworkConnectionFlags flags);
 
         [DllImport(@"mpr.dll")]
         private static extern int WNetCancelConnection2(
@@ -112,10 +162,10 @@
 #pragma warning disable 169
             // ReSharper disable NotAccessedField.Global
             // ReSharper disable UnusedMember.Global
-            public ResourceScope Scope;
-            public ResourceType ResourceType;
-            public ResourceDisplaytype DisplayType;
-            public int Usage;
+            public ZlpNetworkConnectionResourceScope Scope;
+            public ZlpNetworkConnectionResourceType ResourceType;
+            public ZlpNetworkConnectionResourceDisplayType DisplayType;
+            public ZlpNetworkConnectionResourceUsage Usage;
             public string LocalName;
             public string RemoteName;
             public string Comment;
@@ -125,65 +175,109 @@
 #pragma warning restore 169
 #pragma warning restore 414
         }
+    }
 
-        [UsedImplicitly]
-        protected internal enum ResourceScope
-        {
+    [UsedImplicitly]
+    public enum ZlpNetworkConnectionResourceScope
+    {
 #pragma warning disable 414
 #pragma warning disable 169
-            // ReSharper disable NotAccessedField.Global
-            // ReSharper disable UnusedMember.Global
-            Connected = 1,
-            GlobalNetwork,
-            Remembered,
-            Recent,
-            Context
-            // ReSharper restore UnusedMember.Global
-            // ReSharper restore NotAccessedField.Global
+        // ReSharper disable NotAccessedField.Global
+        // ReSharper disable UnusedMember.Global
+        Connected = 1,
+        GlobalNetwork,
+        Remembered,
+        Recent,
+        Context
+        // ReSharper restore UnusedMember.Global
+        // ReSharper restore NotAccessedField.Global
 #pragma warning restore 169
 #pragma warning restore 414
-        };
+    };
 
-        [UsedImplicitly]
-        protected internal enum ResourceType
-        {
+    [UsedImplicitly]
+    public enum ZlpNetworkConnectionResourceType
+    {
 #pragma warning disable 414
 #pragma warning disable 169
-            // ReSharper disable NotAccessedField.Global
-            // ReSharper disable UnusedMember.Global
-            Any = 0,
-            Disk = 1,
-            Print = 2,
-            Reserved = 8,
-            // ReSharper restore UnusedMember.Global
-            // ReSharper restore NotAccessedField.Global
+        // ReSharper disable NotAccessedField.Global
+        // ReSharper disable UnusedMember.Global
+        Any = 0,
+        Disk = 1,
+        Print = 2,
+        Reserved = 8,
+        // ReSharper restore UnusedMember.Global
+        // ReSharper restore NotAccessedField.Global
 #pragma warning restore 169
 #pragma warning restore 414
-        }
+    }
 
-        [UsedImplicitly]
-        protected internal enum ResourceDisplaytype
-        {
+    [UsedImplicitly]
+    public enum ZlpNetworkConnectionResourceDisplayType
+    {
 #pragma warning disable 414
 #pragma warning disable 169
-            // ReSharper disable NotAccessedField.Global
-            // ReSharper disable UnusedMember.Global
-            Generic = 0x0,
-            Domain = 0x01,
-            Server = 0x02,
-            Share = 0x03,
-            File = 0x04,
-            Group = 0x05,
-            Network = 0x06,
-            Root = 0x07,
-            Shareadmin = 0x08,
-            Directory = 0x09,
-            Tree = 0x0a,
-            Ndscontainer = 0x0b
-            // ReSharper restore UnusedMember.Global
-            // ReSharper restore NotAccessedField.Global
+        // ReSharper disable NotAccessedField.Global
+        // ReSharper disable UnusedMember.Global
+        Generic = 0x0,
+        Domain = 0x01,
+        Server = 0x02,
+        Share = 0x03,
+        File = 0x04,
+        Group = 0x05,
+        Network = 0x06,
+        Root = 0x07,
+        Shareadmin = 0x08,
+        Directory = 0x09,
+        Tree = 0x0a,
+        Ndscontainer = 0x0b
+        // ReSharper restore UnusedMember.Global
+        // ReSharper restore NotAccessedField.Global
 #pragma warning restore 169
 #pragma warning restore 414
-        }
+    }
+
+    [UsedImplicitly]
+    [Flags]
+    public enum ZlpNetworkConnectionResourceUsage
+    {
+#pragma warning disable 414
+#pragma warning disable 169
+        // ReSharper disable NotAccessedField.Global
+        // ReSharper disable UnusedMember.Global
+        None = 0x0,
+        Connectable = 0x01,
+        Container = 0x02,
+        NoLocalDevice = 0x04,
+        Sibling = 0x08,
+        Attached = 0x10
+        // ReSharper restore NotAccessedField.Global
+#pragma warning restore 169
+#pragma warning restore 414
+    }
+
+    [UsedImplicitly]
+    [Flags]
+    public enum ZlpNetworkConnectionFlags
+    {
+#pragma warning disable 414
+#pragma warning disable 169
+        // ReSharper disable NotAccessedField.Global
+        // ReSharper disable UnusedMember.Global
+        None = 0x0,
+        ConnectUpdateProfile = 0x0001,
+        ConnectUpdateRecent = 0x0002,
+        ConnectTemporary = 0x0004,
+        ConnectInteractive = 0x0008,
+        ConnectPrompt = 0x0010,
+        ConnectRedirect = 0x0080,
+        ConnectCurrentMedia = 0x0200,
+        ConnectCommandline = 0x0800,
+        ConnectCmdSaveCredentials = 0x1000,
+        ConnectCredentialsReset = 0x2000
+
+        // ReSharper restore NotAccessedField.Global
+#pragma warning restore 169
+#pragma warning restore 414
     }
 }
