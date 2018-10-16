@@ -29,7 +29,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\Bin\Release\</OutputPath>
-    <DefineConstants>NET40</DefineConstants>
+    <DefineConstants>TRACE;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -129,6 +129,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tools\ZlpImpersonator.cs" />
+    <Compile Include="Tools\ZlpNetworkConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

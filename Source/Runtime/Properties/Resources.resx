@@ -183,4 +183,7 @@
   <data name="TriedTooOftenPlural" xml:space="preserve">
     <value>Error during operation, tried more than {0} times.</value>
   </data>
+  <data name="ErrorConnectingToRemoteShare" xml:space="preserve">
+    <value>Error connecting to remote share '{0}': {1}</value>
+  </data>
 </root>

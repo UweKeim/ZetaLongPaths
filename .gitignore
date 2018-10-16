@@ -2,6 +2,7 @@
 ## Zeta Long Paths - project specific.
 #################
 
+_Global/
 .idea/
 .svn/
 Deploy/

@@ -183,4 +183,7 @@
   <data name="InvalidPathsCharacters" xml:space="preserve">
     <value>Ungültige Zeichen im Pfad.</value>
   </data>
+  <data name="ErrorConnectingToRemoteShare" xml:space="preserve">
+    <value>Fehler beim Verbinden mit Remote-Freigabe '{0}': {1}</value>
+  </data>
 </root>
