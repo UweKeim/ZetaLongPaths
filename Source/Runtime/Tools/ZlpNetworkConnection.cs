@@ -15,6 +15,15 @@
     /// </summary>
     /// <remarks>
     /// See also https://stackoverflow.com/a/1197430/107625
+    /// Encapsulate an instance into a using-directive like e.g.:
+    /// ...
+    /// using ( new ZlpNetworkConnection( "\\myserver\myshare", "myUserName", "myPassword" ) )
+    /// {
+    ///     ...
+    ///     [code that accesses the share under the new context/user]
+    ///     ...
+    /// }
+    /// ...
     /// </remarks>
     [UsedImplicitly]
     public class ZlpNetworkConnection : IDisposable
@@ -156,12 +165,14 @@
 
         [StructLayout(LayoutKind.Sequential)]
         [UsedImplicitly]
-        protected internal class NetResource
+        private sealed class NetResource
         {
 #pragma warning disable 414
 #pragma warning disable 169
+#pragma warning disable 649
             // ReSharper disable NotAccessedField.Global
             // ReSharper disable UnusedMember.Global
+            // ReSharper disable NotAccessedField.Local
             public ZlpNetworkConnectionResourceScope Scope;
             public ZlpNetworkConnectionResourceType ResourceType;
             public ZlpNetworkConnectionResourceDisplayType DisplayType;
@@ -170,8 +181,10 @@
             public string RemoteName;
             public string Comment;
             public string Provider;
+            // ReSharper restore NotAccessedField.Local
             // ReSharper restore UnusedMember.Global
             // ReSharper restore NotAccessedField.Global
+#pragma warning restore 649
 #pragma warning restore 169
 #pragma warning restore 414
         }

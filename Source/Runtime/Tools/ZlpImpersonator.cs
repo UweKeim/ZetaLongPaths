@@ -13,7 +13,7 @@
     /// Simple helper class to ease the impersonation of the current thread.
     /// I.e. run the current thread as another user than the current one.
     /// Impersonation of a user. Allows to execute code under another user context.
-    /// The account that instantiates the Impersonator class
+    /// The account that instantiates the ZlpImpersonator class
     /// needs to have the 'Act as part of operating system' privilege set.
     /// </summary>
     /// <remarks>
@@ -24,9 +24,9 @@
     /// ...
     /// using ( new ZlpImpersonator( "myUsername", "myDomainname", "myPassword" ) )
     /// {
-    /// ...
-    /// [code that executes under the new context]
-    /// ...
+    ///     ...
+    ///     [code that executes under the new context]
+    ///     ...
     /// }
     /// ...
     /// </remarks>
@@ -1323,16 +1323,6 @@
             }
         }
 
-        /// <summary>
-        /// Does the actual check for login.
-        /// </summary>
-        /// <param name="userName">The name of the user to act as.</param>
-        /// <param name="domainName">The domain name of the user to act as.</param>
-        /// <param name="password">The password of the user to act as.</param>
-        /// <param name="loginType">Type of the login.</param>
-        /// <returns>
-        /// 	<c>true</c> if this instance can log in the specified user name; otherwise, <c>false</c>.
-        /// </returns>
         private static bool CanLogInValidUser(
             string userName,
             string domainName,
@@ -1348,17 +1338,6 @@
                 out var _);
         }
 
-        /// <summary>
-        /// Does the actual check for login.
-        /// </summary>
-        /// <param name="userName">The name of the user to act as.</param>
-        /// <param name="domainName">The domain name of the user to act as.</param>
-        /// <param name="password">The password of the user to act as.</param>
-        /// <param name="loginType">Type of the login.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns>
-        /// 	<c>true</c> if this instance can log in the specified user name; otherwise, <c>false</c>.
-        /// </returns>
         private static bool CanLogInValidUser(
             string userName,
             string domainName,
@@ -1425,9 +1404,6 @@
             }
         }
 
-        /// <summary>
-        /// Checks and loads the load profile.
-        /// </summary>
         private void CheckLoadProfile(
             ZlpImpersonatorProfileBehaviour profileBehaviour)
         {
@@ -1450,9 +1426,6 @@
             }
         }
 
-        /// <summary>
-        /// Reverts the impersonation.
-        /// </summary>
         private void UndoImpersonation()
         {
             if (_impersonationContext != null)
@@ -1510,9 +1483,6 @@
             }
         }
 
-        /// <summary>
-        /// Profile information structure.
-        /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         // ReSharper disable InconsistentNaming
         // ReSharper disable FieldCanBeMadeReadOnly.Local
