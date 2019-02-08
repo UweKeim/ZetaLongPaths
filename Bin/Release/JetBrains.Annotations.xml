@@ -42,7 +42,7 @@
                  Console.WriteLine(book.ToUpper());
               }
             }
-            </code></example>    
+            </code></example>
         </member>
         <member name="T:JetBrains.Annotations.ItemCanBeNullAttribute">
             <summary>
@@ -56,10 +56,10 @@
               foreach (var book in books)
               {
                 // Warning: Possible 'System.NullReferenceException'
-                Console.WriteLine(book.ToUpper()); 
+                Console.WriteLine(book.ToUpper());
               }
             }
-            </code></example> 
+            </code></example>
         </member>
         <member name="T:JetBrains.Annotations.StringFormatMethodAttribute">
             <summary>
@@ -88,21 +88,24 @@
              The specified type will be used to improve completion suggestions.
              </summary>
              <example><code>
-             public class Constants
+             namespace TestNamespace
              {
-               public static int INT_CONTST = 1;
-               public const string STRING_CONST = "1";
-             }
-            
-             public class Class1
-             {
-               [ValueProvider("Constants")] public int myField;
-               public void Foo([ValueProvider("Constants")] string str) { }
-            
-               public void Test()
+               public class Constants
                {
-                 Foo(/*try completion here*/);//
-                 myField = /*try completion here*/
+                 public static int INT_CONST = 1;
+                 public const string STRING_CONST = "1";
+               }
+            
+               public class Class1
+               {
+                 [ValueProvider("TestNamespace.Constants")] public int myField;
+                 public void Foo([ValueProvider("TestNamespace.Constants")] string str) { }
+            
+                 public void Test()
+                 {
+                   Foo(/*try completion here*/);//
+                   myField = /*try completion here*/
+                 }
                }
              }
              </code></example>
@@ -188,7 +191,7 @@
             </code></item>
             <item><code>
             [ContractAnnotation("null &lt;= param:null")] // reverse condition syntax
-            public string GetName(string surname) 
+            public string GetName(string surname)
             </code></item>
             <item><code>
             [ContractAnnotation("s:null =&gt; true")]
@@ -198,7 +201,7 @@
             // A method that returns null if the parameter is null,
             // and not null if the parameter is not null
             [ContractAnnotation("null =&gt; null; notnull =&gt; notnull")]
-            public object Transform(object data) 
+            public object Transform(object data)
             </code></item>
             <item><code>
             [ContractAnnotation("=&gt; true, result: notnull; =&gt; false, result: null")]
@@ -489,7 +492,7 @@
         <member name="T:JetBrains.Annotations.AspMvcDisplayTemplateAttribute">
             <summary>
             ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
-            Use this attribute for custom wrappers similar to 
+            Use this attribute for custom wrappers similar to
             <c>System.Web.Mvc.Html.DisplayExtensions.DisplayForModel(HtmlHelper, String)</c>.
             </summary>
         </member>
@@ -543,7 +546,7 @@
         <member name="T:JetBrains.Annotations.RazorSectionAttribute">
             <summary>
             Razor attribute. Indicates that the marked parameter or method is a Razor section.
-            Use this attribute for custom wrappers similar to 
+            Use this attribute for custom wrappers similar to
             <c>System.Web.WebPages.WebPageBase.RenderSection(String)</c>.
             </summary>
         </member>
@@ -574,7 +577,7 @@
                 string x = col.GetFirstString();
               }
             }
-            </code></example> 
+            </code></example>
         </member>
         <member name="T:JetBrains.Annotations.CollectionAccessType">
             <summary>
@@ -597,7 +600,7 @@
         <member name="T:JetBrains.Annotations.AssertionMethodAttribute">
             <summary>
             Indicates that the marked method is assertion method, i.e. it halts the control flow if
-            one of the conditions is satisfied. To set the condition, mark one of the parameters with 
+            one of the conditions is satisfied. To set the condition, mark one of the parameters with
             <see cref="T:JetBrains.Annotations.AssertionConditionAttribute"/> attribute.
             </summary>
         </member>
@@ -655,7 +658,7 @@
               ThrowIfNull(values, nameof(values));
               var x = values.ToList(); // No warnings about multiple enumeration
             }
-            </code></example> 
+            </code></example>
         </member>
         <member name="T:JetBrains.Annotations.RegexPatternAttribute">
             <summary>

@@ -6,38 +6,34 @@
 
     public class ZlpSimpleFileAccessProtectorInformation
     {
-        [UsedImplicitly] public const int DefaultRetryCount = 3;
-
-        [UsedImplicitly] public const int DefaultSleepDelaySeconds = 2;
+        [UsedImplicitly]
+        public static int DefaultRetryCount =>
+            ZlpSimpleFileAccessProtector.GetConfigIntOrDef(@"zlp.sfap.retryCount", 3);
 
         [UsedImplicitly]
-        public bool Use { get; set; } = true;
+        public static int DefaultSleepDelaySeconds =>
+            ZlpSimpleFileAccessProtector.GetConfigIntOrDef(@"zlp.sfap.sleepDelaySeconds", 2);
 
-        [UsedImplicitly]
-        public string Info { get; set; }
+        [UsedImplicitly] public bool Use { get; set; } = true;
 
-        [UsedImplicitly]
-        public int RetryCount { get; set; } = DefaultRetryCount;
+        [UsedImplicitly] public string Info { get; set; }
 
-        [UsedImplicitly]
-        public int SleepDelaySeconds { get; set; } = DefaultSleepDelaySeconds;
+        [UsedImplicitly] public int RetryCount { get; set; } = DefaultRetryCount;
 
-        [UsedImplicitly]
-        public bool DoGarbageCollectBeforeSleep { get; set; } = true;
+        [UsedImplicitly] public int SleepDelaySeconds { get; set; } = DefaultSleepDelaySeconds;
 
-        [UsedImplicitly]
-        public HandleExceptionDelegate HandleException { get; set; }
+        [UsedImplicitly] public bool DoGarbageCollectBeforeSleep { get; set; } = true;
+
+        [UsedImplicitly] public HandleExceptionDelegate HandleException { get; set; }
     }
 
     public delegate void HandleExceptionDelegate(HandleExceptionInfo hei);
 
     public class HandleExceptionInfo
     {
-        [UsedImplicitly]
-        public Exception Exception { get; }
+        [UsedImplicitly] public Exception Exception { get; }
 
-        [UsedImplicitly]
-        public int CurrentRetryCount { get; }
+        [UsedImplicitly] public int CurrentRetryCount { get; }
 
         public HandleExceptionInfo(Exception exception, int currentRetryCount)
         {

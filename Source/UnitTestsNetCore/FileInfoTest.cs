@@ -1,7 +1,8 @@
 ﻿namespace ZetaLongPaths.UnitTests
 {
-    using System.IO;
     using NUnit.Framework;
+    using System;
+    using System.IO;
 
     [TestFixture]
     public class FileInfoTest
@@ -66,6 +67,41 @@
             y = b.ToString();
 
             Assert.AreEqual(x, y);
+        }
+
+        [Test]
+        public void TestTilde()
+        {
+            // https://github.com/UweKeim/ZetaLongPaths/issues/24
+
+            var path1 = ZlpDirectoryInfo.GetTemp().CombineDirectory(Guid.NewGuid().ToString()).CheckCreate();
+            var path2 = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
+            try
+            {
+                var p1 = path1.CombineDirectory(@"a~b").CheckCreate();
+                var p2 = Directory.CreateDirectory(Path.Combine(path2.FullName, @"a~b")).FullName;
+
+                var f1 = p1.CombineFile("1.txt");
+                f1.WriteAllText("1");
+
+                var f2 = Path.Combine(p2, "1.txt");
+                File.WriteAllText(f2, "1");
+
+                foreach (var file in p1.GetFiles())
+                {
+                    Console.WriteLine(file.FullName);
+                }
+
+                foreach (var file in Directory.GetFiles(p2))
+                {
+                    Console.WriteLine(file);
+                }
+            }
+            finally
+            {
+                path1.SafeDelete();
+                path2.Delete(true);
+            }
         }
     }
 }

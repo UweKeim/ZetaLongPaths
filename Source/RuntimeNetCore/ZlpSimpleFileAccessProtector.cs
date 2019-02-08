@@ -1,6 +1,7 @@
 ﻿namespace ZetaLongPaths
 {
     using System;
+    using System.Configuration;
     using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Threading;
@@ -12,7 +13,6 @@
     using Properties;
 
 #endif
-
 
     /// <summary>
     /// Execute an action. On error retry multiple times, sleep between the retries.
@@ -213,6 +213,14 @@
         private static void minimizeFootprint()
         {
             EmptyWorkingSet(Process.GetCurrentProcess().Handle);
+        }
+
+        internal static int GetConfigIntOrDef(string key, int def)
+        {
+            var val = ConfigurationManager.AppSettings[key];
+            if (string.IsNullOrEmpty(val)) return def;
+
+            return int.TryParse(val, out var r) ? r : def;
         }
     }
 }

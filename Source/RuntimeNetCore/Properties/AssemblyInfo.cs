@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Zeta Software GmbH")]
 [assembly: AssemblyProduct("Zeta Long Paths")]
-[assembly: AssemblyCopyright("© 1999-2018 Zeta Software GmbH")]
+[assembly: AssemblyCopyright("© 1999-2019 Zeta Software GmbH")]
 [assembly: AssemblyTrademark("https://www.zeta-producer.com")]
 [assembly: AssemblyCulture("")]
 
@@ -32,4 +32,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.27")]
-[assembly: AssemblyFileVersion("1.0.0.27")]
+[assembly: AssemblyFileVersion("15.0.0.0")]

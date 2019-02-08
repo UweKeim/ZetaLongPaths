@@ -490,6 +490,10 @@
             }
         }
 
+        /// <summary>
+        /// This does only succeed if the process is in the context of a user who
+        /// belongs to the administrators group or the LocalSystem account.
+        /// </summary>
         public static void DeleteFileAfterReboot(
             string sourceFilePath,
             bool throwIfFails = false)
