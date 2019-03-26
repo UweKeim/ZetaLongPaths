@@ -19,6 +19,9 @@
         [UsedImplicitly]
         public static ZlpFileInfo GetTemp() => new ZlpFileInfo(ZlpPathHelper.GetTempFilePath());
 
+        [UsedImplicitly]
+        public static ZlpFileInfo GetTemp(string extension) => new ZlpFileInfo(ZlpPathHelper.GetTempFilePath(extension));
+
         public ZlpFileInfo(string path)
         {
             FullName = path;
@@ -264,6 +267,12 @@
         {
             get => ZlpIOHelper.GetFileCreationTime(FullName);
             set => ZlpIOHelper.SetFileCreationTime(FullName, value);
+        }
+
+        public ZlpFileDateInfos DateInfos
+        {
+            get => ZlpIOHelper.GetFileDateInfos(FullName);
+            set => ZlpIOHelper.SetFileDateInfos(FullName, value);
         }
 
         public string FullName { get; }

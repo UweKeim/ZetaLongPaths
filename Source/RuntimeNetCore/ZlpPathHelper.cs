@@ -541,6 +541,14 @@
             return Path.GetTempFileName();
         }
 
+        public static string GetTempFilePath(string extension)
+        {
+            if (string.IsNullOrEmpty(extension)) return GetTempFilePath();
+
+            // https://stackoverflow.com/a/581574/107625
+            return $@"{Path.GetTempPath()}{Guid.NewGuid()}.{extension.TrimStart('.')}";
+        }
+
         [UsedImplicitly]
         public static ZlpDirectoryInfo CombineDirectory(
             string path1,

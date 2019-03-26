@@ -213,6 +213,14 @@
             IntPtr lpLastAccessTime,
             ref long lpLastWriteTime);
 
+        [DllImport(@"kernel32.dll", SetLastError = true, EntryPoint = @"SetFileTime", ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool SetFileTime4(
+            IntPtr hFile,
+            ref long lpCreationTime,
+            ref long lpLastAccessTime,
+            ref long lpLastWriteTime);
+
         [DllImport(@"kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern int GetFullPathName(
             [MarshalAs(UnmanagedType.LPTStr)] string lpFileName,

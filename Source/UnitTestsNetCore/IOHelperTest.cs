@@ -53,6 +53,28 @@
                     //fileHandle.Close();
                 }
 
+                // --
+
+                var filePath2 = new ZlpFileInfo(ZlpPathHelper.Combine(tempPath, "text.test"));
+                filePath2.WriteAllText(Guid.NewGuid().ToString(@"N"));
+
+                var infos = new ZlpFileDateInfos
+                {
+                    LastAccessTime = new DateTime(2010, 03, 04),
+                    LastWriteTime = new DateTime(2011, 04, 05),
+                    CreationTime = new DateTime(2012, 05, 06)
+                };
+
+                filePath2.DateInfos = infos;
+
+                var infos2 = filePath2.DateInfos;
+
+                Assert.IsTrue(infos.LastAccessTime == infos2.LastAccessTime);
+                Assert.IsTrue(infos.LastWriteTime == infos2.LastWriteTime);
+                Assert.IsTrue(infos.CreationTime == infos2.CreationTime);
+
+                // --
+
                 Assert.IsTrue(ZlpIOHelper.FileExists(filePath));
 
 

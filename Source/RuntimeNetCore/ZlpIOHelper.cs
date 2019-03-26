@@ -572,10 +572,10 @@
                     PInvokeHelper.SeFileObject,
                     PInvokeHelper.OwnerSecurityInformation,
                     out var pSid,
-                    out IntPtr _,
+                    out var _,
                     out _,
                     out _,
-                    out IntPtr _);
+                    out var _);
 
             if (errorReturn == 0)
             {
@@ -594,7 +594,7 @@
                         ref accounLength,
                         domain,
                         ref domainLength,
-                        out int _);
+                        out var _);
 
                 if (errorReturn == 0)
                 {
@@ -804,7 +804,7 @@
                 throw new ArgumentNullException(nameof(directoryPath));
             }
 
-            splitFolderPath(directoryPath, out string basePart, out string[] childParts);
+            splitFolderPath(directoryPath, out var basePart, out var childParts);
 
             var path = basePart;
 
@@ -1018,32 +1018,129 @@
             return b &&
                    wIn32FileAttributeData.dwFileAttributes != -1 &&
                    (wIn32FileAttributeData.dwFileAttributes & 16) != 0;
+        }
 
-            // --
+        [UsedImplicitly]
+        [CanBeNull]
+        public static ZlpFileDateInfos GetFileDateInfos(
+            string filePath)
+        {
+            filePath = CheckAddLongPathPrefix(filePath);
 
-            //var a = PInvokeHelper.GetFileAttributes(directoryPath);
-            //if ((a & PInvokeHelper.INVALID_FILE_ATTRIBUTES) == PInvokeHelper.INVALID_FILE_ATTRIBUTES)
-            //{
-            //    return false;
-            //}
-            //else
-            //{
-            //    return (a & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY;
-            //}
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out var fd);
 
-            // --
+            if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
+            {
+                return null;
+            }
 
-            //PInvokeHelper.WIN32_FIND_DATA fd;
-            //var result = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') /*+ @"\*"*/, out fd);
+            try
+            {
+                if (result.ToInt64() == PInvokeHelper.ERROR_FILE_NOT_FOUND)
+                {
+                    return null;
+                }
+                else
+                {
+                    var r = new ZlpFileDateInfos();
 
-            //if (result.ToInt32() == PInvokeHelper.ERROR_FILE_NOT_FOUND || result == PInvokeHelper.INVALID_HANDLE_VALUE)
-            //{
-            //    return false;
-            //}
-            //else
-            //{
-            //    return ((int)fd.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0;
-            //}
+                    if (true)
+                    {
+                        var ft = fd.ftLastWriteTime;
+                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        r.LastWriteTime = getLocalTime(hft2);
+                    }
+                    if (true)
+                    {
+                        var ft = fd.ftLastAccessTime;
+                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        r.LastAccessTime = getLocalTime(hft2);
+                    }
+                    if (true)
+                    {
+                        var ft = fd.ftCreationTime;
+                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        r.CreationTime = getLocalTime(hft2);
+                    }
+
+                    return r;
+                }
+            }
+            finally
+            {
+                PInvokeHelper.FindClose(result);
+            }
+        }
+
+        [UsedImplicitly]
+        public static void SetFileDateInfos(
+            string filePath,
+            ZlpFileDateInfos infos)
+        {
+            if (infos == null) throw new ArgumentNullException(nameof(infos));
+
+            if (MustBeLongPath(filePath))
+            {
+                filePath = CheckAddLongPathPrefix(filePath);
+
+                using (var handle = CreateFileHandle(
+                    filePath,
+                    CreationDisposition.OpenExisting,
+                    // Fix by Richard, 2015-04-14.
+                    // See https://msdn.microsoft.com/en-us/library/windows/desktop/ms724933%28v=vs.85%29.aspx,
+                    // See https://msdn.microsoft.com/en-us/library/windows/desktop/aa364399%28v=vs.85%29.aspx
+                    FileAccess.FileWriteAttributes,
+                    FileShare.Read | FileShare.Write))
+                {
+                    var dLastWrite = infos.LastWriteTime.ToFileTime();
+                    var dLastAccess = infos.LastAccessTime.ToFileTime();
+                    var dCreation = infos.CreationTime.ToFileTime();
+
+                    if (!PInvokeHelper.SetFileTime4(handle.DangerousGetHandle(), ref dCreation, ref dLastAccess, ref dLastWrite))
+                    {
+                        var lastWin32Error = Marshal.GetLastWin32Error();
+                        var x = new Win32Exception(
+                            lastWin32Error,
+                            string.Format(
+                                Resources.ErrorSettingsWriteTime,
+                                lastWin32Error,
+                                filePath,
+                                CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+
+                        x.Data[nameof(filePath)] = filePath;
+
+                        throw x;
+                    }
+                }
+            }
+            else
+            {
+                // 2012-08-29, Uwe Keim: Since we currently get Access Denied 5,
+                // do use the .NET functions (which seem to not have these issues)
+                // if possible.
+
+                // Sergey Filippov: Item number 16314 from Codeplex issues fix
+                if (File.Exists(filePath))
+                {
+                    File.SetLastWriteTime(filePath, infos.LastWriteTime);
+                    File.SetLastAccessTime(filePath, infos.LastAccessTime);
+                    File.SetCreationTime(filePath, infos.CreationTime);
+                }
+                else if (Directory.Exists(filePath))
+                {
+                    Directory.SetLastWriteTime(filePath, infos.LastWriteTime);
+                    Directory.SetLastAccessTime(filePath, infos.LastAccessTime);
+                    Directory.SetCreationTime(filePath, infos.CreationTime);
+                }
+                else
+                {
+                    var x = new FileNotFoundException(Resources.FileNotFound, filePath);
+
+                    x.Data[nameof(filePath)] = filePath;
+
+                    throw x;
+                }
+            }
         }
 
         public static DateTime GetFileLastWriteTime(
@@ -1051,7 +1148,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out PInvokeHelper.WIN32_FIND_DATA fd);
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out var fd);
 
             if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1083,7 +1180,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out PInvokeHelper.WIN32_FIND_DATA fd);
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out var fd);
 
             if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1115,7 +1212,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out PInvokeHelper.WIN32_FIND_DATA fd);
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out var fd);
 
             if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1394,7 +1491,7 @@
 
             filePath = CheckAddLongPathPrefix(filePath);
 
-            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out PInvokeHelper.WIN32_FIND_DATA fd);
+            var result = PInvokeHelper.FindFirstFile(filePath.TrimEnd('\\'), out var fd);
 
             if (result == PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1541,7 +1638,7 @@
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<ZlpFileInfo>();
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + "\\" + pattern, out PInvokeHelper.WIN32_FIND_DATA findData);
+            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + "\\" + pattern, out var findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1605,7 +1702,7 @@
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<IZlpFileSystemInfo>();
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out PInvokeHelper.WIN32_FIND_DATA findData);
+            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out var findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1656,7 +1753,7 @@
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<ZlpDirectoryInfo>();
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out PInvokeHelper.WIN32_FIND_DATA findData);
+            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out var findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1816,5 +1913,12 @@
                 }
             }
         }
+    }
+
+    public sealed class ZlpFileDateInfos
+    {
+        public DateTime CreationTime { get; set; }
+        public DateTime LastWriteTime { get; set; }
+        public DateTime LastAccessTime { get; set; }
     }
 }

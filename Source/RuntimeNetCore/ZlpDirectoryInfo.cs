@@ -247,6 +247,12 @@
             set => ZlpIOHelper.SetFileCreationTime(FullName, value);
         }
 
+        public ZlpFileDateInfos DateInfos
+        {
+            get => ZlpIOHelper.GetFileDateInfos(FullName);
+            set => ZlpIOHelper.SetFileDateInfos(FullName, value);
+        }
+
         public FileAttributes Attributes
         {
             get => ZlpIOHelper.GetFileAttributes(FullName);
