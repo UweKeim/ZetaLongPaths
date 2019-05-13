@@ -961,6 +961,7 @@
             string path)
         {
             path = path.Replace('/', '\\');
+            path = ZlpIOHelper.ForceRemoveLongPathPrefix(path);
 
             if (path.Length < 2)
             {

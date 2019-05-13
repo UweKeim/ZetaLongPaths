@@ -14,6 +14,38 @@
 
 #endif
 
+    public static class ZlpGarbageCollectionHelper
+    {
+        /// <summary>
+        /// Do it in a thread pool thread.
+        /// </summary>
+        public static void DoGcAsynchron()
+        {
+            // 2015-02-27, Uwe Keim: Eingeführt, damit ggf. zu viele offene Bilder auch wirklich
+            // freigegeben werden.
+
+            // http://stackoverflow.com/q/28761689/107625
+
+            ThreadPool.QueueUserWorkItem(
+                delegate
+                {
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    GC.Collect();
+                });
+        }
+
+        /// <summary>
+        /// Do it in the current thread, blocking.
+        /// </summary>
+        public static void DoGcSynchron()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+        }
+    }
+
     /// <summary>
     /// Execute an action. On error retry multiple times, sleep between the retries.
     /// </summary>

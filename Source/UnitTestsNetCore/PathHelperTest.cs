@@ -314,5 +314,36 @@
 
             Assert.AreEqual(s2, @"c:\folder1\folder2\folder3\file2.md");
         }
+
+        [Test]
+        public void TestGeneral4()
+        {
+            var longRelativeFilePath = @"folder1\folder2\folder3\folder4\folder5\folder6\folder7\folder8\folder9\folder10\folder11\folder12\folder13\folder14\folder15\file.txt";
+            var longBasePath = @"c:\folder1\folder2\folder3\folder4\folder5\folder6\folder7\folder8\folder9\folder10\folder11\folder12\folder13\folder14\folder15\";
+
+            var absolutePath = ZlpPathHelper.GetAbsolutePath(longRelativeFilePath, longBasePath);
+            Assert.IsTrue(absolutePath.StartsWith(@"\\?\"));
+
+            var isAbsolutePath = ZlpPathHelper.IsAbsolutePath(absolutePath);
+            Assert.IsTrue(isAbsolutePath);
+
+            // --
+
+            absolutePath = @"C:\Ablage\123.txt";
+            isAbsolutePath = ZlpPathHelper.IsAbsolutePath(absolutePath);
+            Assert.IsTrue(isAbsolutePath);
+
+            // --
+
+            var relativePath = @"Ablage\123.txt";
+            isAbsolutePath = ZlpPathHelper.IsAbsolutePath(relativePath);
+            Assert.IsFalse(isAbsolutePath);
+
+            // --
+
+            relativePath = @"123.txt";
+            isAbsolutePath = ZlpPathHelper.IsAbsolutePath(relativePath);
+            Assert.IsFalse(isAbsolutePath);
+        }
     }
 }
