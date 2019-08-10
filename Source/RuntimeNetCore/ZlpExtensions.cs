@@ -301,6 +301,17 @@
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Similar to "S1 ?? S2", this simulates an operator that not only
+        /// checks for NULL but also for an empty string.
+        /// </summary>
+        /// <returns>Returns S2 if S1 is NULL or empty, returns S1 otherwise.</returns>
+        [UsedImplicitly]
+        public static string NullOrEmptyOther(this string s1, string s2)
+        {
+            return string.IsNullOrEmpty(s1) ? s2 : s1;
+        }
+
         [UsedImplicitly]
         public static int IndexOfNoCase(this string s1, string s2)
         {

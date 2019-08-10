@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{50ADE462-0A01-498A-8B70-FCED2B8D4906}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-4", "dotnet-4", "{8D804F26-C5D2-4F94-A600-2500BBA781EE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-core", "dotnet-core", "{65A02E8A-B70B-4728-A92F-49BB83907F4F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -40,9 +36,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{9944F644-9216-4FEF-B46A-0E58A9FFB473} = {8D804F26-C5D2-4F94-A600-2500BBA781EE}
-		{51F7509C-6123-42FB-935E-1FFF3954F5A9} = {8D804F26-C5D2-4F94-A600-2500BBA781EE}
-		{50ADE462-0A01-498A-8B70-FCED2B8D4906} = {8D804F26-C5D2-4F94-A600-2500BBA781EE}
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {234D04E9-95F4-46CE-A997-DD35F40A01F6}
 	EndGlobalSection
 EndGlobal
