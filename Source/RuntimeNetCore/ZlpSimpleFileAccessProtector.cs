@@ -244,7 +244,14 @@
         // http://stackoverflow.com/questions/223283/net-exe-memory-footprint
         private static void minimizeFootprint()
         {
-            EmptyWorkingSet(Process.GetCurrentProcess().Handle);
+            try
+            {
+                EmptyWorkingSet(Process.GetCurrentProcess().Handle);
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         internal static int GetConfigIntOrDef(string key, int def)
