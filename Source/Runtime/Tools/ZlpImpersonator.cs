@@ -970,18 +970,16 @@
             ZlpImpersonatorLoginType loginType,
             ZlpImpersonatorProfileBehaviour profileBehaviour)
         {
-            using (var impersonator = new ZlpImpersonator())
-            {
-                impersonator.ImpersonateValidUser(
-                    userName,
-                    domainName,
-                    password,
-                    loginType,
-                    profileBehaviour,
-                    out var exception);
+            using var impersonator = new ZlpImpersonator();
+            impersonator.ImpersonateValidUser(
+                userName,
+                domainName,
+                password,
+                loginType,
+                profileBehaviour,
+                out var exception);
 
-                return exception == null;
-            }
+            return exception == null;
         }
 
         /// <summary>
@@ -1006,7 +1004,7 @@
                 domainName,
                 password,
                 loginType,
-                out var _);
+                out _);
         }
 
         /// <summary>
@@ -1182,18 +1180,16 @@
             ZlpImpersonatorLoginType loginType,
             ZlpImpersonatorProfileBehaviour profileBehaviour)
         {
-            using (var impersonator = new ZlpImpersonator())
-            {
-                impersonator.ImpersonateValidUser(
-                    userName,
-                    domainName,
-                    password,
-                    loginType,
-                    profileBehaviour,
-                    out var exception);
+            using var impersonator = new ZlpImpersonator();
+            impersonator.ImpersonateValidUser(
+                userName,
+                domainName,
+                password,
+                loginType,
+                profileBehaviour,
+                out var exception);
 
-                return exception == null;
-            }
+            return exception == null;
         }
 
         /// <summary>
@@ -1335,7 +1331,7 @@
                 domainName,
                 password,
                 loginType,
-                out var _);
+                out _);
         }
 
         private static bool CanLogInValidUser(

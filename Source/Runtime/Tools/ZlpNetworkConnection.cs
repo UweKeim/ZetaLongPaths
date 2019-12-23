@@ -206,7 +206,7 @@
         // ReSharper restore NotAccessedField.Global
 #pragma warning restore 169
 #pragma warning restore 414
-    };
+    }
 
     [UsedImplicitly]
     public enum ZlpNetworkConnectionResourceType

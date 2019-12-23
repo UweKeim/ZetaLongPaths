@@ -47,18 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\UnitTestsNetCore\DirectoryInfoTest.cs">
-      <Link>DirectoryInfoTest.cs</Link>
-    </Compile>
-    <Compile Include="..\UnitTestsNetCore\FileInfoTest.cs">
-      <Link>FileInfoTest.cs</Link>
-    </Compile>
-    <Compile Include="..\UnitTestsNetCore\IOHelperTest.cs">
-      <Link>IOHelperTest.cs</Link>
-    </Compile>
-    <Compile Include="..\UnitTestsNetCore\PathHelperTest.cs">
-      <Link>PathHelperTest.cs</Link>
-    </Compile>
+    <Compile Include="DirectoryInfoTest.cs" />
+    <Compile Include="FileInfoTest.cs" />
+    <Compile Include="IOHelperTest.cs" />
+    <Compile Include="PathHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

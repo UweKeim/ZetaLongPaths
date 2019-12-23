@@ -44,94 +44,41 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\RuntimeNetCore\IZlpFileSystemInfo.cs">
-      <Link>IZlpFileSystemInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\Enumerations.cs">
-      <Link>Native\Enumerations.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\ComReleaser.cs">
-      <Link>Native\FileOperations\ComReleaser.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\FileOperation.cs">
-      <Link>Native\FileOperations\FileOperation.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\FileOperationProgressSink.cs">
-      <Link>Native\FileOperations\FileOperationProgressSink.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\Interop\CopyEngineResult.cs">
-      <Link>Native\Interop\CopyEngineResult.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\Interop\FileOperationFlags.cs">
-      <Link>Native\Interop\FileOperationFlags.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\Interop\IFileOperation.cs">
-      <Link>Native\Interop\IFileOperation.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\Interop\IFileOperationProgressSink.cs">
-      <Link>Native\Interop\IFileOperationProgressSink.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\Interop\IShellItem.cs">
-      <Link>Native\Interop\IShellItem.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\FileOperations\Interop\SIGDN.cs">
-      <Link>Native\Interop\SIGDN.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Native\PInvokeHelper.cs">
-      <Link>Native\PInvokeHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpDirectoryInfo.cs">
-      <Link>ZlpDirectoryInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpException.cs">
-      <Link>ZlpException.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpExtensions.cs">
-      <Link>ZlpExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpFileInfo.cs">
-      <Link>ZlpFileInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpFileOrDirectoryInfo.cs">
-      <Link>ZlpFileOrDirectoryInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpFileOrDirectoryInfoExtensions.cs">
-      <Link>ZlpFileOrDirectoryInfoExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpIOHelper.cs">
-      <Link>ZlpIOHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpPathHelper.cs">
-      <Link>ZlpPathHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpSafeFileExtensions.cs">
-      <Link>ZlpSafeFileExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpSafeFileOperations.cs">
-      <Link>ZlpSafeFileOperations.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpSimpleFileAccessProtector.cs">
-      <Link>ZlpSimpleFileAccessProtector.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpSimpleFileAccessProtectorException.cs">
-      <Link>ZlpSimpleFileAccessProtectorException.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpSimpleFileAccessProtectorInformation.cs">
-      <Link>ZlpSimpleFileAccessProtectorInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\RuntimeNetCore\ZlpSplittedPath.cs">
-      <Link>ZlpSplittedPath.cs</Link>
-    </Compile>
+    <Compile Include="IZlpFileSystemInfo.cs" />
+    <Compile Include="Native\Enumerations.cs" />
+    <Compile Include="Native\FileOperations\ComReleaser.cs" />
+    <Compile Include="Native\FileOperations\FileOperation.cs" />
+    <Compile Include="Native\FileOperations\FileOperationProgressSink.cs" />
+    <Compile Include="Native\Interop\CopyEngineResult.cs" />
+    <Compile Include="Native\Interop\FileOperationFlags.cs" />
+    <Compile Include="Native\Interop\IFileOperation.cs" />
+    <Compile Include="Native\Interop\IFileOperationProgressSink.cs" />
+    <Compile Include="Native\Interop\IShellItem.cs" />
+    <Compile Include="Native\Interop\SIGDN.cs" />
+    <Compile Include="Native\PInvokeHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources.Designer.cs" />
     <Compile Include="Tools\ZlpImpersonator.cs" />
     <Compile Include="Tools\ZlpNetworkConnection.cs" />
+    <Compile Include="ZlpDirectoryInfo.cs" />
+    <Compile Include="ZlpException.cs" />
+    <Compile Include="ZlpExtensions.cs" />
+    <Compile Include="ZlpFileInfo.cs" />
+    <Compile Include="ZlpFileOrDirectoryInfo.cs" />
+    <Compile Include="ZlpFileOrDirectoryInfoExtensions.cs" />
+    <Compile Include="ZlpIOHelper.cs" />
+    <Compile Include="ZlpPathHelper.cs" />
+    <Compile Include="ZlpSafeFileExtensions.cs" />
+    <Compile Include="ZlpSafeFileOperations.cs" />
+    <Compile Include="ZlpSimpleFileAccessProtector.cs" />
+    <Compile Include="ZlpSimpleFileAccessProtectorException.cs" />
+    <Compile Include="ZlpSimpleFileAccessProtectorInformation.cs" />
+    <Compile Include="ZlpSplittedPath.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -146,7 +93,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.de.resx" />
+    <EmbeddedResource Include="Resources.resx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
