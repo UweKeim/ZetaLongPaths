@@ -783,9 +783,17 @@
 
         public static void CreateDirectory(string directoryPath)
         {
+            // TODO: https://referencesource.microsoft.com/#mscorlib/system/io/directory.cs,214
+
             if (string.IsNullOrEmpty(directoryPath))
             {
                 throw new ArgumentNullException(nameof(directoryPath));
+            }
+
+            // Wenn schon vorhanden, direkt fertig.
+            if (DirectoryExists(directoryPath))
+            {
+                return;
             }
 
             splitFolderPath(directoryPath, out var basePart, out var childParts);
@@ -964,6 +972,30 @@
                 // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
 
                 var lastWin32Error = Marshal.GetLastWin32Error();
+
+                // Kann bereits vorhanden sein, oder keine Berechtigung haben,
+                // oder auch eine Datei sein.
+                if(lastWin32Error == ERROR_ALREADY_EXISTS)
+                {
+                    if( FileExists(directoryPath) )
+                    {
+                        // Fehler auslösen.
+                    }
+                    else
+                    {
+                        if(!internalExists(directoryPath, out var currentError) && currentError == ERROR_ACCESS_DENIED)
+                        {
+                            lastWin32Error = currentError;
+                        }
+                        else
+                        {
+                            // Weiter machen erlauben.
+                            return;
+                        }
+                    }
+
+                }
+
                 throw new Win32Exception(
                     lastWin32Error,
                     string.Format(
@@ -973,6 +1005,9 @@
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
             }
         }
+
+        private const int ERROR_ACCESS_DENIED  = 0x05;
+        private const int ERROR_ALREADY_EXISTS = 0xB7;
 
         public static bool DirectoryIsEmpty(string directoryPath)
         {
@@ -987,14 +1022,21 @@
 
         public static bool DirectoryExists(string directoryPath)
         {
+            return internalExists(directoryPath, out _);
+        }
+
+        private static bool internalExists(string directoryPath, out int lastError)
+        {
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
-            var wIn32FileAttributeData = default(PInvokeHelper.WIN32_FILE_ATTRIBUTE_DATA);
+            var data = default(PInvokeHelper.WIN32_FILE_ATTRIBUTE_DATA);
 
-            var b = PInvokeHelper.GetFileAttributesEx(directoryPath, 0, ref wIn32FileAttributeData);
+            var b = PInvokeHelper.GetFileAttributesEx(directoryPath, 0, ref data);
+            lastError = Marshal.GetLastWin32Error();
+
             return b &&
-                   wIn32FileAttributeData.dwFileAttributes != -1 &&
-                   (wIn32FileAttributeData.dwFileAttributes & 16) != 0;
+                   data.dwFileAttributes != -1 &&
+                   (data.dwFileAttributes & 16) != 0;
         }
 
         [UsedImplicitly]

@@ -4,6 +4,7 @@
     using System;
     using System.IO;
     using System.Linq;
+    using Tools;
 
     [TestFixture]
     public class DirectoryInfoTest
@@ -43,6 +44,39 @@
 
             Assert.AreEqual(dirInfo1.Name, dirInfo3.Name);
             Assert.AreEqual(dirInfo2.Name, dirInfo4.Name);
+        }
+
+        [Test]
+        public void TestCreateWithLimitedPermission()
+        {
+            // Only in development environment.
+            if (Directory.Exists(@"\\nas001\Data\users\ukeim\Ablage\restricted\"))
+            {
+                if (true)
+                {
+                    ZlpIOHelper.DeleteDirectoryContents(@"\\nas001\Data\users\ukeim\Ablage\restricted\", true);
+
+                    var dirInfo1 = new ZlpDirectoryInfo(@"\\nas001\Data\users\ukeim\Ablage\restricted\my\folder");
+
+                    // Der Benutzer hat keine Rechte, um "restricted" zu erstellen, nur darin enthaltene.
+                    using (new ZlpImpersonator(@"small_user", @"office", @"ThisIsAnUnsecurePassword"))
+                    {
+                        Assert.DoesNotThrow(delegate { new DirectoryInfo(dirInfo1.FullName).Create(); });
+                    }
+                }
+                if (true)
+                {
+                    ZlpIOHelper.DeleteDirectoryContents(@"\\nas001\Data\users\ukeim\Ablage\restricted\", true);
+
+                    var dirInfo1 = new ZlpDirectoryInfo(@"\\nas001\Data\users\ukeim\Ablage\restricted\my\folder");
+
+                    // Der Benutzer hat keine Rechte, um "restricted" zu erstellen, nur darin enthaltene.
+                    using (new ZlpImpersonator(@"small_user", @"office", @"ThisIsAnUnsecurePassword"))
+                    {
+                        Assert.DoesNotThrow(delegate { dirInfo1.Create(); });
+                    }
+                }
+            }
         }
 
         [Test]
