@@ -1,18 +1,12 @@
 ﻿namespace ZetaLongPaths
 {
+    using JetBrains.Annotations;
+    using Properties;
     using System;
     using System.Configuration;
     using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Threading;
-    using JetBrains.Annotations;
-#if NETCORE
-    using RuntimeNetCore;
-
-#else
-    using Properties;
-
-#endif
 
     [UsedImplicitly]
     public static class ZlpGarbageCollectionHelper

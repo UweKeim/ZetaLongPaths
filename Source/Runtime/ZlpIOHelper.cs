@@ -1,5 +1,11 @@
 ﻿namespace ZetaLongPaths
 {
+    using JetBrains.Annotations;
+    using Microsoft.Win32.SafeHandles;
+    using Native;
+    using Native.FileOperations;
+    using Native.Interop;
+    using Properties;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -10,19 +16,9 @@
     using System.Security;
     using System.Security.Cryptography;
     using System.Text;
-    using JetBrains.Annotations;
-    using Microsoft.Win32.SafeHandles;
-    using Native;
-    using Native.FileOperations;
-    using Native.Interop;
     using FileAccess = Native.FileAccess;
     using FileAttributes = Native.FileAttributes;
     using FileShare = Native.FileShare;
-#if NETCORE
-    using RuntimeNetCore;
-#else
-    using Properties;
-#endif
 
     public static class ZlpIOHelper
     {
@@ -783,7 +779,7 @@
 
         public static void CreateDirectory(string directoryPath)
         {
-            // TODO: https://referencesource.microsoft.com/#mscorlib/system/io/directory.cs,214
+            // https://referencesource.microsoft.com/#mscorlib/system/io/directory.cs,214
 
             if (string.IsNullOrEmpty(directoryPath))
             {
@@ -800,14 +796,17 @@
 
             var path = basePart;
 
+            var index = 0;
             foreach (var childPart in childParts)
             {
                 path = combine(path, childPart);
 
                 if (!DirectoryExists(path))
                 {
-                    doCreateDirectory(path);
+                    doCreateDirectory(path, index >= childParts.Length - 1);
                 }
+
+                index++;
             }
         }
 
@@ -963,7 +962,7 @@
             }
         }
 
-        private static void doCreateDirectory(string directoryPath)
+        private static void doCreateDirectory(string directoryPath, bool isLastPart)
         {
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
@@ -975,15 +974,15 @@
 
                 // Kann bereits vorhanden sein, oder keine Berechtigung haben,
                 // oder auch eine Datei sein.
-                if(lastWin32Error == ERROR_ALREADY_EXISTS)
+                if (lastWin32Error == ERROR_ALREADY_EXISTS)
                 {
-                    if( FileExists(directoryPath) )
+                    if (FileExists(directoryPath))
                     {
                         // Fehler auslösen.
                     }
                     else
                     {
-                        if(!internalExists(directoryPath, out var currentError) && currentError == ERROR_ACCESS_DENIED)
+                        if (!internalExists(directoryPath, out var currentError) && currentError == ERROR_ACCESS_DENIED)
                         {
                             lastWin32Error = currentError;
                         }
@@ -995,17 +994,25 @@
                     }
                 }
 
-                throw new Win32Exception(
-                    lastWin32Error,
-                    string.Format(
-                        Resources.ErrorCreatingDirectory,
+                if (isLastPart)
+                {
+                    throw new Win32Exception(
                         lastWin32Error,
-                        directoryPath,
-                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+                        string.Format(
+                            Resources.ErrorCreatingDirectory,
+                            lastWin32Error,
+                            directoryPath,
+                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+                }
+                else
+                {
+                    // Ansonsten einfach weiter probieren; es kann auf dem aktuellen Ordner zwar
+                    // nicht möglich sein, jedoch im Unterordner.
+                }
             }
         }
 
-        private const int ERROR_ACCESS_DENIED  = 0x05;
+        private const int ERROR_ACCESS_DENIED = 0x05;
         private const int ERROR_ALREADY_EXISTS = 0xB7;
 
         public static bool DirectoryIsEmpty(string directoryPath)
@@ -1521,7 +1528,7 @@
                     {
                         var num = Marshal.GetLastWin32Error();
                         if (num == 2 || num == 3 || num == 21)
-                            // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
+                        // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
                         {
                             return 0;
                         }

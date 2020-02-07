@@ -1,15 +1,10 @@
 ﻿namespace ZetaLongPaths
 {
+    using JetBrains.Annotations;
+    using Properties;
     using System;
     using System.Linq;
     using System.Text;
-    using JetBrains.Annotations;
-#if NETCORE
-    using RuntimeNetCore;
-#else
-    using Properties;
-
-#endif
 
     /// <summary>
     /// "Nice to have" extensions.

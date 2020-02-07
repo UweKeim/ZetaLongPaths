@@ -15,7 +15,6 @@
             return new ZlpDirectoryInfo(ZlpPathHelper.GetTempDirectoryPath());
         }
 
-#if !NETCORE
         [UsedImplicitly]
         public static ZlpDirectoryInfo GetFolderPath(
             Environment.SpecialFolder specialFolder)
@@ -23,7 +22,6 @@
             return new ZlpDirectoryInfo(Environment.GetFolderPath(specialFolder));
         }
 
-#if !NET20
         [UsedImplicitly]
         public static ZlpDirectoryInfo GetFolderPath(
             Environment.SpecialFolder specialFolder,
@@ -31,8 +29,6 @@
         {
             return new ZlpDirectoryInfo(Environment.GetFolderPath(specialFolder, option));
         }
-#endif
-#endif
 
         public ZlpDirectoryInfo(string path)
         {

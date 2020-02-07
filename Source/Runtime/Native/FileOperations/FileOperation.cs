@@ -114,12 +114,7 @@
             ref Guid riid);
 
         private static readonly Guid ClsidFileOperation = new Guid("3ad05575-8857-4850-9277-11b85bdb8e09");
-#if NETCORE
-        private static readonly Type FileOperationType = Marshal.GetTypeFromCLSID(ClsidFileOperation);
-        private static Guid _shellItemGuid = Guid.Parse(@"43826d1e-e718-42ee-bc55-a1e261c37bfe");
-#else
         private static readonly Type FileOperationType = Type.GetTypeFromCLSID(ClsidFileOperation);
         private static Guid _shellItemGuid = typeof(IShellItem).GUID;
-#endif
     }
 }
