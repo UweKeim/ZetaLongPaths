@@ -32,7 +32,9 @@
         public static void SafeDeleteFile(
             string filePath)
         {
+#if WANT_TRACE
             Trace.TraceInformation(@"About to safe-delete file '{0}'.", filePath);
+#endif
 
             if (!string.IsNullOrEmpty(filePath) &&
                 SafeFileExists(filePath))
@@ -56,8 +58,10 @@
                     var newFilePath =
                         $@"{filePath}.{Guid.NewGuid():N}.deleted";
 
+#if WANT_TRACE
                     Trace.TraceWarning(@"Caught UnauthorizedAccessException while deleting file '{0}'. " +
                                        @"Renaming now to '{1}'. {2}", filePath, newFilePath, x.Message);
+#endif
 
                     try
                     {
@@ -68,8 +72,10 @@
                     }
                     catch (Win32Exception x2)
                     {
+#if WANT_TRACE
                         Trace.TraceWarning(@"Caught IOException while renaming upon failed deleting file '{0}'. " +
                                            @"Renaming now to '{1}'. {2}", filePath, newFilePath, x2.Message);
+#endif
                     }
                 }
                 catch (Win32Exception x)
@@ -77,8 +83,10 @@
                     var newFilePath =
                         $@"{filePath}.{Guid.NewGuid():N}.deleted";
 
+#if WANT_TRACE
                     Trace.TraceWarning(@"Caught IOException while deleting file '{0}'. " +
                                        @"Renaming now to '{1}'. {2}", filePath, newFilePath, x.Message);
+#endif
 
                     try
                     {
@@ -89,15 +97,19 @@
                     }
                     catch (Win32Exception x2)
                     {
+#if WANT_TRACE
                         Trace.TraceWarning(@"Caught IOException while renaming upon failed deleting file '{0}'. " +
                                            @"Renaming now to '{1}'. {2}", filePath, newFilePath, x2.Message);
+#endif
                     }
                 }
             }
             else
             {
+#if WANT_TRACE
                 Trace.TraceInformation(@"Not safe-deleting file '{0}', " +
                                        @"because the file does not exist.", filePath);
+#endif
             }
         }
 
@@ -133,7 +145,9 @@
         public static void SafeDeleteDirectory(
             string folderPath)
         {
+#if WANT_TRACE
             Trace.TraceInformation(@"About to safe-delete directory '{0}'.", folderPath);
+#endif
 
             if (!string.IsNullOrEmpty(folderPath) && SafeDirectoryExists(folderPath))
             {
@@ -145,8 +159,10 @@
                 {
                     var newFilePath = $@"{folderPath}.{Guid.NewGuid():B}.deleted";
 
+#if WANT_TRACE
                     Trace.TraceWarning(@"Caught IOException while deleting directory '{0}'. " +
                                        @"Renaming now to '{1}'. {2}", folderPath, newFilePath, x.Message);
+#endif
 
                     try
                     {
@@ -156,15 +172,19 @@
                     }
                     catch (Win32Exception x2)
                     {
+#if WANT_TRACE
                         Trace.TraceWarning(@"Caught IOException while renaming upon failed deleting directory '{0}'. " +
                                            @"Renaming now to '{1}'. {2}", folderPath, newFilePath, x2.Message);
+#endif
                     }
                 }
             }
             else
             {
+#if WANT_TRACE
                 Trace.TraceInformation(@"Not safe-deleting directory '{0}', " +
                                        @"because the directory does not exist.", folderPath);
+#endif
             }
         }
 

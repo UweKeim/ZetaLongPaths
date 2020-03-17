@@ -9,7 +9,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Runtime.InteropServices;
@@ -507,11 +506,13 @@
                 }
                 else
                 {
+#if WANT_TRACE
                     // ReSharper disable once InvocationIsSkipped
                     Trace.TraceWarning(@"Error {0} marking file '{1}' for deletion after reboot: {2}",
                         lastWin32Error,
                         sourceFilePath,
                         CheckAddDotEnd(new Win32Exception(lastWin32Error).Message));
+#endif
                 }
             }
         }
@@ -1497,7 +1498,9 @@
         [SecuritySafeCritical]
         public static long GetFileLength(string filePath)
         {
+#if WANT_TRACE
             Trace.TraceInformation(@"About to get file length for path '{0}'.", filePath);
+#endif
 
             // 2014-06-10, Uwe Keim: Weil das auf 64-bit-Windows 8 nicht sauber läuft,
             // zunächst mal bei kürzeren Pfaden die eingebaute Methode nehmen.
@@ -1585,8 +1588,10 @@
                     var low = fd.nFileSizeLow;
                     var high = fd.nFileSizeHigh;
 
+#if WANT_TRACE
                     Trace.TraceInformation(@"FindFirstFile returned LOW = {0}, HIGH = {1}.", low, high);
                     Trace.Flush();
+#endif
 
                     try
                     {
@@ -1623,10 +1628,12 @@
                     }
                     catch (OverflowException x)
                     {
+#if WANT_TRACE
                         Trace.TraceInformation(
                             @"Got overflow exception ('{3}') for path '{0}'. LOW = {1}, HIGH = {2}.", filePath, low,
                             high, x.Message);
                         Trace.Flush();
+#endif
 
                         throw;
                     }

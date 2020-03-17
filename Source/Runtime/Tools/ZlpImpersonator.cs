@@ -3,7 +3,6 @@
     using JetBrains.Annotations;
     using System;
     using System.ComponentModel;
-    using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Security.Principal;
@@ -1025,8 +1024,10 @@
             ZlpImpersonatorLoginType loginType,
             out Exception exception)
         {
+#if WANT_TRACE
             Trace.TraceInformation(@"[Impersonation] About to check for login as domain '{0}', user '{1}'.", domainName,
                 userName);
+#endif
 
             exception = null;
 
@@ -1061,16 +1062,20 @@
 
             if (exception == null)
             {
+#if WANT_TRACE
                 Trace.TraceInformation(@"[Impersonation] Successfully check for login as domain '{0}', user '{1}'.",
                     domainName, userName);
+#endif
 
                 return true;
             }
             else
             {
+#if WANT_TRACE
                 Trace.TraceError(
                     $@"[Impersonation] Error check for login as domain '{domainName}', user '{userName}'.",
                     exception);
+#endif
 
                 return false;
             }
@@ -1093,8 +1098,10 @@
             ZlpImpersonatorProfileBehaviour profileBehaviour,
             out Exception exception)
         {
+#if WANT_TRACE
             Trace.TraceInformation(@"[Impersonation] About to impersonate as domain '{0}', user '{1}'.", domainName,
                 userName);
+#endif
 
             exception = null;
 
@@ -1154,14 +1161,18 @@
 
             if (exception == null)
             {
+#if WANT_TRACE
                 Trace.TraceInformation(@"[Impersonation] Successfully impersonated as domain '{0}', user '{1}'.",
                     domainName, userName);
+#endif
             }
             else
             {
+#if WANT_TRACE
                 Trace.TraceError(
                     $@"[Impersonation] Error impersonating as domain '{domainName}', user '{userName}'.",
                     exception);
+#endif
             }
         }
 
@@ -1239,8 +1250,10 @@
             ZlpImpersonatorProfileBehaviour profileBehaviour,
             out Exception exception)
         {
+#if WANT_TRACE
             Trace.TraceInformation(@"[Impersonation] About to impersonate as domain '{0}', user '{1}'.", domainName,
                 userName);
+#endif
 
             exception = null;
 
@@ -1308,14 +1321,18 @@
 
             if (exception == null)
             {
+#if WANT_TRACE
                 Trace.TraceInformation(@"[Impersonation] Successfully impersonated as domain '{0}', user '{1}'.",
                     domainName, userName);
+#endif
             }
             else
             {
+#if WANT_TRACE
                 Trace.TraceError(
                     $@"[Impersonation] Error impersonating as domain '{domainName}', user '{userName}'.",
                     exception);
+#endif
             }
         }
 
@@ -1341,8 +1358,10 @@
             ZlpImpersonatorLoginType loginType,
             out Exception exception)
         {
+#if WANT_TRACE
             Trace.TraceInformation(@"[Impersonation] About to check for login as domain '{0}', user '{1}'.", domainName,
                 userName);
+#endif
 
             exception = null;
 
@@ -1385,16 +1404,20 @@
 
             if (exception == null)
             {
+#if WANT_TRACE
                 Trace.TraceInformation(@"[Impersonation] Successfully check for login as domain '{0}', user '{1}'.",
                     domainName, userName);
+#endif
 
                 return true;
             }
             else
             {
+#if WANT_TRACE
                 Trace.TraceError(
                     $@"[Impersonation] Error check for login as domain '{domainName}', user '{userName}'.",
                     exception);
+#endif
 
                 return false;
             }
@@ -1426,8 +1449,10 @@
         {
             if (_impersonationContext != null)
             {
+#if WANT_TRACE
                 Trace.TraceInformation(
                     @"[Impersonation] About to undo impersonation.");
+#endif
 
                 try
                 {
@@ -1436,22 +1461,28 @@
                 }
                 catch (Exception)
                 {
+#if WANT_TRACE
                     Trace.TraceError(
                         @"[Impersonation] Error undoing impersonation.");
+#endif
 
                     throw;
                 }
 
+#if WANT_TRACE
                 Trace.TraceInformation(
                     @"[Impersonation] Successfully undone impersonation.");
+#endif
             }
 
             // --
 
             if (_profileBehaviour == ZlpImpersonatorProfileBehaviour.Load)
             {
+#if WANT_TRACE
                 Trace.TraceInformation(
                     @"[Impersonation] About to unload user profile.");
+#endif
 
                 try
                 {
@@ -1465,8 +1496,10 @@
                 }
                 catch (Exception)
                 {
+#if WANT_TRACE
                     Trace.TraceError(
                         @"[Impersonation] Error unloading user profile.");
+#endif
 
                     throw;
                 }

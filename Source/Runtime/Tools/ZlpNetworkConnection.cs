@@ -3,7 +3,6 @@
     using JetBrains.Annotations;
     using Properties;
     using System;
-    using System.Diagnostics;
     using System.IO;
     using System.Runtime.InteropServices;
 
@@ -146,7 +145,9 @@
             if (!string.IsNullOrEmpty(_networkName))
             {
                 var result = WNetCancelConnection2(_networkName, 0, true);
+#if WANT_TRACE
                 Trace.TraceInformation($@"Result for canceling network connection: {result}.");
+#endif
             }
         }
 
