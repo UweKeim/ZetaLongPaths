@@ -238,5 +238,33 @@
             Assert.IsFalse(ZlpIOHelper.DriveExists('Q'));
             Assert.IsFalse(ZlpIOHelper.DriveExists('q'));
         }
+
+        [Test]
+        public void TestAppend()
+        {
+            var filePath = $@"C:\Ablage\test-{Guid.NewGuid():N}.bin";
+            try
+            {
+                var bytes1 = new byte[] 
+                    {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+                var bytes2 = new byte[]
+                    {11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33};
+
+                ZlpIOHelper.WriteAllBytes(filePath, bytes1);
+                Assert.AreEqual(ZlpIOHelper.GetFileLength(filePath), bytes1.Length);
+
+                ZlpIOHelper.AppendBytes(filePath, bytes2);
+                Assert.AreEqual(ZlpIOHelper.GetFileLength(filePath), bytes1.Length + bytes2.Length);
+
+                // Lesen.
+                var allBytes = File.ReadAllBytes(filePath);
+                Assert.AreEqual(allBytes[5], bytes1[5]);
+                Assert.AreEqual(allBytes[15], 16);
+            }
+            finally
+            {
+                ZlpSafeFileOperations.SafeDeleteFile(filePath);
+            }
+        }
     }
 }

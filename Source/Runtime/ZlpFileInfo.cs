@@ -251,6 +251,9 @@
         [UsedImplicitly]
         public void WriteAllBytes(byte[] content) => ZlpIOHelper.WriteAllBytes(FullName, content);
 
+        [UsedImplicitly]
+        public void AppendBytes(byte[] content) => ZlpIOHelper.AppendBytes(FullName, content);
+
         public DateTime LastWriteTime
         {
             get => ZlpIOHelper.GetFileLastWriteTime(FullName);

@@ -17,7 +17,8 @@
         GenericExecute = 0x20000000,
         GenericAll = 0x10000000,
         FileReadAttributes = 0x80, // https://msdn.microsoft.com/en-us/library/windows/desktop/gg258116(v=vs.85).aspx
-        FileWriteAttributes = 0x100 // https://msdn.microsoft.com/en-us/library/windows/desktop/gg258116(v=vs.85).aspx
+        FileWriteAttributes = 0x100, // https://msdn.microsoft.com/en-us/library/windows/desktop/gg258116(v=vs.85).aspx
+        FileAppendData = 4 // https://docs.microsoft.com/en-us/windows/win32/fileio/file-access-rights-constants
     }
 
     [Flags]

@@ -195,6 +195,21 @@
             streamWriter.Write(contents);
         }
 
+        public static void AppendBytes(
+            string path,
+            byte[] contents)
+        {
+            using var fs =
+                new FileStream(
+                    CreateFileHandle(
+                        path,
+                        CreationDisposition.OpenAlways,
+                        FileAccess.FileAppendData,
+                        FileShare.Read),
+                    System.IO.FileAccess.Write);
+            fs.Write(contents, 0, contents.Length);
+        }
+
         public static void WriteAllBytes(
             string path,
             byte[] contents)
