@@ -110,6 +110,32 @@
              }
              </code></example>
         </member>
+        <member name="T:JetBrains.Annotations.ValueRangeAttribute">
+            <summary>
+            Indicates that the integral value falls into the specified interval.
+            It's allowed to specify multiple non-intersecting intervals.
+            Values of interval boundaries are inclusive.
+            </summary>
+            <example><code>
+            void Foo([ValueRange(0, 100)] int value) {
+              if (value == -1) { // Warning: Expression is always 'false'
+                ...
+              }
+            }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.NonNegativeValueAttribute">
+            <summary>
+            Indicates that the integral value never falls below zero.
+            </summary>
+            <example><code>
+            void Foo([NonNegativeValue] int value) {
+              if (value == -1) { // Warning: Expression is always 'false'
+                ...
+              }
+            }
+            </code></example>
+        </member>
         <member name="T:JetBrains.Annotations.InvokerParameterNameAttribute">
             <summary>
             Indicates that the function argument should be a string literal and match one
@@ -299,6 +325,9 @@
         <member name="F:JetBrains.Annotations.ImplicitUseTargetFlags.Members">
             <summary>Members of entity marked with attribute are considered used.</summary>
         </member>
+        <member name="F:JetBrains.Annotations.ImplicitUseTargetFlags.WithInheritors">
+            <summary> Inherited entities are considered used. </summary>
+        </member>
         <member name="F:JetBrains.Annotations.ImplicitUseTargetFlags.WithMembers">
             <summary>Entity marked with attribute and all its members considered used.</summary>
         </member>
@@ -324,7 +353,7 @@
             [Pure] int Multiply(int x, int y) => x * y;
             
             void M() {
-              Multiply(123, 42); // Waring: Return value of pure method is not used
+              Multiply(123, 42); // Warning: Return value of pure method is not used
             }
             </code></example>
         </member>
@@ -683,6 +712,17 @@
             <summary>
             XAML attribute. Indicates the property of some <c>BindingBase</c>-derived type, that
             is used to bind some item of <c>ItemsControl</c>-derived type. This annotation will
+            enable the <c>DataContext</c> type resolve for XAML bindings for such properties.
+            </summary>
+            <remarks>
+            Property should have the tree ancestor of the <c>ItemsControl</c> type or
+            marked with the <see cref="T:JetBrains.Annotations.XamlItemsControlAttribute"/> attribute.
+            </remarks>
+        </member>
+        <member name="T:JetBrains.Annotations.XamlItemStyleOfItemsControlAttribute">
+            <summary>
+            XAML attribute. Indicates the property of some <c>Style</c>-derived type, that
+            is used to style items of <c>ItemsControl</c>-derived type. This annotation will
             enable the <c>DataContext</c> type resolve for XAML bindings for such properties.
             </summary>
             <remarks>
