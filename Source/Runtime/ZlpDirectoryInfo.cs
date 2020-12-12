@@ -98,8 +98,7 @@
 
         public bool Exists => ZlpIOHelper.DirectoryExists(FullName);
 
-        [UsedImplicitly]
-        public bool IsEmpty => ZlpIOHelper.DirectoryIsEmpty(FullName);
+        [UsedImplicitly] public bool IsEmpty => ZlpIOHelper.DirectoryIsEmpty(FullName);
 
         public void MoveToRecycleBin()
         {
@@ -134,6 +133,9 @@
             ZlpIOHelper.MoveDirectory(FullName, destinationDirectoryPath);
         }
 
+        /// <summary>
+        /// The destination folder may not exists yet, otherwise an error 183 will be thrown.
+        /// </summary>
         public void MoveTo(ZlpDirectoryInfo destinationDirectoryPath)
         {
             ZlpIOHelper.MoveDirectory(FullName, destinationDirectoryPath.FullName);

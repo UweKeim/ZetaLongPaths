@@ -100,7 +100,7 @@
                         }
                         else
                         {
-                            var p = new HandleExceptionInfo(x, count);
+                            var p = new ZlpHandleExceptionInfo(x, count);
                             info.HandleException?.Invoke(p);
 
                             if (p.WantThrow)
@@ -179,7 +179,7 @@
                         }
                         else
                         {
-                            var p = new HandleExceptionInfo(x, count);
+                            var p = new ZlpHandleExceptionInfo(x, count);
                             info.HandleException?.Invoke(p);
 
                             if (p.WantThrow)

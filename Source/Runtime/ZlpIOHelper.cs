@@ -268,6 +268,7 @@
                 x.Data[nameof(creationDisposition)] = creationDisposition;
                 x.Data[nameof(fileAccess)] = fileAccess;
                 x.Data[nameof(fileShare)] = fileShare;
+                x.Data[nameof(useAsync)] = useAsync;
 
                 throw x;
             }
@@ -291,7 +292,7 @@
             try
             {
                 var q = new IntPtr(gCHandle.AddrOfPinnedObject().ToInt64() + offset);
-                flag = PInvokeHelper.ReadFile(handle, q, (uint)count, out result, IntPtr.Zero);
+                flag = PInvokeHelper.ReadFile(handle, q, (uint) count, out result, IntPtr.Zero);
             }
             finally
             {
@@ -314,7 +315,7 @@
                 throw x;
             }
 
-            return (int)result;
+            return (int) result;
         }
 
         [UsedImplicitly]
@@ -332,7 +333,7 @@
             try
             {
                 var q = new IntPtr(gCHandle.AddrOfPinnedObject().ToInt64() + offset);
-                flag = PInvokeHelper.WriteFile(handle, q, (uint)count, out result, IntPtr.Zero);
+                flag = PInvokeHelper.WriteFile(handle, q, (uint) count, out result, IntPtr.Zero);
             }
             finally
             {
@@ -355,7 +356,7 @@
                 throw x;
             }
 
-            return (int)result;
+            return (int) result;
         }
 
         [UsedImplicitly]
@@ -532,6 +533,9 @@
             }
         }
 
+        /// <summary>
+        /// The destination folder may not exists yet, otherwise an error 183 will be thrown.
+        /// </summary>
         public static void MoveDirectory(
             string sourceFolderPath,
             string destinationFolderPath)
@@ -652,7 +656,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            return (FileAttributes)PInvokeHelper.GetFileAttributes(filePath);
+            return (FileAttributes) PInvokeHelper.GetFileAttributes(filePath);
         }
 
         public static void DeleteFile(string filePath)
@@ -857,7 +861,7 @@
             basePart = getDriveOrShare(directoryPath);
 
             var remaining = directoryPath.Substring(basePart.Length);
-            childParts = remaining.Trim('\\').Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            childParts = remaining.Trim('\\').Split(new[] {'\\'}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private static string getDrive(
@@ -1088,19 +1092,21 @@
                     if (true)
                     {
                         var ft = fd.ftLastWriteTime;
-                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                         r.LastWriteTime = getLocalTime(hft2);
                     }
+
                     if (true)
                     {
                         var ft = fd.ftLastAccessTime;
-                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                         r.LastAccessTime = getLocalTime(hft2);
                     }
+
                     if (true)
                     {
                         var ft = fd.ftCreationTime;
-                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                         r.CreationTime = getLocalTime(hft2);
                     }
 
@@ -1136,7 +1142,8 @@
                 var dLastAccess = infos.LastAccessTime.ToFileTime();
                 var dCreation = infos.CreationTime.ToFileTime();
 
-                if (!PInvokeHelper.SetFileTime4(handle.DangerousGetHandle(), ref dCreation, ref dLastAccess, ref dLastWrite))
+                if (!PInvokeHelper.SetFileTime4(handle.DangerousGetHandle(), ref dCreation, ref dLastAccess,
+                    ref dLastWrite))
                 {
                     var lastWin32Error = Marshal.GetLastWin32Error();
                     var x = new Win32Exception(
@@ -1204,7 +1211,7 @@
                 {
                     var ft = fd.ftLastWriteTime;
 
-                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1236,7 +1243,7 @@
                 {
                     var ft = fd.ftLastAccessTime;
 
-                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1268,7 +1275,7 @@
                 {
                     var ft = fd.ftCreationTime;
 
-                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1546,7 +1553,7 @@
                     {
                         var num = Marshal.GetLastWin32Error();
                         if (num == 2 || num == 3 || num == 21)
-                        // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
+                            // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
                         {
                             return 0;
                         }
@@ -1560,18 +1567,18 @@
                     // https://mcdrummerman.wordpress.com/2010/07/13/win32_find_data-and-negative-file-sizes/
 
                     //store nFileSizeLow
-                    var fDataFSize = (long)fd.nFileSizeLow;
+                    var fDataFSize = (long) fd.nFileSizeLow;
 
                     //store individual file size for later accounting usage
                     long fileSize;
 
-                    if (fDataFSize < 0 && (long)fd.nFileSizeHigh > 0)
+                    if (fDataFSize < 0 && (long) fd.nFileSizeHigh > 0)
                     {
                         fileSize = fDataFSize + 0x100000000 + fd.nFileSizeHigh * 0x100000000;
                     }
                     else
                     {
-                        if ((long)fd.nFileSizeHigh > 0)
+                        if ((long) fd.nFileSizeHigh > 0)
                         {
                             fileSize = fDataFSize + fd.nFileSizeHigh * 0x100000000;
                         }
@@ -1610,7 +1617,7 @@
 
                     try
                     {
-                        return (long)high << 32 | (low & 0xffffffffL);
+                        return (long) high << 32 | (low & 0xffffffffL);
 
                         //try
                         //{
@@ -1672,10 +1679,14 @@
 
         public static ZlpFileInfo[] GetFiles(string directoryPath, string pattern, SearchOption searchOption)
         {
+            if (directoryPath == null) throw new ArgumentNullException(nameof(directoryPath));
+            if (pattern == null) throw new ArgumentNullException(nameof(pattern));
+
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<ZlpFileInfo>();
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + "\\" + pattern, out var findData);
+            var findHandle =
+                PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + "\\" + pattern, out var findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1687,7 +1698,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a file, find its contents
-                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
+                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
                         {
                             results.Add(new ZlpFileInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
                         }
@@ -1734,12 +1745,14 @@
             return GetFileSystemInfos(directoryPath, @"*.*", searchOption);
         }
 
-        public static IZlpFileSystemInfo[] GetFileSystemInfos(string directoryPath, string pattern, SearchOption searchOption)
+        public static IZlpFileSystemInfo[] GetFileSystemInfos(string directoryPath, string pattern,
+            SearchOption searchOption)
         {
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<IZlpFileSystemInfo>();
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out var findData);
+            var findHandle =
+                PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out var findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1751,11 +1764,12 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a directory, find its contents
-                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
                         {
                             if (currentFileName != @"." && currentFileName != @"..")
                             {
-                                results.Add(new ZlpDirectoryInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
+                                results.Add(
+                                    new ZlpDirectoryInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
                             }
                         }
                         else
@@ -1782,6 +1796,7 @@
                     results.AddRange(GetFileSystemInfos(dir.FullName, pattern, searchOption));
                 }
             }
+
             return results.ToArray();
         }
 
@@ -1790,7 +1805,8 @@
             directoryPath = CheckAddLongPathPrefix(directoryPath);
 
             var results = new List<ZlpDirectoryInfo>();
-            var findHandle = PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out var findData);
+            var findHandle =
+                PInvokeHelper.FindFirstFile(directoryPath.TrimEnd('\\') + @"\" + pattern, out var findData);
 
             if (findHandle != PInvokeHelper.INVALID_HANDLE_VALUE)
             {
@@ -1802,11 +1818,12 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a directory, find its contents
-                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
                         {
                             if (currentFileName != @"." && currentFileName != @"..")
                             {
-                                results.Add(new ZlpDirectoryInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
+                                results.Add(
+                                    new ZlpDirectoryInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
                             }
                         }
 
@@ -1829,6 +1846,7 @@
                     results.AddRange(GetDirectories(dir.FullName, pattern, searchOption));
                 }
             }
+
             return results.ToArray();
         }
 
@@ -1880,9 +1898,9 @@
                 return path;
             }
             else if (path.Length > PInvokeHelper.MAX_PATH ||
-                // See https://github.com/UweKeim/ZetaLongPaths/issues/12
-                // Example: "C:\\Users\\cliente\\Desktop\\DRIVES~2\\mdzip\\PASTAC~1\\SUBPAS~1\\PASTAC~1\\SUBPAS~1\\SUBDAS~1\\bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.txt"
-                path.Contains(@"~"))
+                     // See https://github.com/UweKeim/ZetaLongPaths/issues/12
+                     // Example: "C:\\Users\\cliente\\Desktop\\DRIVES~2\\mdzip\\PASTAC~1\\SUBPAS~1\\PASTAC~1\\SUBPAS~1\\SUBDAS~1\\bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.txt"
+                     path.Contains(@"~"))
             {
                 return ForceAddLongPathPrefix(path);
             }

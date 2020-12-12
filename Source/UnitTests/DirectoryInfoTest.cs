@@ -2,6 +2,7 @@
 {
     using NUnit.Framework;
     using System;
+    using System.ComponentModel;
     using System.IO;
     using System.Linq;
     using Tools;
@@ -22,6 +23,26 @@
                 f1.WriteAllText("1");
 
                 Assert.DoesNotThrow(() => p1.MoveTo(p2));
+            }
+            finally
+            {
+                path.SafeDelete();
+            }
+        }
+
+        [Test]
+        public void TestMove2()
+        {
+            var path = ZlpDirectoryInfo.GetTemp().CombineDirectory(Guid.NewGuid().ToString()).CheckCreate();
+            try
+            {
+                var p1 = path.CombineDirectory(@"a").CheckCreate();
+                var p2 = path.CombineDirectory(@"b").CheckCreate(); // Das "CheckCreate()" hier ist falsch.
+
+                var f1 = p1.CombineFile("1.txt");
+                f1.WriteAllText("1");
+
+                Assert.Throws<Win32Exception>(() => p1.MoveTo(p2));
             }
             finally
             {
