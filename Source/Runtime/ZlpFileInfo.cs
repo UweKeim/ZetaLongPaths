@@ -17,10 +17,10 @@
         IZlpFileSystemInfo
     {
         [UsedImplicitly]
-        public static ZlpFileInfo GetTemp() => new ZlpFileInfo(ZlpPathHelper.GetTempFilePath());
+        public static ZlpFileInfo GetTemp() => new(ZlpPathHelper.GetTempFilePath());
 
         [UsedImplicitly]
-        public static ZlpFileInfo GetTemp(string extension) => new ZlpFileInfo(ZlpPathHelper.GetTempFilePath(extension));
+        public static ZlpFileInfo GetTemp(string extension) => new(ZlpPathHelper.GetTempFilePath(extension));
 
         public ZlpFileInfo(string path)
         {
@@ -42,25 +42,25 @@
         [UsedImplicitly]
         public static ZlpFileInfo FromOther(ZlpFileInfo path)
         {
-            return new ZlpFileInfo(path);
+            return new(path);
         }
 
         [UsedImplicitly]
         public static ZlpFileInfo FromString(string path)
         {
-            return new ZlpFileInfo(path);
+            return new(path);
         }
 
         [UsedImplicitly]
         public static ZlpFileInfo FromBuiltIn(FileInfo path)
         {
-            return new ZlpFileInfo(path);
+            return new(path);
         }
 
         [UsedImplicitly]
         public FileInfo ToBuiltIn()
         {
-            return new FileInfo(FullName);
+            return new(FullName);
         }
 
         [UsedImplicitly]
@@ -77,13 +77,13 @@
         [UsedImplicitly]
         public ZlpFileInfo Clone()
         {
-            return new ZlpFileInfo(FullName);
+            return new(FullName);
         }
 
         [UsedImplicitly]
         public ZlpFileInfo GetFullPath()
         {
-            return new ZlpFileInfo(ZlpPathHelper.GetFullPath(FullName));
+            return new(ZlpPathHelper.GetFullPath(FullName));
         }
 
         [UsedImplicitly]
@@ -191,7 +191,7 @@
         [UsedImplicitly]
         public FileStream OpenRead()
         {
-            return new FileStream(
+            return new(
                 ZlpIOHelper.CreateFileHandle(
                     FullName,
                     CreationDisposition.OpenAlways,
@@ -203,7 +203,7 @@
         [UsedImplicitly]
         public FileStream OpenWrite()
         {
-            return new FileStream(
+            return new(
                 ZlpIOHelper.CreateFileHandle(
                     FullName,
                     CreationDisposition.OpenAlways,
@@ -215,7 +215,7 @@
         [UsedImplicitly]
         public FileStream OpenCreate()
         {
-            return new FileStream(
+            return new(
                 ZlpIOHelper.CreateFileHandle(
                     FullName,
                     CreationDisposition.CreateAlways,
@@ -291,7 +291,7 @@
         [UsedImplicitly]
         public string NameWithoutExtension => ZlpPathHelper.GetFileNameWithoutExtension(Name);
 
-        public ZlpDirectoryInfo Directory => new ZlpDirectoryInfo(DirectoryName);
+        public ZlpDirectoryInfo Directory => new(DirectoryName);
 
         public string DirectoryName => ZlpPathHelper.GetDirectoryPathNameFromFilePath(FullName);
 

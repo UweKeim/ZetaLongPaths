@@ -135,4 +135,46 @@
   <data name="TriedTooOften" xml:space="preserve">
     <value>Fehler bei Dateioperation, mehr als {0} Mal probiert.</value>
   </data>
+  <data name="ErrorCopyingFile" xml:space="preserve">
+    <value>Fehler {0} beim Kopieren von file '{1}' nach '{2}': {3}</value>
+  </data>
+  <data name="ErrorCreatingDirectory" xml:space="preserve">
+    <value>Fehler {0} beim Erstellen von Ordner '{1}': {2}</value>
+  </data>
+  <data name="ErrorCreatingFileHandle" xml:space="preserve">
+    <value>Fehler {0} beim Erstellen von Dateihandle für Dateipfad '{1}': {2}</value>
+  </data>
+  <data name="ErrorDeletingFile" xml:space="preserve">
+    <value>Fehler {0} beim Löschen von Datei '{1}': {2}</value>
+  </data>
+  <data name="ErrorDeletingFolder" xml:space="preserve">
+    <value>Fehler {0} beim Löschen von Ordner '{1}': {2}</value>
+  </data>
+  <data name="ErrorGettingSecurityInfo" xml:space="preserve">
+    <value>Fehler {0} beim Ermitteln der Sicherheitsinformationen beim Ermitteln des Besitzers für Datei '{1}': {2}</value>
+  </data>
+  <data name="ErrorLookingUpSid" xml:space="preserve">
+    <value>Fehler {0} beim Ermitteln des Konto-SID beim Ermitteln des Besitzers für Datei '{1}': {2}</value>
+  </data>
+  <data name="ErrorMarkingFileForDeletion" xml:space="preserve">
+    <value>Fehler {0} beim Markieren der Datei '{1}' als zu löschen nach einem Neustart: {2}</value>
+  </data>
+  <data name="ErrorMovingFile" xml:space="preserve">
+    <value>Fehler {0} beim Verschieben von Datei '{1}' nach '{2}': {3}</value>
+  </data>
+  <data name="ErrorMovingFolder" xml:space="preserve">
+    <value>Fehler {0} beim Verschieben von Ordner '{1}' nach '{2}': {3}</value>
+  </data>
+  <data name="ErrorSettingAccessTime" xml:space="preserve">
+    <value>Fehler {0} beim Setzen des Datums des letzten Zugriffs für Datei '{1}': {2}</value>
+  </data>
+  <data name="ErrorSettingAttributes" xml:space="preserve">
+    <value>Fehler {0} Beim Setzen des Dateiattributs für Datei '{1}' auf '{2}': {3}</value>
+  </data>
+  <data name="ErrorSettingCreationTime" xml:space="preserve">
+    <value>Fehler {0} beim Setzen des Erstelldatums für Date '{1}': {2}</value>
+  </data>
+  <data name="ErrorSettingsWriteTime" xml:space="preserve">
+    <value>Fehler {0} beim Setzen des Datums der letzten Änderung für Datei '{1}': {2}</value>
+  </data>
 </root>

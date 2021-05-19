@@ -94,14 +94,14 @@
         [UsedImplicitly]
         public ZlpFileOrDirectoryInfo Clone()
         {
-            return new ZlpFileOrDirectoryInfo(this);
+            return new(this);
         }
 
         public bool IsEmpty => string.IsNullOrEmpty(FullName);
 
-        public ZlpFileInfo File => new ZlpFileInfo(FullName);
+        public ZlpFileInfo File => new(FullName);
 
-        public ZlpDirectoryInfo Directory => new ZlpDirectoryInfo(FullName);
+        public ZlpDirectoryInfo Directory => new(FullName);
 
         [UsedImplicitly]
         public ZlpDirectoryInfo EffectiveDirectory
@@ -160,7 +160,7 @@
         [UsedImplicitly]
         public string OriginalPath { get; }
 
-        public ZlpSplittedPath ZlpSplittedPath => new ZlpSplittedPath(this);
+        public ZlpSplittedPath ZlpSplittedPath => new(this);
 
         [UsedImplicitly]
         public string Name => IsFile ? File?.Name : Directory?.Name;
@@ -407,7 +407,7 @@
             ZlpFileOrDirectoryInfo info)
         {
             return
-                new ZlpFileOrDirectoryInfo(
+                new(
                     ZlpPathHelper.Combine(
                         EffectiveDirectory.FullName,
                         info.FullName));
@@ -418,7 +418,7 @@
             string path)
         {
             return
-                new ZlpFileOrDirectoryInfo(
+                new(
                     ZlpPathHelper.Combine(
                         EffectiveDirectory.FullName,
                         path));
@@ -429,7 +429,7 @@
             ZlpFileInfo info)
         {
             return
-                new ZlpFileOrDirectoryInfo(
+                new(
                     ZlpPathHelper.Combine(
                         EffectiveDirectory.FullName,
                         // According to Reflector, "ToString()" returns the 
@@ -442,7 +442,7 @@
             ZlpDirectoryInfo info)
         {
             return
-                new ZlpFileOrDirectoryInfo(
+                new(
                     ZlpPathHelper.Combine(
                         EffectiveDirectory.FullName,
                         // According to Reflector, "ToString()" returns the 

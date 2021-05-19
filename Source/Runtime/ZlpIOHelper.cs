@@ -129,20 +129,19 @@
         {
             var lines = new List<string>();
 
-            using (var fs =
+            using var fs =
                 new FileStream(
                     CreateFileHandle(
                         path,
                         CreationDisposition.OpenExisting,
                         FileAccess.GenericRead,
                         FileShare.Read),
-                    System.IO.FileAccess.Read))
-            {
-                using var sr = new StreamReader(fs, encoding);
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                    lines.Add(line);
-            }
+                    System.IO.FileAccess.Read);
+            using var sr = new StreamReader(fs, encoding);
+
+            string line;
+            while ((line = sr.ReadLine()) != null)
+                lines.Add(line);
 
             return lines.ToArray();
         }
@@ -160,7 +159,7 @@
             string contents,
             Encoding encoding = null)
         {
-            if (encoding == null) encoding = new UTF8Encoding(false, true);
+            encoding ??= new UTF8Encoding(false, true);
 
             using var fs =
                 new FileStream(
@@ -179,7 +178,7 @@
             string contents,
             Encoding encoding = null)
         {
-            if (encoding == null) encoding = new UTF8Encoding(false, true);
+            encoding ??= new UTF8Encoding(false, true);
 
             using var fs =
                 new FileStream(
@@ -292,7 +291,7 @@
             try
             {
                 var q = new IntPtr(gCHandle.AddrOfPinnedObject().ToInt64() + offset);
-                flag = PInvokeHelper.ReadFile(handle, q, (uint) count, out result, IntPtr.Zero);
+                flag = PInvokeHelper.ReadFile(handle, q, (uint)count, out result, IntPtr.Zero);
             }
             finally
             {
@@ -315,7 +314,7 @@
                 throw x;
             }
 
-            return (int) result;
+            return (int)result;
         }
 
         [UsedImplicitly]
@@ -333,7 +332,7 @@
             try
             {
                 var q = new IntPtr(gCHandle.AddrOfPinnedObject().ToInt64() + offset);
-                flag = PInvokeHelper.WriteFile(handle, q, (uint) count, out result, IntPtr.Zero);
+                flag = PInvokeHelper.WriteFile(handle, q, (uint)count, out result, IntPtr.Zero);
             }
             finally
             {
@@ -356,7 +355,7 @@
                 throw x;
             }
 
-            return (int) result;
+            return (int)result;
         }
 
         [UsedImplicitly]
@@ -538,24 +537,47 @@
         /// </summary>
         public static void MoveDirectory(
             string sourceFolderPath,
-            string destinationFolderPath)
+            string destinationFolderPath,
+            bool writeThrough = false)
         {
             sourceFolderPath = CheckAddLongPathPrefix(sourceFolderPath);
             destinationFolderPath = CheckAddLongPathPrefix(destinationFolderPath);
 
-            if (!PInvokeHelper.MoveFile(sourceFolderPath, destinationFolderPath))
+            if (writeThrough) // https://docs.microsoft.com/en-us/windows/win32/fileio/moving-directories
             {
-                // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
+                if (!PInvokeHelper.MoveFileEx(sourceFolderPath, destinationFolderPath,
+                    // https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-movefileexa#parameters
+                    MoveFileExFlags.WriteThrough))
+                {
+                    // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
 
-                var lastWin32Error = Marshal.GetLastWin32Error();
-                throw new Win32Exception(
-                    lastWin32Error,
-                    string.Format(
-                        Resources.ErrorMovingFolder,
+                    var lastWin32Error = Marshal.GetLastWin32Error();
+                    throw new Win32Exception(
                         lastWin32Error,
-                        sourceFolderPath,
-                        destinationFolderPath,
-                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+                        string.Format(
+                            Resources.ErrorMovingFolder,
+                            lastWin32Error,
+                            sourceFolderPath,
+                            destinationFolderPath,
+                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+                }
+            }
+            else
+            {
+                if (!PInvokeHelper.MoveFile(sourceFolderPath, destinationFolderPath))
+                {
+                    // http://msdn.microsoft.com/en-us/library/ms681382(VS.85).aspx.
+
+                    var lastWin32Error = Marshal.GetLastWin32Error();
+                    throw new Win32Exception(
+                        lastWin32Error,
+                        string.Format(
+                            Resources.ErrorMovingFolder,
+                            lastWin32Error,
+                            sourceFolderPath,
+                            destinationFolderPath,
+                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
+                }
             }
         }
 
@@ -656,7 +678,7 @@
         {
             filePath = CheckAddLongPathPrefix(filePath);
 
-            return (FileAttributes) PInvokeHelper.GetFileAttributes(filePath);
+            return (FileAttributes)PInvokeHelper.GetFileAttributes(filePath);
         }
 
         public static void DeleteFile(string filePath)
@@ -861,7 +883,7 @@
             basePart = getDriveOrShare(directoryPath);
 
             var remaining = directoryPath.Substring(basePart.Length);
-            childParts = remaining.Trim('\\').Split(new[] {'\\'}, StringSplitOptions.RemoveEmptyEntries);
+            childParts = remaining.Trim('\\').Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private static string getDrive(
@@ -1092,21 +1114,21 @@
                     if (true)
                     {
                         var ft = fd.ftLastWriteTime;
-                        var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                         r.LastWriteTime = getLocalTime(hft2);
                     }
 
                     if (true)
                     {
                         var ft = fd.ftLastAccessTime;
-                        var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                         r.LastAccessTime = getLocalTime(hft2);
                     }
 
                     if (true)
                     {
                         var ft = fd.ftCreationTime;
-                        var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                        var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                         r.CreationTime = getLocalTime(hft2);
                     }
 
@@ -1211,7 +1233,7 @@
                 {
                     var ft = fd.ftLastWriteTime;
 
-                    var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1243,7 +1265,7 @@
                 {
                     var ft = fd.ftLastAccessTime;
 
-                    var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1275,7 +1297,7 @@
                 {
                     var ft = fd.ftCreationTime;
 
-                    var hft2 = ((long) ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+                    var hft2 = ((long)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
                     return getLocalTime(hft2);
                 }
             }
@@ -1553,7 +1575,7 @@
                     {
                         var num = Marshal.GetLastWin32Error();
                         if (num == 2 || num == 3 || num == 21)
-                            // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
+                        // http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
                         {
                             return 0;
                         }
@@ -1567,18 +1589,18 @@
                     // https://mcdrummerman.wordpress.com/2010/07/13/win32_find_data-and-negative-file-sizes/
 
                     //store nFileSizeLow
-                    var fDataFSize = (long) fd.nFileSizeLow;
+                    var fDataFSize = (long)fd.nFileSizeLow;
 
                     //store individual file size for later accounting usage
                     long fileSize;
 
-                    if (fDataFSize < 0 && (long) fd.nFileSizeHigh > 0)
+                    if (fDataFSize < 0 && (long)fd.nFileSizeHigh > 0)
                     {
                         fileSize = fDataFSize + 0x100000000 + fd.nFileSizeHigh * 0x100000000;
                     }
                     else
                     {
-                        if ((long) fd.nFileSizeHigh > 0)
+                        if ((long)fd.nFileSizeHigh > 0)
                         {
                             fileSize = fDataFSize + fd.nFileSizeHigh * 0x100000000;
                         }
@@ -1617,7 +1639,7 @@
 
                     try
                     {
-                        return (long) high << 32 | (low & 0xffffffffL);
+                        return (long)high << 32 | (low & 0xffffffffL);
 
                         //try
                         //{
@@ -1698,7 +1720,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a file, find its contents
-                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
+                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) == 0)
                         {
                             results.Add(new ZlpFileInfo(ZlpPathHelper.Combine(directoryPath, currentFileName)));
                         }
@@ -1764,7 +1786,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a directory, find its contents
-                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
                         {
                             if (currentFileName != @"." && currentFileName != @"..")
                             {
@@ -1818,7 +1840,7 @@
                         var currentFileName = findData.cFileName;
 
                         // if this is a directory, find its contents
-                        if (((int) findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        if (((int)findData.dwFileAttributes & PInvokeHelper.FILE_ATTRIBUTE_DIRECTORY) != 0)
                         {
                             if (currentFileName != @"." && currentFileName != @"..")
                             {

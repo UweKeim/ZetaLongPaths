@@ -363,7 +363,7 @@
         public static void SafeDeleteDirectoryContents(
             ZlpDirectoryInfo folderPath)
         {
-            if (folderPath != null && folderPath.Exists)
+            if (folderPath is {Exists: true})
             {
                 foreach (var filePath in folderPath.GetFiles())
                 {

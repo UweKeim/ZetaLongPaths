@@ -102,7 +102,7 @@
 
         private static ComReleaser<IShellItem> CreateShellItem(string path)
         {
-            return new ComReleaser<IShellItem>(
+            return new(
                 (IShellItem)SHCreateItemFromParsingName(path, null, ref _shellItemGuid));
         }
 
@@ -113,7 +113,7 @@
             IBindCtx pbc,
             ref Guid riid);
 
-        private static readonly Guid ClsidFileOperation = new Guid("3ad05575-8857-4850-9277-11b85bdb8e09");
+        private static readonly Guid ClsidFileOperation = new("3ad05575-8857-4850-9277-11b85bdb8e09");
         private static readonly Type FileOperationType = Type.GetTypeFromCLSID(ClsidFileOperation);
         private static Guid _shellItemGuid = typeof(IShellItem).GUID;
     }

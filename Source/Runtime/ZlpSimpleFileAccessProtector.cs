@@ -167,7 +167,7 @@
 #endif
 
                         // Bestimmte Fehler direkt durchlassen.
-                        if (x.Data[PassThroughProtector] is bool b && b) throw;
+                        if (x.Data[PassThroughProtector] is true) throw;
 
                         if (count++ > info.RetryCount)
                         {

@@ -49,7 +49,7 @@
             return x switch
             {
                 null => false,
-                ZlpSimpleFileAccessProtectorException _ => true,
+                ZlpSimpleFileAccessProtectorException => true,
                 _ => hasKey(x, MagicKey)
             };
         }

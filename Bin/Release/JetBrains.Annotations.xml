@@ -761,5 +761,26 @@
             This attribute must be applied to DependencyProperty's CLR accessor property if it is present, to DependencyProperty descriptor field otherwise.
             </remarks>
         </member>
+        <member name="T:JetBrains.Annotations.RouteTemplateAttribute">
+            <summary>
+            Indicates that the marked parameter, field, or property is a route template.
+            </summary>
+            <remarks>
+            This attribute allows IDE to recognize the use of web frameworks' route templates
+            to enable syntax highlighting, code completion, navigation, rename and other features in string literals.
+            </remarks>
+        </member>
+        <member name="T:JetBrains.Annotations.RouteParameterConstraintAttribute">
+            <summary>
+            Indicates that the marked type is custom route parameter constraint,
+            which is registered in application's Startup with name <c>ConstraintName</c> 
+            </summary>
+            <remarks>
+            You can specify <c>ProposedType</c> if target constraint matches only route parameters of specific type,
+            it will allow IDE to create method's parameter from usage in route template
+            with specified type instead of default <c>System.String</c>
+            and check if constraint's proposed type conflicts with matched parameter's type
+            </remarks>
+        </member>
     </members>
 </doc>

@@ -12,14 +12,14 @@
     {
         public static ZlpDirectoryInfo GetTemp()
         {
-            return new ZlpDirectoryInfo(ZlpPathHelper.GetTempDirectoryPath());
+            return new(ZlpPathHelper.GetTempDirectoryPath());
         }
 
         [UsedImplicitly]
         public static ZlpDirectoryInfo GetFolderPath(
             Environment.SpecialFolder specialFolder)
         {
-            return new ZlpDirectoryInfo(Environment.GetFolderPath(specialFolder));
+            return new(Environment.GetFolderPath(specialFolder));
         }
 
         [UsedImplicitly]
@@ -27,7 +27,7 @@
             Environment.SpecialFolder specialFolder,
             Environment.SpecialFolderOption option)
         {
-            return new ZlpDirectoryInfo(Environment.GetFolderPath(specialFolder, option));
+            return new(Environment.GetFolderPath(specialFolder, option));
         }
 
         public ZlpDirectoryInfo(string path)
@@ -50,25 +50,25 @@
         [UsedImplicitly]
         public static ZlpDirectoryInfo FromOther(ZlpDirectoryInfo path)
         {
-            return new ZlpDirectoryInfo(path);
+            return new(path);
         }
 
         [UsedImplicitly]
         public static ZlpDirectoryInfo FromString(string path)
         {
-            return new ZlpDirectoryInfo(path);
+            return new(path);
         }
 
         [UsedImplicitly]
         public static ZlpDirectoryInfo FromBuiltIn(DirectoryInfo path)
         {
-            return new ZlpDirectoryInfo(path);
+            return new(path);
         }
 
         [UsedImplicitly]
         public DirectoryInfo ToBuiltIn()
         {
-            return new DirectoryInfo(FullName);
+            return new(FullName);
         }
 
         [UsedImplicitly]
@@ -87,13 +87,13 @@
         [UsedImplicitly]
         public ZlpDirectoryInfo Clone()
         {
-            return new ZlpDirectoryInfo(FullName);
+            return new(FullName);
         }
 
         [UsedImplicitly]
         public ZlpDirectoryInfo GetFullPath()
         {
-            return new ZlpDirectoryInfo(ZlpPathHelper.GetFullPath(FullName));
+            return new(ZlpPathHelper.GetFullPath(FullName));
         }
 
         public bool Exists => ZlpIOHelper.DirectoryExists(FullName);
@@ -128,6 +128,9 @@
             ZlpIOHelper.CreateDirectory(FullName);
         }
 
+        /// <summary>
+        /// The destination folder may not exists yet, otherwise an error 183 will be thrown.
+        /// </summary>
         public void MoveTo(string destinationDirectoryPath)
         {
             ZlpIOHelper.MoveDirectory(FullName, destinationDirectoryPath);
@@ -136,9 +139,17 @@
         /// <summary>
         /// The destination folder may not exists yet, otherwise an error 183 will be thrown.
         /// </summary>
-        public void MoveTo(ZlpDirectoryInfo destinationDirectoryPath)
+        public void MoveTo(string destinationDirectoryPath, bool writeThrough)
         {
-            ZlpIOHelper.MoveDirectory(FullName, destinationDirectoryPath.FullName);
+            ZlpIOHelper.MoveDirectory(FullName, destinationDirectoryPath, writeThrough);
+        }
+
+        /// <summary>
+        /// The destination folder may not exists yet, otherwise an error 183 will be thrown.
+        /// </summary>
+        public void MoveTo(ZlpDirectoryInfo destinationDirectoryPath, bool writeThrough = false)
+        {
+            ZlpIOHelper.MoveDirectory(FullName, destinationDirectoryPath.FullName, writeThrough);
         }
 
         public string FullName { get; }
@@ -222,7 +233,7 @@
         }
 
         public ZlpDirectoryInfo Parent =>
-            new ZlpDirectoryInfo(
+            new(
                 ZlpPathHelper.GetDirectoryPathNameFromFilePath(FullName.TrimEnd(
                     Path.DirectorySeparatorChar,
                     Path.AltDirectorySeparatorChar)));

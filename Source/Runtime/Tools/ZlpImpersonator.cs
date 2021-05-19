@@ -1031,7 +1031,7 @@
 
             exception = null;
 
-            if (domainName != null && domainName.Length <= 0)
+            if (domainName is {Length: <= 0})
             {
                 domainName = null;
             }
@@ -1105,7 +1105,7 @@
 
             exception = null;
 
-            if (domainName != null && domainName.Length <= 0)
+            if (domainName is {Length: <= 0})
             {
                 domainName = null;
             }
@@ -1257,7 +1257,7 @@
 
             exception = null;
 
-            if (domainName != null && domainName.Length <= 0)
+            if (domainName is {Length: <= 0})
             {
                 domainName = null;
             }
@@ -1365,7 +1365,7 @@
 
             exception = null;
 
-            if (domainName != null && domainName.Length <= 0)
+            if (domainName is {Length: <= 0})
             {
                 domainName = null;
             }

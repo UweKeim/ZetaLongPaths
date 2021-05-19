@@ -201,7 +201,7 @@
             this ZlpFileInfo o,
             string extension)
         {
-            return new ZlpFileInfo(ZlpPathHelper.ChangeExtension(o.FullName, extension));
+            return new(ZlpPathHelper.ChangeExtension(o.FullName, extension));
         }
 
         [UsedImplicitly]

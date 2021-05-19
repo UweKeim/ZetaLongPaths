@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Zeta Software GmbH")]
 [assembly: AssemblyProduct("Zeta Long Paths")]
-[assembly: AssemblyCopyright("© 1999-2020 Zeta Software GmbH")]
+[assembly: AssemblyCopyright("© 1999-2021 Zeta Software GmbH")]
 [assembly: AssemblyTrademark("https://www.zeta-producer.com")]
 [assembly: AssemblyCulture("")]
 

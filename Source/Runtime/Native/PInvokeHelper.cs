@@ -249,7 +249,7 @@
         internal const int FILE_ATTRIBUTE_DIRECTORY = 0x00000010;
         internal const uint INVALID_FILE_ATTRIBUTES = 0xFFFFFFFF;
 
-        internal static IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
+        internal static IntPtr INVALID_HANDLE_VALUE = new(-1);
 
         // Assume dirName passed in is already prefixed with \\?\
         public static List<string> FindFilesAndDirectories(

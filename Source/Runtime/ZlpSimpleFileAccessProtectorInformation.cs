@@ -5,8 +5,7 @@
     public class ZlpSimpleFileAccessProtectorInformation
     {
         [UsedImplicitly]
-        public static ZlpSimpleFileAccessProtectorInformation Default =>
-            new ZlpSimpleFileAccessProtectorInformation();
+        public static ZlpSimpleFileAccessProtectorInformation Default => new();
 
         [UsedImplicitly]
         public static int DefaultRetryCount =>
