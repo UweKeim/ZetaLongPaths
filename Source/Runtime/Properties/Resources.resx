@@ -118,34 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ErrorCopyingFile" xml:space="preserve">
-    <value>Error {0} copying file '{1}' to '{2}': {3}</value>
+    <value>Error {0} copying file “{1}” to “{2}”: {3}</value>
   </data>
   <data name="ErrorCreatingDirectory" xml:space="preserve">
-    <value>Error {0} creating directory '{1}': {2}</value>
+    <value>Error {0} creating directory “{1}”: {2}</value>
   </data>
   <data name="ErrorCreatingFileHandle" xml:space="preserve">
-    <value>Error {0} creating file handle for file path '{1}': {2}</value>
+    <value>Error {0} creating file handle for file path “{1}”: {2}</value>
   </data>
   <data name="ErrorDeletingFile" xml:space="preserve">
-    <value>Error {0} deleting file '{1}': {2}</value>
+    <value>Error {0} deleting file “{1}”: {2}</value>
   </data>
   <data name="ErrorDeletingFolder" xml:space="preserve">
-    <value>Error {0} deleting folder '{1}': {2}</value>
+    <value>Error {0} deleting folder “{1}”: {2}</value>
   </data>
   <data name="ErrorGettingSecurityInfo" xml:space="preserve">
-    <value>Error {0} getting names security info while getting file owner for file '{1}': {2}</value>
+    <value>Error {0} getting names security info while getting file owner for file “{1}”: {2}</value>
   </data>
   <data name="ErrorLookingUpSid" xml:space="preserve">
-    <value>Error {0} looking up account SID while getting file owner for file '{1}': {2}</value>
+    <value>Error {0} looking up account SID while getting file owner for file “{1}”: {2}</value>
   </data>
   <data name="ErrorMarkingFileForDeletion" xml:space="preserve">
-    <value>Error {0} marking file '{1}' for deletion after reboot: {2}</value>
+    <value>Error {0} marking file “{1}” for deletion after reboot: {2}</value>
   </data>
   <data name="ErrorMovingFile" xml:space="preserve">
-    <value>Error {0} moving file '{1}' to '{2}': {3}</value>
+    <value>Error {0} moving file “{1}” to “{2}”: {3}</value>
   </data>
   <data name="ErrorMovingFolder" xml:space="preserve">
-    <value>Error {0} moving directory '{1}' to '{2}': {3}</value>
+    <value>Error {0} moving directory “{1}” to “{2}”: {3}</value>
   </data>
   <data name="ErrorReadFile" xml:space="preserve">
     <value>Error {0} reading from file: {1}</value>
@@ -154,25 +154,28 @@
     <value>Error {0} seeking in file: {1}</value>
   </data>
   <data name="ErrorSettingAccessTime" xml:space="preserve">
-    <value>Error {0} setting file last access time '{1}': {2}</value>
+    <value>Error {0} setting file last access time “{1}”: {2}</value>
   </data>
   <data name="ErrorSettingAttributes" xml:space="preserve">
-    <value>Error {0} setting file attribute of file '{1}' to '{2}': {3}</value>
+    <value>Error {0} setting file attribute of file “{1}” to “{2}”: {3}</value>
+  </data>
+  <data name="ErrorFileDoesNotExist" xml:space="preserve">
+    <value>File does not exist.</value>
   </data>
   <data name="ErrorSettingCreationTime" xml:space="preserve">
-    <value>Error {0} setting file creation time '{1}': {2}</value>
+    <value>Error {0} setting file creation time “{1}”: {2}</value>
   </data>
   <data name="ErrorSettingsWriteTime" xml:space="preserve">
-    <value>Error {0} setting file last write time '{1}': {2}</value>
+    <value>Error {0} setting file last write time “{1}”: {2}</value>
   </data>
   <data name="ErrorWriteFile" xml:space="preserve">
     <value>Error {0} writing to file: {1}</value>
   </data>
   <data name="FileNotFound" xml:space="preserve">
-    <value>File '{0}' does not exist.</value>
+    <value>File “{0}” does not exist.</value>
   </data>
   <data name="FolderNotFound" xml:space="preserve">
-    <value>Folder '{0}' does not exist.</value>
+    <value>Folder “{0}” does not exist.</value>
   </data>
   <data name="TriedTooOftenSingular" xml:space="preserve">
     <value>Error during operation, tried more than {0} time.</value>
@@ -184,6 +187,6 @@
     <value>Error during operation, tried more than {0} times.</value>
   </data>
   <data name="ErrorConnectingToRemoteShare" xml:space="preserve">
-    <value>Error connecting to remote share '{0}': {1}</value>
+    <value>Error connecting to remote share “{0}”: {1}</value>
   </data>
 </root>

@@ -19,7 +19,7 @@ namespace ZetaLongPaths.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "1.0.0.27")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,7 +61,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error connecting to remote share &apos;{0}&apos;: {1}.
+        ///   Looks up a localized string similar to Error connecting to remote share “{0}”: {1}.
         /// </summary>
         internal static string ErrorConnectingToRemoteShare {
             get {
@@ -70,7 +70,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} copying file &apos;{1}&apos; to &apos;{2}&apos;: {3}.
+        ///   Looks up a localized string similar to Error {0} copying file “{1}” to “{2}”: {3}.
         /// </summary>
         internal static string ErrorCopyingFile {
             get {
@@ -79,7 +79,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} creating directory &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to Error {0} creating directory “{1}”: {2}.
         /// </summary>
         internal static string ErrorCreatingDirectory {
             get {
@@ -88,7 +88,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} creating file handle for file path &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to Error {0} creating file handle for file path “{1}”: {2}.
         /// </summary>
         internal static string ErrorCreatingFileHandle {
             get {
@@ -97,7 +97,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} deleting file &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to Error {0} deleting file “{1}”: {2}.
         /// </summary>
         internal static string ErrorDeletingFile {
             get {
@@ -106,7 +106,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} deleting folder &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to Error {0} deleting folder “{1}”: {2}.
         /// </summary>
         internal static string ErrorDeletingFolder {
             get {
@@ -115,7 +115,16 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} getting names security info while getting file owner for file &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to File does not exist..
+        /// </summary>
+        internal static string ErrorFileDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorFileDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error {0} getting names security info while getting file owner for file “{1}”: {2}.
         /// </summary>
         internal static string ErrorGettingSecurityInfo {
             get {
@@ -124,7 +133,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} looking up account SID while getting file owner for file &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to Error {0} looking up account SID while getting file owner for file “{1}”: {2}.
         /// </summary>
         internal static string ErrorLookingUpSid {
             get {
@@ -133,7 +142,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} marking file &apos;{1}&apos; for deletion after reboot: {2}.
+        ///   Looks up a localized string similar to Error {0} marking file “{1}” for deletion after reboot: {2}.
         /// </summary>
         internal static string ErrorMarkingFileForDeletion {
             get {
@@ -142,7 +151,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} moving file &apos;{1}&apos; to &apos;{2}&apos;: {3}.
+        ///   Looks up a localized string similar to Error {0} moving file “{1}” to “{2}”: {3}.
         /// </summary>
         internal static string ErrorMovingFile {
             get {
@@ -151,7 +160,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} moving directory &apos;{1}&apos; to &apos;{2}&apos;: {3}.
+        ///   Looks up a localized string similar to Error {0} moving directory “{1}” to “{2}”: {3}.
         /// </summary>
         internal static string ErrorMovingFolder {
             get {
@@ -178,7 +187,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} setting file last access time &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to Error {0} setting file last access time “{1}”: {2}.
         /// </summary>
         internal static string ErrorSettingAccessTime {
             get {
@@ -187,7 +196,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} setting file attribute of file &apos;{1}&apos; to &apos;{2}&apos;: {3}.
+        ///   Looks up a localized string similar to Error {0} setting file attribute of file “{1}” to “{2}”: {3}.
         /// </summary>
         internal static string ErrorSettingAttributes {
             get {
@@ -196,7 +205,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} setting file creation time &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to Error {0} setting file creation time “{1}”: {2}.
         /// </summary>
         internal static string ErrorSettingCreationTime {
             get {
@@ -205,7 +214,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error {0} setting file last write time &apos;{1}&apos;: {2}.
+        ///   Looks up a localized string similar to Error {0} setting file last write time “{1}”: {2}.
         /// </summary>
         internal static string ErrorSettingsWriteTime {
             get {
@@ -223,7 +232,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File &apos;{0}&apos; does not exist..
+        ///   Looks up a localized string similar to File “{0}” does not exist..
         /// </summary>
         internal static string FileNotFound {
             get {
@@ -232,7 +241,7 @@ namespace ZetaLongPaths.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folder &apos;{0}&apos; does not exist..
+        ///   Looks up a localized string similar to Folder “{0}” does not exist..
         /// </summary>
         internal static string FolderNotFound {
             get {

@@ -112,6 +112,11 @@
             return FullName;
         }
 
+        public void Delete()
+        {
+            ZlpIOHelper.DeleteDirectory(FullName, false);
+        }
+
         public void Delete(bool recursive)
         {
             ZlpIOHelper.DeleteDirectory(FullName, recursive);

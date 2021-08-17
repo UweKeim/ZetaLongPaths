@@ -127,10 +127,10 @@
     <value>Fehler {0} beim Schreiben in Datei: {1}</value>
   </data>
   <data name="FileNotFound" xml:space="preserve">
-    <value>Datei '{0}' ist nicht vorhanden.</value>
+    <value>Datei „{0}“ ist nicht vorhanden.</value>
   </data>
   <data name="FolderNotFound" xml:space="preserve">
-    <value>Ordner '{0}' ist nicht vorhanden.</value>
+    <value>Ordner „{0}“ ist nicht vorhanden.</value>
   </data>
   <data name="TriedTooOftenSingular" xml:space="preserve">
     <value>Fehler bei Operation, mehr als {0} Mal probiert.</value>
@@ -139,51 +139,54 @@
     <value>Fehler bei Operation, mehr als {0} Mal probiert.</value>
   </data>
   <data name="ErrorCopyingFile" xml:space="preserve">
-    <value>Fehler {0} beim Kopieren von Datei '{1}' nach '{2}': {3}</value>
+    <value>Fehler {0} beim Kopieren von Datei „{1}“ nach „{2}“: {3}</value>
   </data>
   <data name="ErrorCreatingDirectory" xml:space="preserve">
-    <value>Fehler {0} beim Erstellen von Ordner '{1}': {2}</value>
+    <value>Fehler {0} beim Erstellen von Ordner „{1}“: {2}</value>
   </data>
   <data name="ErrorCreatingFileHandle" xml:space="preserve">
-    <value>Fehler {0} beim Erstellen von Dateihandle für Pfad '{1}': {2}</value>
+    <value>Fehler {0} beim Erstellen von Dateihandle für Pfad „{1}“: {2}</value>
   </data>
   <data name="ErrorDeletingFile" xml:space="preserve">
-    <value>Fehler {0} beim Löschen von Datei '{1}': {2}</value>
+    <value>Fehler {0} beim Löschen von Datei „{1}“: {2}</value>
   </data>
   <data name="ErrorDeletingFolder" xml:space="preserve">
-    <value>Fehler {0} beim Löschen von Ordner '{1}': {2}</value>
+    <value>Fehler {0} beim Löschen von Ordner „{1}“: {2}</value>
   </data>
   <data name="ErrorGettingSecurityInfo" xml:space="preserve">
-    <value>Fehler {0} beim Ermitteln der Namens-Sicherheitsinformationen während des Ermittelns des Besitzers von Datei '{1}': {2}</value>
+    <value>Fehler {0} beim Ermitteln der Namens-Sicherheitsinformationen während des Ermittelns des Besitzers von Datei „{1}“: {2}</value>
   </data>
   <data name="ErrorMarkingFileForDeletion" xml:space="preserve">
-    <value>Fehler {0} beim Markieren von Datei '{1}' als zu löschen nach dem Neustart: {2}</value>
+    <value>Fehler {0} beim Markieren von Datei „{1}“ als zu löschen nach dem Neustart: {2}</value>
   </data>
   <data name="ErrorMovingFile" xml:space="preserve">
-    <value>Fehler {0} beim Verschieben von Datei '{1}' nach '{2}': {3}</value>
+    <value>Fehler {0} beim Verschieben von Datei „{1}“ nach „{2}“: {3}</value>
   </data>
   <data name="ErrorMovingFolder" xml:space="preserve">
-    <value>Fehler {0} beim Verschieben von Ordner '{1}' nach '{2}': {3}</value>
+    <value>Fehler {0} beim Verschieben von Ordner „{1}“ nach „{2}“: {3}</value>
   </data>
   <data name="ErrorSettingAccessTime" xml:space="preserve">
-    <value>Fehler {0} beim Setzen des Datums des letzten Zugriffs auf Datei '{1}': {2}</value>
+    <value>Fehler {0} beim Setzen des Datums des letzten Zugriffs auf Datei „{1}“: {2}</value>
   </data>
   <data name="ErrorSettingAttributes" xml:space="preserve">
-    <value>Fehler {0} beim Setzen der Attribute von Datei '{1}' auf '{2}': {3}</value>
+    <value>Fehler {0} beim Setzen der Attribute von Datei „{1}“ auf „{2}“: {3}</value>
   </data>
   <data name="ErrorSettingCreationTime" xml:space="preserve">
-    <value>Fehler {0} beim Setzen des Erstelldatums von Datei '{1}': {2}</value>
+    <value>Fehler {0} beim Setzen des Erstelldatums von Datei „{1}“: {2}</value>
   </data>
   <data name="ErrorSettingsWriteTime" xml:space="preserve">
-    <value>Fehler {0} beim Setzen des Datums des letzten Schreibzugriffs von Datei '{1}': {2}</value>
+    <value>Fehler {0} beim Setzen des Datums des letzten Schreibzugriffs von Datei „{1}“: {2}</value>
   </data>
   <data name="ErrorLookingUpSid" xml:space="preserve">
-    <value>Fehler {0} beim Nachschauen der Konto-SID während des Ermittelns des Besitzers von Datei '{1}': {2}</value>
+    <value>Fehler {0} beim Nachschauen der Konto-SID während des Ermittelns des Besitzers von Datei „{1}“: {2}</value>
   </data>
   <data name="InvalidPathsCharacters" xml:space="preserve">
     <value>Ungültige Zeichen im Pfad.</value>
   </data>
   <data name="ErrorConnectingToRemoteShare" xml:space="preserve">
-    <value>Fehler beim Verbinden mit Remote-Freigabe '{0}': {1}</value>
+    <value>Fehler beim Verbinden mit Remote-Freigabe „{0}“: {1}</value>
+  </data>
+  <data name="ErrorFileDoesNotExist" xml:space="preserve">
+    <value>Datei ist nicht vorhanden.</value>
   </data>
 </root>

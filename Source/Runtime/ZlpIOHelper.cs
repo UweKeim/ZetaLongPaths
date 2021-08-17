@@ -656,6 +656,11 @@
 
         public static void SetFileAttributes(string filePath, FileAttributes attributes)
         {
+            if (!FileExists(filePath) && !DirectoryExists(filePath))
+            {
+                throw new FileNotFoundException(Resources.ErrorFileDoesNotExist, filePath);
+            }
+
             filePath = CheckAddLongPathPrefix(filePath);
 
             if (!PInvokeHelper.SetFileAttributes(filePath, attributes))
@@ -676,6 +681,11 @@
 
         public static FileAttributes GetFileAttributes(string filePath)
         {
+            if (!FileExists(filePath) && !DirectoryExists(filePath))
+            {
+                throw new FileNotFoundException(Resources.ErrorFileDoesNotExist, filePath);
+            }
+
             filePath = CheckAddLongPathPrefix(filePath);
 
             return (FileAttributes)PInvokeHelper.GetFileAttributes(filePath);

@@ -166,6 +166,11 @@
                 Assert.AreEqual(ZlpIOHelper.GetFileLastWriteTime(filePath), now);
                 Assert.AreEqual(ZlpIOHelper.GetFileCreationTime(filePath), now);
                 */
+
+                // --
+
+                filePath = ZlpPathHelper.Combine(tempPath, "does.not.exist");
+                Assert.Throws<FileNotFoundException>(delegate { ZlpIOHelper.GetFileAttributes(filePath); });
             }
             finally
             {
@@ -249,7 +254,7 @@
             var filePath = $@"C:\Ablage\test-{Guid.NewGuid():N}.bin";
             try
             {
-                var bytes1 = new byte[] 
+                var bytes1 = new byte[]
                     {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
                 var bytes2 = new byte[]
                     {11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33};
