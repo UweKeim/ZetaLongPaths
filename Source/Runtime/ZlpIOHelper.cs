@@ -261,13 +261,17 @@
                         Resources.ErrorCreatingFileHandle,
                         lastWin32Error,
                         filePath,
-                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                x.Data[nameof(filePath)] = filePath;
-                x.Data[nameof(creationDisposition)] = creationDisposition;
-                x.Data[nameof(fileAccess)] = fileAccess;
-                x.Data[nameof(fileShare)] = fileShare;
-                x.Data[nameof(useAsync)] = useAsync;
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                {
+                    Data =
+                    {
+                        [nameof(filePath)] = filePath,
+                        [nameof(creationDisposition)] = creationDisposition,
+                        [nameof(fileAccess)] = fileAccess,
+                        [nameof(fileShare)] = fileShare,
+                        [nameof(useAsync)] = useAsync
+                    }
+                };
 
                 throw x;
             }
@@ -306,10 +310,14 @@
                     string.Format(
                         Resources.ErrorReadFile,
                         lastWin32Error,
-                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                x.Data[nameof(offset)] = offset;
-                x.Data[nameof(count)] = count;
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                {
+                    Data =
+                    {
+                        [nameof(offset)] = offset,
+                        [nameof(count)] = count
+                    }
+                };
 
                 throw x;
             }
@@ -347,10 +355,14 @@
                     string.Format(
                         Resources.ErrorWriteFile,
                         lastWin32Error,
-                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                x.Data[nameof(offset)] = offset;
-                x.Data[nameof(count)] = count;
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                {
+                    Data =
+                    {
+                        [nameof(offset)] = offset,
+                        [nameof(count)] = count
+                    }
+                };
 
                 throw x;
             }
@@ -374,10 +386,14 @@
                     string.Format(
                         Resources.ErrorSeek,
                         lastWin32Error,
-                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                x.Data[nameof(distance)] = distance;
-                x.Data[nameof(origin)] = origin;
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                {
+                    Data =
+                    {
+                        [nameof(distance)] = distance,
+                        [nameof(origin)] = origin
+                    }
+                };
 
                 throw x;
             }
@@ -443,11 +459,15 @@
                         lastWin32Error,
                         sourceFilePath,
                         destinationFilePath,
-                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                x.Data[nameof(sourceFilePath)] = sourceFilePath;
-                x.Data[nameof(destinationFilePath)] = destinationFilePath;
-                x.Data[nameof(overwriteExisting)] = overwriteExisting;
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                {
+                    Data =
+                    {
+                        [nameof(sourceFilePath)] = sourceFilePath,
+                        [nameof(destinationFilePath)] = destinationFilePath,
+                        [nameof(overwriteExisting)] = overwriteExisting
+                    }
+                };
 
                 throw x;
             }
@@ -474,11 +494,15 @@
                         lastWin32Error,
                         sourceFilePath,
                         destinationFilePath,
-                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                x.Data[nameof(sourceFilePath)] = sourceFilePath;
-                x.Data[nameof(destinationFilePath)] = destinationFilePath;
-                x.Data[nameof(overwriteExisting)] = overwriteExisting;
+                        CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                {
+                    Data =
+                    {
+                        [nameof(sourceFilePath)] = sourceFilePath,
+                        [nameof(destinationFilePath)] = destinationFilePath,
+                        [nameof(overwriteExisting)] = overwriteExisting
+                    }
+                };
 
                 throw x;
             }
@@ -512,10 +536,14 @@
                             Resources.ErrorMarkingFileForDeletion,
                             lastWin32Error,
                             sourceFilePath,
-                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                    x.Data[nameof(sourceFilePath)] = sourceFilePath;
-                    x.Data[nameof(throwIfFails)] = true;
+                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                    {
+                        Data =
+                        {
+                            [nameof(sourceFilePath)] = sourceFilePath,
+                            [nameof(throwIfFails)] = true
+                        }
+                    };
 
                     throw x;
                 }
@@ -1184,9 +1212,13 @@
                             Resources.ErrorSettingsWriteTime,
                             lastWin32Error,
                             filePath,
-                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                    x.Data[nameof(filePath)] = filePath;
+                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                    {
+                        Data =
+                        {
+                            [nameof(filePath)] = filePath
+                        }
+                    };
 
                     throw x;
                 }
@@ -1212,9 +1244,13 @@
                 }
                 else
                 {
-                    var x = new FileNotFoundException(Resources.FileNotFound, filePath);
-
-                    x.Data[nameof(filePath)] = filePath;
+                    var x = new FileNotFoundException(Resources.FileNotFound, filePath)
+                    {
+                        Data =
+                        {
+                            [nameof(filePath)] = filePath
+                        }
+                    };
 
                     throw x;
                 }
@@ -1350,10 +1386,14 @@
                             Resources.ErrorSettingsWriteTime,
                             lastWin32Error,
                             filePath,
-                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                    x.Data[nameof(filePath)] = filePath;
-                    x.Data[nameof(date)] = date;
+                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                    {
+                        Data =
+                        {
+                            [nameof(filePath)] = filePath,
+                            [nameof(date)] = date
+                        }
+                    };
 
                     throw x;
                 }
@@ -1375,10 +1415,14 @@
                 }
                 else
                 {
-                    var x = new FileNotFoundException(Resources.FileNotFound, filePath);
-
-                    x.Data[nameof(filePath)] = filePath;
-                    x.Data[nameof(date)] = date;
+                    var x = new FileNotFoundException(Resources.FileNotFound, filePath)
+                    {
+                        Data =
+                        {
+                            [nameof(filePath)] = filePath,
+                            [nameof(date)] = date
+                        }
+                    };
 
                     throw x;
                 }
@@ -1412,10 +1456,14 @@
                             Resources.ErrorSettingAccessTime,
                             lastWin32Error,
                             filePath,
-                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                    x.Data[nameof(filePath)] = filePath;
-                    x.Data[nameof(date)] = date;
+                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                    {
+                        Data =
+                        {
+                            [nameof(filePath)] = filePath,
+                            [nameof(date)] = date
+                        }
+                    };
 
                     throw x;
                 }
@@ -1437,10 +1485,14 @@
                 }
                 else
                 {
-                    var x = new FileNotFoundException(Resources.FileNotFound, filePath);
-
-                    x.Data[nameof(filePath)] = filePath;
-                    x.Data[nameof(date)] = date;
+                    var x = new FileNotFoundException(Resources.FileNotFound, filePath)
+                    {
+                        Data =
+                        {
+                            [nameof(filePath)] = filePath,
+                            [nameof(date)] = date
+                        }
+                    };
 
                     throw x;
                 }
@@ -1474,10 +1526,14 @@
                             Resources.ErrorSettingCreationTime,
                             lastWin32Error,
                             filePath,
-                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)));
-
-                    x.Data[nameof(filePath)] = filePath;
-                    x.Data[nameof(date)] = date;
+                            CheckAddDotEnd(new Win32Exception(lastWin32Error).Message)))
+                    {
+                        Data =
+                        {
+                            [nameof(filePath)] = filePath,
+                            [nameof(date)] = date
+                        }
+                    };
 
                     throw x;
                 }
@@ -1499,10 +1555,14 @@
                 }
                 else
                 {
-                    var x = new FileNotFoundException(Resources.FileNotFound, filePath);
-
-                    x.Data[nameof(filePath)] = filePath;
-                    x.Data[nameof(date)] = date;
+                    var x = new FileNotFoundException(Resources.FileNotFound, filePath)
+                    {
+                        Data =
+                        {
+                            [nameof(filePath)] = filePath,
+                            [nameof(date)] = date
+                        }
+                    };
 
                     throw x;
                 }

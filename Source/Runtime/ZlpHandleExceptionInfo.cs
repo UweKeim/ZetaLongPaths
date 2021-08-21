@@ -1,8 +1,8 @@
 ﻿namespace ZetaLongPaths
 {
+    using JetBrains.Annotations;
     using System;
     using System.ComponentModel;
-    using JetBrains.Annotations;
 
     public class ZlpHandleExceptionInfo
     {
