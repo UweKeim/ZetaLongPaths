@@ -1,4 +1,3 @@
-﻿namespace ZetaLongPaths
-{
-    public delegate void ZlpHandleExceptionDelegate(ZlpHandleExceptionInfo hei);
-}
+﻿namespace ZetaLongPaths;
+
+public delegate void ZlpHandleExceptionDelegate(ZlpHandleExceptionInfo hei);

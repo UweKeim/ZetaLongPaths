@@ -1,29 +1,24 @@
-﻿namespace ZetaLongPaths
+﻿namespace ZetaLongPaths;
+
+[Serializable]
+[UsedImplicitly]
+public class ZlpException : Exception
 {
-    using JetBrains.Annotations;
-    using System;
-    using System.Runtime.Serialization;
-
-    [Serializable]
-    [UsedImplicitly]
-    public class ZlpException : Exception
+    public ZlpException()
     {
-        public ZlpException()
-        {
-        }
+    }
 
-        public ZlpException(string message) : base(message)
-        {
-        }
+    public ZlpException(string message) : base(message)
+    {
+    }
 
-        public ZlpException(string message, Exception inner) : base(message, inner)
-        {
-        }
+    public ZlpException(string message, Exception inner) : base(message, inner)
+    {
+    }
 
-        protected ZlpException(
-            SerializationInfo info,
-            StreamingContext context) : base(info, context)
-        {
-        }
+    protected ZlpException(
+        SerializationInfo info,
+        StreamingContext context) : base(info, context)
+    {
     }
 }
