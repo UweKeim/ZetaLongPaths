@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Zeta Software GmbH")]
 [assembly: AssemblyProduct("Zeta Long Paths")]
-[assembly: AssemblyCopyright("© 1999-2021 Zeta Software GmbH")]
+[assembly: AssemblyCopyright("© 1999-2022 Zeta Software GmbH")]
 [assembly: AssemblyTrademark("https://www.zeta-producer.com")]
 [assembly: AssemblyCulture("")]
 
@@ -28,8 +28,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.41")]
-[assembly: AssemblyFileVersion("1.0.0.41")]
+[assembly: AssemblyVersion("1.0.2.41")]
+[assembly: AssemblyFileVersion("1.0.2.41")]
