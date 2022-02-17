@@ -2,9 +2,9 @@
 
 public sealed class ZlpHandleExceptionInfo
 {
-    [UsedImplicitly] public Exception Exception { get; }
+    [PublicAPI] public Exception Exception { get; }
 
-    [UsedImplicitly] public int CurrentRetryCount { get; }
+    [PublicAPI] public int CurrentRetryCount { get; }
 
     public ZlpHandleExceptionInfo(Exception exception, int currentRetryCount)
     {
@@ -16,6 +16,6 @@ public sealed class ZlpHandleExceptionInfo
     /// Return value. Set optionally to TRUE to force premature throwing.
     /// </summary>
     [DefaultValue(false)]
-    [UsedImplicitly]
+    [PublicAPI]
     public bool WantThrow { get; set; }
 }

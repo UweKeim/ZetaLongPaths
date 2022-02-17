@@ -2,7 +2,7 @@
 
 using Properties;
 
-[UsedImplicitly]
+[PublicAPI]
 public static class ZlpGarbageCollectionHelper
 {
     /// <summary>
@@ -27,7 +27,7 @@ public static class ZlpGarbageCollectionHelper
     /// <summary>
     /// Do it in the current thread, blocking.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static void DoGcSynchron()
     {
         GC.Collect();
@@ -48,7 +48,7 @@ public static class ZlpSimpleFileAccessProtector
     /// Call on an exception instance that you do NOT want to retry in this class but immediately
     /// throw it.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static Exception MarkAsPassThroughZlpProtector(this Exception x)
     {
         if (x == null) return null;
@@ -61,7 +61,7 @@ public static class ZlpSimpleFileAccessProtector
     /// <summary>
     /// Execute an action. On error retry multiple times, sleep between the retries.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static void Protect(
         Action action,
         ZlpSimpleFileAccessProtectorInformation info = null)
@@ -138,7 +138,7 @@ public static class ZlpSimpleFileAccessProtector
     /// <summary>
     /// Execute an action. On error retry multiple times, sleep between the retries.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static T Protect<T>(
         Func<T> func,
         ZlpSimpleFileAccessProtectorInformation info = null)
@@ -214,7 +214,7 @@ public static class ZlpSimpleFileAccessProtector
         }
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static void DoGarbageCollect(bool waitForPendingFinalizers = true)
     {
         minimizeFootprint();

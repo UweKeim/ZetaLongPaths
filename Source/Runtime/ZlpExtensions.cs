@@ -7,7 +7,7 @@ using Properties;
 /// </summary>
 public static class ZlpExtensions
 {
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeRelativeTo(
         this ZlpDirectoryInfo pathToMakeRelative,
         ZlpDirectoryInfo pathToWhichToMakeRelativeTo)
@@ -15,7 +15,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo.FullName, pathToMakeRelative.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeRelativeTo(
         this ZlpDirectoryInfo pathToMakeRelative,
         string pathToWhichToMakeRelativeTo)
@@ -23,7 +23,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo, pathToMakeRelative.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeRelativeTo(
         this ZlpFileInfo pathToMakeRelative,
         ZlpDirectoryInfo pathToWhichToMakeRelativeTo)
@@ -31,7 +31,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo.FullName, pathToMakeRelative.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeRelativeTo(
         this ZlpFileInfo pathToMakeRelative,
         string pathToWhichToMakeRelativeTo)
@@ -39,7 +39,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetRelativePath(pathToWhichToMakeRelativeTo, pathToMakeRelative.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeAbsoluteTo(
         this ZlpDirectoryInfo pathToMakeAbsolute,
         ZlpDirectoryInfo basePathToWhichToMakeAbsoluteTo)
@@ -47,7 +47,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute.FullName, basePathToWhichToMakeAbsoluteTo.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeAbsoluteTo(
         this string pathToMakeAbsolute,
         ZlpDirectoryInfo basePathToWhichToMakeAbsoluteTo)
@@ -55,7 +55,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute, basePathToWhichToMakeAbsoluteTo.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeAbsoluteTo(
         this ZlpDirectoryInfo pathToMakeAbsolute,
         string basePathToWhichToMakeAbsoluteTo)
@@ -63,7 +63,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute.FullName, basePathToWhichToMakeAbsoluteTo);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeAbsoluteTo(
         this ZlpFileInfo pathToMakeAbsolute,
         ZlpDirectoryInfo basePathToWhichToMakeAbsoluteTo)
@@ -71,7 +71,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute.FullName, basePathToWhichToMakeAbsoluteTo.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string MakeAbsoluteTo(
         this ZlpFileInfo pathToMakeAbsolute,
         string basePathToWhichToMakeAbsoluteTo)
@@ -79,7 +79,7 @@ public static class ZlpExtensions
         return ZlpPathHelper.GetAbsolutePath(pathToMakeAbsolute.FullName, basePathToWhichToMakeAbsoluteTo);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpDirectoryInfo CombineDirectory(this ZlpDirectoryInfo one, ZlpDirectoryInfo two)
     {
         if (one == null) return two;
@@ -88,7 +88,7 @@ public static class ZlpExtensions
         else return new ZlpDirectoryInfo(ZlpPathHelper.Combine(one.FullName, two.FullName));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpDirectoryInfo CombineDirectory(this ZlpDirectoryInfo one,
         ZlpDirectoryInfo two,
         ZlpDirectoryInfo three,
@@ -110,7 +110,7 @@ public static class ZlpExtensions
         else return new ZlpDirectoryInfo(ZlpPathHelper.Combine(one.FullName, two));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpDirectoryInfo CombineDirectory(this ZlpDirectoryInfo one,
         string two,
         string three,
@@ -123,7 +123,7 @@ public static class ZlpExtensions
         return result;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpDirectoryInfo CombineDirectory( /*this*/ string one, string two)
     {
         if (one == null && two == null) return null;
@@ -133,7 +133,7 @@ public static class ZlpExtensions
         else return new ZlpDirectoryInfo(ZlpPathHelper.Combine(one, two));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo CombineFile(this ZlpDirectoryInfo one, ZlpFileInfo two)
     {
         if (one == null) return two;
@@ -142,7 +142,7 @@ public static class ZlpExtensions
         else return new ZlpFileInfo(ZlpPathHelper.Combine(one.FullName, two.FullName));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo CombineFile(
         this ZlpDirectoryInfo one,
         ZlpFileInfo two,
@@ -166,7 +166,7 @@ public static class ZlpExtensions
         else return new ZlpFileInfo(ZlpPathHelper.Combine(one.FullName, two));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo CombineFile(this ZlpDirectoryInfo one, string two, string three,
         params string[] fours)
     {
@@ -178,7 +178,7 @@ public static class ZlpExtensions
                 CombineFile(current?.FullName, four));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo CombineFile( /*this*/ string one, string two)
     {
         if (one == null && two == null) return null;
@@ -192,7 +192,7 @@ public static class ZlpExtensions
     /// Creates a copy of the calling instance with a changed extension.
     /// This calling instance remains unmodified.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo ChangeExtension(
         this ZlpFileInfo o,
         string extension)
@@ -200,7 +200,7 @@ public static class ZlpExtensions
         return new(ZlpPathHelper.ChangeExtension(o.FullName, extension));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpDirectoryInfo CreateSubdirectory(this ZlpDirectoryInfo o, string name)
     {
         var path = ZlpPathHelper.Combine(o.FullName, name);
@@ -208,7 +208,7 @@ public static class ZlpExtensions
         return new ZlpDirectoryInfo(path);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool EqualsNoCase(this ZlpDirectoryInfo o, ZlpDirectoryInfo p)
     {
         if (o == null && p == null) return true;
@@ -220,7 +220,7 @@ public static class ZlpExtensions
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool EqualsNoCase(this ZlpDirectoryInfo o, string p)
     {
         if (o == null && p == null) return true;
@@ -232,7 +232,7 @@ public static class ZlpExtensions
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool EqualsNoCase(this ZlpFileInfo o, ZlpFileInfo p)
     {
         if (o == null && p == null) return true;
@@ -244,7 +244,7 @@ public static class ZlpExtensions
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool EqualsNoCase(this ZlpFileInfo o, string p)
     {
         if (o == null && p == null) return true;
@@ -256,7 +256,7 @@ public static class ZlpExtensions
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string ReplaceNoCase(this string s1, string s2, string s3)
     {
         if (s1 == null && s2 == null) return null;
@@ -265,7 +265,7 @@ public static class ZlpExtensions
         else return Replace(s1, s2, s3 ?? string.Empty, StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string Replace(
         this string str,
         string oldValue,
@@ -297,13 +297,13 @@ public static class ZlpExtensions
     /// checks for NULL but also for an empty string.
     /// </summary>
     /// <returns>Returns S2 if S1 is NULL or empty, returns S1 otherwise.</returns>
-    [UsedImplicitly]
+    [PublicAPI]
     public static string NullOrEmptyOther(this string s1, string s2)
     {
         return string.IsNullOrEmpty(s1) ? s2 : s1;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int IndexOfNoCase(this string s1, string s2)
     {
         if (s1 == null && s2 == null) return 0;
@@ -311,7 +311,23 @@ public static class ZlpExtensions
         else return s1.IndexOf(s2, StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
+    public static int IndexOfNoCase(this string s1, string s2, int startIndex)
+    {
+        if (s1 == null && s2 == null) return 0;
+        else if (s1 == null || s2 == null) return -1;
+        else return s1.IndexOf(s2, startIndex, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [PublicAPI]
+    public static int IndexOfNoCase(this string s1, string s2, int startIndex, int count)
+    {
+        if (s1 == null && s2 == null) return 0;
+        else if (s1 == null || s2 == null) return -1;
+        else return s1.IndexOf(s2, startIndex, count, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [PublicAPI]
     public static int LastIndexOfNoCase(this string s1, string s2)
     {
         if (s1 == null && s2 == null) return 0;
@@ -319,7 +335,7 @@ public static class ZlpExtensions
         else return s1.LastIndexOf(s2, StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool EqualsNoCase(this string s1, string s2)
     {
         if (s1 == null && s2 == null) return true;
@@ -327,7 +343,7 @@ public static class ZlpExtensions
         else return string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool StartsWithNoCase(this string s1, string s2)
     {
         if (s1 == null && s2 == null) return true;
@@ -335,7 +351,7 @@ public static class ZlpExtensions
         else return s1.StartsWith(s2, StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool ContainsNoCase(this string s1, string s2)
     {
         if (s1 == null && s2 == null) return true;
@@ -343,7 +359,7 @@ public static class ZlpExtensions
         else return s1.IndexOf(s2, StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool ContainsNoCase(this string s1, string s2, int startIndex)
     {
         if (s1 == null && s2 == null) return true;
@@ -351,7 +367,7 @@ public static class ZlpExtensions
         else return s1.IndexOf(s2, startIndex, StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool EndsWithNoCase(this string s1, string s2)
     {
         if (s1 == null && s2 == null) return true;
@@ -359,7 +375,7 @@ public static class ZlpExtensions
         else return s1.EndsWith(s2, StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int CompareNoCase(this string s1, string s2)
     {
         switch (s1)
@@ -376,26 +392,26 @@ public static class ZlpExtensions
         }
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsNullOrEmpty(this string s)
     {
         return string.IsNullOrEmpty(s);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsNullOrWhiteSpace(this string s)
     {
         return string.IsNullOrWhiteSpace(s);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool EndsWithAnyNoCase(this string s1, params string[] s2)
     {
         if (s1 == null || s2 == null) return false;
         return s2.Any(s22 => !string.IsNullOrEmpty(s22) && s1.EndsWithNoCase(s22));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo CheckExists(this ZlpFileInfo file)
     {
         if (file == null) throw new ArgumentNullException(nameof(file));
@@ -408,7 +424,7 @@ public static class ZlpExtensions
         return file;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpDirectoryInfo CheckExists(this ZlpDirectoryInfo folder)
     {
         if (folder == null) throw new ArgumentNullException(nameof(folder));
@@ -430,25 +446,25 @@ public static class ZlpExtensions
         return folder;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsSame(this ZlpDirectoryInfo folder1, ZlpDirectoryInfo folder2)
     {
         return IsSame(folder1, folder2?.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsSame(this ZlpDirectoryInfo folder1, string folder2)
     {
         return ZlpPathHelper.AreSameFolders(folder1.FullName, folder2);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool StartsWith(this ZlpDirectoryInfo folder1, ZlpDirectoryInfo folder2)
     {
         return StartsWith(folder1, folder2?.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool StartsWith(this ZlpDirectoryInfo folder1, string folder2)
     {
         var f1 = folder1?.FullName;

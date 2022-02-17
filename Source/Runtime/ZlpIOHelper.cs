@@ -67,7 +67,7 @@ public static class ZlpIOHelper
         return ReadAllLines(path, encoding);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsDirectoryEmpty(
         string path)
     {
@@ -269,7 +269,7 @@ public static class ZlpIOHelper
         return fileHandle;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int ReadFile(
         SafeFileHandle handle,
         byte[] buffer,
@@ -314,7 +314,7 @@ public static class ZlpIOHelper
         return (int)result;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int WriteFile(
         SafeFileHandle handle,
         byte[] buffer,
@@ -359,7 +359,7 @@ public static class ZlpIOHelper
         return (int)result;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static long Seek(
         SafeFileHandle handle,
         long distance,
@@ -1114,7 +1114,7 @@ public static class ZlpIOHelper
                (data.dwFileAttributes & 16) != 0;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     [CanBeNull]
     public static ZlpFileDateInfos GetFileDateInfos(
         string filePath)
@@ -1168,7 +1168,7 @@ public static class ZlpIOHelper
         }
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static void SetFileDateInfos(
         string filePath,
         ZlpFileDateInfos infos)
@@ -1940,7 +1940,7 @@ public static class ZlpIOHelper
     /// <returns>
     /// True, if path longer then MAX_PATH constant, or is UNC path, else - False
     /// </returns>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsPathLong(string path)
     {
         return MustBeLongPath(path);

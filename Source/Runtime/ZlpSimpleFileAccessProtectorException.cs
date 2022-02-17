@@ -6,25 +6,25 @@ public class ZlpSimpleFileAccessProtectorException :
 {
     private const string MagicKey = @"a08c7921-3b9f-4d48-bd82-280636202e40";
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpSimpleFileAccessProtectorException()
     {
         setMagicKey();
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpSimpleFileAccessProtectorException(string message) : base(message)
     {
         setMagicKey();
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpSimpleFileAccessProtectorException(string message, Exception inner) : base(message, inner)
     {
         setMagicKey();
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     protected ZlpSimpleFileAccessProtectorException(
         SerializationInfo info,
         StreamingContext context) : base(info, context)

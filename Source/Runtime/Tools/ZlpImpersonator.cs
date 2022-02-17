@@ -26,7 +26,7 @@ using System.Security.Principal;
 /// }
 /// ...
 /// </remarks>
-[UsedImplicitly]
+[PublicAPI]
 public sealed class ZlpImpersonator : IDisposable
 {
     private const int Logon32ProviderDefault = 0;
@@ -242,7 +242,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="profileBehaviour">The profile behaviour.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Impersonate(
         string userName,
         string domainName,
@@ -267,7 +267,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
     /// <param name="profileBehaviour">The profile behaviour.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Impersonate(
         string userName,
         string domainName,
@@ -292,7 +292,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="profileBehaviour">The profile behaviour.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Impersonate(
         string userName,
         string domainName,
@@ -317,7 +317,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
     /// <param name="profileBehaviour">The profile behaviour.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Impersonate(
         string userName,
         string domainName,
@@ -341,7 +341,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="userName">The name of the user to act as.</param>
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Impersonate(
         string userName,
         string domainName,
@@ -364,7 +364,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Impersonate(
         string userName,
         string domainName,
@@ -387,7 +387,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="userName">The name of the user to act as.</param>
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Impersonate(
         string userName,
         string domainName,
@@ -410,7 +410,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Impersonate(
         string userName,
         string domainName,
@@ -429,7 +429,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// Undoes the impersonation. Safe to call even if not yet
     /// impersonized.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public void Undo()
     {
         UndoImpersonation();
@@ -448,7 +448,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="userName">The name of the user to act as.</param>
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanLogIn(
         string userName,
         string domainName,
@@ -470,7 +470,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanLogIn(
         string userName,
         string domainName,
@@ -492,7 +492,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="userName">The name of the user to act as.</param>
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanLogIn(
         string userName,
         string domainName,
@@ -514,7 +514,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanLogIn(
         string userName,
         string domainName,
@@ -540,7 +540,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <returns>
     /// 	<c>true</c> if this instance [can log in] the specified user name; otherwise, <c>false</c>.
     /// </returns>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanLogIn(
         string userName,
         string domainName,
@@ -568,7 +568,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <returns>
     /// 	<c>true</c> if this instance [can log in] the specified user name; otherwise, <c>false</c>.
     /// </returns>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanLogIn(
         string userName,
         string domainName,
@@ -596,7 +596,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <returns>
     /// 	<c>true</c> if this instance [can log in] the specified user name; otherwise, <c>false</c>.
     /// </returns>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanLogIn(
         string userName,
         string domainName,
@@ -624,7 +624,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <returns>
     /// 	<c>true</c> if this instance [can log in] the specified user name; otherwise, <c>false</c>.
     /// </returns>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanLogIn(
         string userName,
         string domainName,
@@ -649,7 +649,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="profileBehaviour">The profile behaviour.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanImpersonate(
         string userName,
         string domainName,
@@ -674,7 +674,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
     /// <param name="profileBehaviour">The profile behaviour.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanImpersonate(
         string userName,
         string domainName,
@@ -699,7 +699,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="profileBehaviour">The profile behaviour.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanImpersonate(
         string userName,
         string domainName,
@@ -724,7 +724,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
     /// <param name="profileBehaviour">The profile behaviour.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanImpersonate(
         string userName,
         string domainName,
@@ -748,7 +748,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="userName">The name of the user to act as.</param>
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanImpersonate(
         string userName,
         string domainName,
@@ -771,7 +771,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanImpersonate(
         string userName,
         string domainName,
@@ -794,7 +794,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="userName">The name of the user to act as.</param>
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanImpersonate(
         string userName,
         string domainName,
@@ -817,7 +817,7 @@ public sealed class ZlpImpersonator : IDisposable
     /// <param name="domainName">The domain name of the user to act as.</param>
     /// <param name="password">The password of the user to act as.</param>
     /// <param name="loginType">The login type.</param>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool CanImpersonate(
         string userName,
         string domainName,
@@ -1537,14 +1537,14 @@ public enum ZlpImpersonatorLoginType
     /// <summary>
     /// Interactive. This is the default.
     /// </summary>
-    [UsedImplicitly] Interactive = 2,
+    [PublicAPI] Interactive = 2,
 
-    [UsedImplicitly] Batch = 4,
-    [UsedImplicitly] Network = 3,
-    [UsedImplicitly] NetworkClearText = 0,
-    [UsedImplicitly] Service = 5,
-    [UsedImplicitly] Unlock = 7,
-    [UsedImplicitly] NewCredentials = 9
+    [PublicAPI] Batch = 4,
+    [PublicAPI] Network = 3,
+    [PublicAPI] NetworkClearText = 0,
+    [PublicAPI] Service = 5,
+    [PublicAPI] Unlock = 7,
+    [PublicAPI] NewCredentials = 9
 }
 
 /// <summary>

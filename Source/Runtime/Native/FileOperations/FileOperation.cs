@@ -9,7 +9,7 @@ internal class FileOperation : IDisposable
     private readonly FileOperationProgressSink _callbackSink;
     private readonly uint _sinkCookie;
 
-    [UsedImplicitly]
+    [PublicAPI]
     public FileOperation() : this(null)
     {
     }
@@ -33,7 +33,7 @@ internal class FileOperation : IDisposable
         _fileOperation.SetOperationFlags(operationFlags);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void CopyItem(string source, string destination, string newName)
     {
         ThrowIfDisposed();
@@ -42,7 +42,7 @@ internal class FileOperation : IDisposable
         _fileOperation.CopyItem(sourceItem.Item, destinationItem.Item, newName, null);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void MoveItem(string source, string destination, string newName)
     {
         ThrowIfDisposed();
@@ -51,7 +51,7 @@ internal class FileOperation : IDisposable
         _fileOperation.MoveItem(sourceItem.Item, destinationItem.Item, newName, null);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void RenameItem(string source, string newName)
     {
         ThrowIfDisposed();
@@ -66,7 +66,7 @@ internal class FileOperation : IDisposable
         _fileOperation.DeleteItem(sourceItem.Item, null);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void NewItem(string folderName, string name, FileAttributes attrs)
     {
         ThrowIfDisposed();

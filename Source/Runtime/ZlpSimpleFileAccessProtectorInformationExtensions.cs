@@ -1,9 +1,9 @@
 ﻿namespace ZetaLongPaths;
 
-[UsedImplicitly]
+[PublicAPI]
 public static class ZlpSimpleFileAccessProtectorInformationExtensions
 {
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSimpleFileAccessProtectorInformation SetUse(
         this ZlpSimpleFileAccessProtectorInformation @this,
         bool use)
@@ -12,7 +12,7 @@ public static class ZlpSimpleFileAccessProtectorInformationExtensions
         return @this;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSimpleFileAccessProtectorInformation SetInfo(
         this ZlpSimpleFileAccessProtectorInformation @this,
         string info)
@@ -21,7 +21,7 @@ public static class ZlpSimpleFileAccessProtectorInformationExtensions
         return @this;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSimpleFileAccessProtectorInformation SetRetryCount(
         this ZlpSimpleFileAccessProtectorInformation @this,
         int retryCount)
@@ -30,7 +30,7 @@ public static class ZlpSimpleFileAccessProtectorInformationExtensions
         return @this;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSimpleFileAccessProtectorInformation SetSleepDelaySeconds(
         this ZlpSimpleFileAccessProtectorInformation @this,
         int sleepDelaySeconds)
@@ -39,7 +39,7 @@ public static class ZlpSimpleFileAccessProtectorInformationExtensions
         return @this;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSimpleFileAccessProtectorInformation DoGarbageCollectBeforeSleep(
         this ZlpSimpleFileAccessProtectorInformation @this,
         bool doGarbageCollectBeforeSleep)
@@ -48,7 +48,7 @@ public static class ZlpSimpleFileAccessProtectorInformationExtensions
         return @this;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSimpleFileAccessProtectorInformation SetHandleException(
         this ZlpSimpleFileAccessProtectorInformation @this,
         ZlpHandleExceptionDelegate handleException)

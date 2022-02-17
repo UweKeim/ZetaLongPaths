@@ -20,17 +20,17 @@ using Properties;
 /// }
 /// ...
 /// </remarks>
-[UsedImplicitly]
+[PublicAPI]
 public sealed class ZlpNetworkConnection : IDisposable
 {
     private string _networkName;
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpNetworkConnection()
     {
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpNetworkConnection(
         string networkName,
         string userName,
@@ -44,7 +44,7 @@ public sealed class ZlpNetworkConnection : IDisposable
         Connect(networkName, userName, password, scope, resourceType, displayType, usage, flags);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpNetworkConnection(
         string networkName,
         bool activate,
@@ -59,7 +59,7 @@ public sealed class ZlpNetworkConnection : IDisposable
         Connect(networkName, activate, userName, password, scope, resourceType, displayType, usage, flags);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void Connect(
         string networkName,
         string userName,
@@ -73,7 +73,7 @@ public sealed class ZlpNetworkConnection : IDisposable
         doNetUse(networkName, userName, password, scope, resourceType, displayType, usage, flags);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void Connect(
         string networkName,
         bool activate,
@@ -161,7 +161,7 @@ public sealed class ZlpNetworkConnection : IDisposable
         bool force);
 
     [StructLayout(LayoutKind.Sequential)]
-    [UsedImplicitly]
+    [PublicAPI]
     private sealed class NetResource
     {
 #pragma warning disable 414
@@ -187,7 +187,7 @@ public sealed class ZlpNetworkConnection : IDisposable
     }
 }
 
-[UsedImplicitly]
+[PublicAPI]
 public enum ZlpNetworkConnectionResourceScope
 {
 #pragma warning disable 414
@@ -205,7 +205,7 @@ public enum ZlpNetworkConnectionResourceScope
 #pragma warning restore 414
 }
 
-[UsedImplicitly]
+[PublicAPI]
 public enum ZlpNetworkConnectionResourceType
 {
 #pragma warning disable 414
@@ -222,7 +222,7 @@ public enum ZlpNetworkConnectionResourceType
 #pragma warning restore 414
 }
 
-[UsedImplicitly]
+[PublicAPI]
 public enum ZlpNetworkConnectionResourceDisplayType
 {
 #pragma warning disable 414
@@ -247,7 +247,7 @@ public enum ZlpNetworkConnectionResourceDisplayType
 #pragma warning restore 414
 }
 
-[UsedImplicitly]
+[PublicAPI]
 [Flags]
 public enum ZlpNetworkConnectionResourceUsage
 {
@@ -266,7 +266,7 @@ public enum ZlpNetworkConnectionResourceUsage
 #pragma warning restore 414
 }
 
-[UsedImplicitly]
+[PublicAPI]
 [Flags]
 public enum ZlpNetworkConnectionFlags
 {

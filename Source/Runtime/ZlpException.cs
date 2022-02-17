@@ -1,7 +1,7 @@
 ﻿namespace ZetaLongPaths;
 
 [Serializable]
-[UsedImplicitly]
+[PublicAPI]
 public class ZlpException : Exception
 {
     public ZlpException()

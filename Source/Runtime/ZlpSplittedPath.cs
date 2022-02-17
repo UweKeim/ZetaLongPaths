@@ -2,7 +2,7 @@
 
 public sealed class ZlpSplittedPath
 {
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpSplittedPath(
         string path)
     {
@@ -15,29 +15,29 @@ public sealed class ZlpSplittedPath
         Info = new ZlpFileOrDirectoryInfo(path);
     }
 
-    [UsedImplicitly] public string FullPath => Info.FullName;
+    [PublicAPI] public string FullPath => Info.FullName;
 
-    [UsedImplicitly] public ZlpFileOrDirectoryInfo Info { get; }
+    [PublicAPI] public ZlpFileOrDirectoryInfo Info { get; }
 
-    [UsedImplicitly] public string Drive => ZlpPathHelper.GetDrive(Info.FullName);
+    [PublicAPI] public string Drive => ZlpPathHelper.GetDrive(Info.FullName);
 
-    [UsedImplicitly] public string Share => ZlpPathHelper.GetShare(Info.FullName);
+    [PublicAPI] public string Share => ZlpPathHelper.GetShare(Info.FullName);
 
-    [UsedImplicitly] public string DriveOrShare => ZlpPathHelper.GetDriveOrShare(Info.FullName);
+    [PublicAPI] public string DriveOrShare => ZlpPathHelper.GetDriveOrShare(Info.FullName);
 
-    [UsedImplicitly] public string Directory => ZlpPathHelper.GetDirectory(Info.FullName);
+    [PublicAPI] public string Directory => ZlpPathHelper.GetDirectory(Info.FullName);
 
-    [UsedImplicitly] public string NameWithoutExtension => ZlpPathHelper.GetNameWithoutExtension(Info.FullName);
+    [PublicAPI] public string NameWithoutExtension => ZlpPathHelper.GetNameWithoutExtension(Info.FullName);
 
-    [UsedImplicitly] public string NameWithExtension => ZlpPathHelper.GetNameWithExtension(Info.FullName);
+    [PublicAPI] public string NameWithExtension => ZlpPathHelper.GetNameWithExtension(Info.FullName);
 
-    [UsedImplicitly] public string Extension => ZlpPathHelper.GetExtension(Info.FullName);
+    [PublicAPI] public string Extension => ZlpPathHelper.GetExtension(Info.FullName);
 
-    [UsedImplicitly] public string DriveOrShareAndDirectory => ZlpPathHelper.Combine(DriveOrShare, Directory);
+    [PublicAPI] public string DriveOrShareAndDirectory => ZlpPathHelper.Combine(DriveOrShare, Directory);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string DriveOrShareAndDirectoryAndNameWithoutExtension =>
         ZlpPathHelper.Combine(ZlpPathHelper.Combine(DriveOrShare, Directory), NameWithoutExtension);
 
-    [UsedImplicitly] public string DirectoryAndNameWithExtension => ZlpPathHelper.Combine(Directory, NameWithExtension);
+    [PublicAPI] public string DirectoryAndNameWithExtension => ZlpPathHelper.Combine(Directory, NameWithExtension);
 }

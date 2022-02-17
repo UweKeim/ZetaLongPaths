@@ -10,10 +10,10 @@ using FileShare = Native.FileShare;
 public class ZlpFileInfo :
     IZlpFileSystemInfo
 {
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo GetTemp() => new(ZlpPathHelper.GetTempFilePath());
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo GetTemp(string extension) => new(ZlpPathHelper.GetTempFilePath(extension));
 
     public ZlpFileInfo(string path)
@@ -21,66 +21,66 @@ public class ZlpFileInfo :
         FullName = path;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileInfo(FileInfo path)
     {
         FullName = path?.FullName;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileInfo(ZlpFileInfo path)
     {
         FullName = path?.FullName;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo FromOther(ZlpFileInfo path)
     {
         return new(path);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo FromString(string path)
     {
         return new(path);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo FromBuiltIn(FileInfo path)
     {
         return new(path);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public FileInfo ToBuiltIn()
     {
         return new(FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileInfo ToOther()
     {
         return Clone();
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void Refresh()
     {
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileInfo Clone()
     {
         return new(FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileInfo GetFullPath()
     {
         return new(ZlpPathHelper.GetFullPath(FullName));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public bool IsReadOnly
     {
         get => (Attributes & FileAttributes.Readonly) != 0;
@@ -102,7 +102,7 @@ public class ZlpFileInfo :
     public void MoveTo(
         string destinationFilePath) => ZlpIOHelper.MoveFile(FullName, destinationFilePath);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void MoveTo(
         ZlpFileInfo destinationFilePath)
         => ZlpIOHelper.MoveFile(FullName, destinationFilePath.FullName);
@@ -111,7 +111,7 @@ public class ZlpFileInfo :
         string destinationFilePath,
         bool overwriteExisting) => ZlpIOHelper.MoveFile(FullName, destinationFilePath, overwriteExisting);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void MoveTo(
         ZlpFileInfo destinationFilePath,
         bool overwriteExisting)
@@ -121,7 +121,7 @@ public class ZlpFileInfo :
     /// Pass the file handle to the <see cref="System.IO.FileStream"/> constructor. 
     /// The <see cref="System.IO.FileStream"/> will close the handle.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public SafeFileHandle CreateHandle(
         CreationDisposition creationDisposition,
         FileAccess fileAccess,
@@ -130,7 +130,7 @@ public class ZlpFileInfo :
         return ZlpIOHelper.CreateFileHandle(FullName, creationDisposition, fileAccess, fileShare);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void CopyTo(
         string destinationFilePath,
         bool overwriteExisting)
@@ -138,7 +138,7 @@ public class ZlpFileInfo :
         ZlpIOHelper.CopyFile(FullName, destinationFilePath, overwriteExisting);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void CopyTo(
         ZlpFileInfo destinationFilePath,
         bool overwriteExisting)
@@ -146,7 +146,7 @@ public class ZlpFileInfo :
         ZlpIOHelper.CopyFile(FullName, destinationFilePath.FullName, overwriteExisting);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void CopyToExact(
         string destinationFilePath,
         bool overwriteExisting)
@@ -154,7 +154,7 @@ public class ZlpFileInfo :
         ZlpIOHelper.CopyFileExact(FullName, destinationFilePath, overwriteExisting);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void CopyToExact(
         ZlpFileInfo destinationFilePath,
         bool overwriteExisting)
@@ -162,27 +162,27 @@ public class ZlpFileInfo :
         ZlpIOHelper.CopyFileExact(FullName, destinationFilePath.FullName, overwriteExisting);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void Delete() => ZlpIOHelper.DeleteFile(FullName);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void DeleteFileAfterReboot() => ZlpIOHelper.DeleteFileAfterReboot(FullName);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void Touch() => ZlpIOHelper.Touch(FullName);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string Owner => ZlpIOHelper.GetFileOwner(FullName);
 
     public bool Exists => ZlpIOHelper.FileExists(FullName);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public byte[] ReadAllBytes()
     {
         return ZlpIOHelper.ReadAllBytes(FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public FileStream OpenRead()
     {
         return new(
@@ -194,7 +194,7 @@ public class ZlpFileInfo :
             System.IO.FileAccess.Read);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public FileStream OpenWrite()
     {
         return new(
@@ -206,7 +206,7 @@ public class ZlpFileInfo :
             System.IO.FileAccess.ReadWrite);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public FileStream OpenCreate()
     {
         return new(
@@ -218,34 +218,34 @@ public class ZlpFileInfo :
             System.IO.FileAccess.ReadWrite);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string ReadAllText() => ZlpIOHelper.ReadAllText(FullName);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string ReadAllText(Encoding encoding) => ZlpIOHelper.ReadAllText(FullName, encoding);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string[] ReadAllLines() => ZlpIOHelper.ReadAllLines(FullName);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string[] ReadAllLines(Encoding encoding) => ZlpIOHelper.ReadAllLines(FullName, encoding);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void WriteAllText(string text, Encoding encoding = null)
         => ZlpIOHelper.WriteAllText(FullName, text, encoding);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void WriteAllLines(string[] lines, Encoding encoding = null)
         => ZlpIOHelper.WriteAllLines(FullName, lines, encoding);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void AppendText(string text, Encoding encoding = null)
         => ZlpIOHelper.AppendText(FullName, text, encoding);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void WriteAllBytes(byte[] content) => ZlpIOHelper.WriteAllBytes(FullName, content);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public void AppendBytes(byte[] content) => ZlpIOHelper.AppendBytes(FullName, content);
 
     public DateTime LastWriteTime
@@ -282,7 +282,7 @@ public class ZlpFileInfo :
     /// </summary>
     public string MD5Hash => ZlpIOHelper.CalculateMD5Hash(FullName);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string NameWithoutExtension => ZlpPathHelper.GetFileNameWithoutExtension(Name);
 
     public ZlpDirectoryInfo Directory => new(DirectoryName);

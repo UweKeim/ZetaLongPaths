@@ -5,7 +5,7 @@ using static String;
 
 public static class ZlpPathHelper
 {
-    [UsedImplicitly]
+    [PublicAPI]
     public static string GetPathRoot(string path)
     {
         if (IsNullOrEmpty(path))
@@ -478,7 +478,7 @@ public static class ZlpPathHelper
         }
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpDirectoryInfo CombineDirectory(
         string path1,
         string path2)
@@ -486,7 +486,7 @@ public static class ZlpPathHelper
         return new(Combine(path1, path2));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo CombineFile(
         string path1,
         string path2)
@@ -515,9 +515,9 @@ public static class ZlpPathHelper
         }
     }
 
-    [UsedImplicitly] public static char DirectorySeparatorChar => Path.DirectorySeparatorChar;
+    [PublicAPI] public static char DirectorySeparatorChar => Path.DirectorySeparatorChar;
 
-    [UsedImplicitly] public static char AltDirectorySeparatorChar => Path.AltDirectorySeparatorChar;
+    [PublicAPI] public static char AltDirectorySeparatorChar => Path.AltDirectorySeparatorChar;
 
     public static string GetTempDirectoryPath()
     {
@@ -539,7 +539,7 @@ public static class ZlpPathHelper
             : $@"{Path.GetTempPath()}{Guid.NewGuid()}.{extension.TrimStart('.')}";
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpDirectoryInfo CombineDirectory(
         string path1,
         string path2,
@@ -549,7 +549,7 @@ public static class ZlpPathHelper
         return new(Combine(path1, path2, path3, paths));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileInfo CombineFile(
         string path1,
         string path2,
@@ -559,7 +559,7 @@ public static class ZlpPathHelper
         return new(Combine(path1, path2, path3, paths));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string Combine(
         string path1,
         string path2,
@@ -577,14 +577,14 @@ public static class ZlpPathHelper
         return resultPath;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string ConvertBackSlashsToForwardSlashs(
         string text)
     {
         return IsNullOrEmpty(text) ? text : text.Replace('\\', '/');
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string ConvertForwardSlashsToBackSlashs(
         string text)
     {
@@ -728,7 +728,7 @@ public static class ZlpPathHelper
     /// <summary>
     /// Gets the drive or share and directory.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static string GetDriveOrShareAndDirectory(
         string path)
     {
@@ -803,7 +803,7 @@ public static class ZlpPathHelper
     /// "C:\Team\Text\Test.Txt" would return "Test.Txt".
     /// "C:\Team\Text\Test" would return "Test".
     /// </remarks>
-    [UsedImplicitly]
+    [PublicAPI]
     public static string GetNameWithExtension(
         ZlpFileInfo path)
     {
@@ -824,35 +824,35 @@ public static class ZlpPathHelper
         return IsNullOrEmpty(path) ? path : GetFileNameFromFilePath(path);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSplittedPath SplitPath(
         string path)
     {
         return new ZlpFileOrDirectoryInfo(path).ZlpSplittedPath;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSplittedPath SplitPath(
         ZlpFileInfo path)
     {
         return new ZlpFileOrDirectoryInfo(path).ZlpSplittedPath;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSplittedPath SplitPath(
         ZlpDirectoryInfo path)
     {
         return new ZlpFileOrDirectoryInfo(path).ZlpSplittedPath;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpSplittedPath SplitPath(
         ZlpFileOrDirectoryInfo path)
     {
         return path.ZlpSplittedPath;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsDriveLetterPath(
         string filePath)
     {
@@ -866,7 +866,7 @@ public static class ZlpPathHelper
         }
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsUncPath(
         string filePath)
     {
@@ -900,7 +900,7 @@ public static class ZlpPathHelper
         }
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string SetBackSlashEnd(
         string path,
         bool setSlash)
@@ -908,7 +908,7 @@ public static class ZlpPathHelper
         return setSlashEnd(path, setSlash, '\\');
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string SetForwardSlashEnd(
         string path,
         bool setSlash)
@@ -916,7 +916,7 @@ public static class ZlpPathHelper
         return setSlashEnd(path, setSlash, '/');
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string SetBackSlashBegin(
         string path,
         bool setSlash)
@@ -924,7 +924,7 @@ public static class ZlpPathHelper
         return setSlashBegin(path, setSlash, '\\');
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string SetForwardSlashBegin(
         string path,
         bool setSlash)
@@ -932,7 +932,7 @@ public static class ZlpPathHelper
         return setSlashBegin(path, setSlash, '/');
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static string GetParentPath(
         string text)
     {
@@ -946,7 +946,7 @@ public static class ZlpPathHelper
     /// No disk-access is performed, only the syntax of the given string
     /// is checked.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static bool IsAbsolutePath(
         string path)
     {
@@ -977,7 +977,7 @@ public static class ZlpPathHelper
     /// A "less intelligent" Combine (in contrast to to Path.Combine).
     /// For paths with forward slash.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static string CombineVirtual(
         string path1,
         string path2)
@@ -1030,7 +1030,7 @@ public static class ZlpPathHelper
     /// A "less intelligent" Combine (in contrast to to Path.Combine).
     /// For paths with forward slash.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public static string CombineVirtual(
         string path1,
         string path2,

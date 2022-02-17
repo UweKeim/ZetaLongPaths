@@ -4,28 +4,28 @@ using Native;
 
 public interface IZlpFileSystemInfo
 {
-    [UsedImplicitly] bool Exists { get; }
-    [UsedImplicitly] string OriginalPath { get; }
-    [UsedImplicitly] string FullName { get; }
-    [UsedImplicitly] string Extension { get; }
-    [UsedImplicitly] string Name { get; }
-    [UsedImplicitly] DateTime LastWriteTime { get; set; }
-    [UsedImplicitly] DateTime LastAccessTime { get; set; }
-    [UsedImplicitly] DateTime CreationTime { get; set; }
-    [UsedImplicitly] FileAttributes Attributes { get; set; }
+    [PublicAPI] bool Exists { get; }
+    [PublicAPI] string OriginalPath { get; }
+    [PublicAPI] string FullName { get; }
+    [PublicAPI] string Extension { get; }
+    [PublicAPI] string Name { get; }
+    [PublicAPI] DateTime LastWriteTime { get; set; }
+    [PublicAPI] DateTime LastAccessTime { get; set; }
+    [PublicAPI] DateTime CreationTime { get; set; }
+    [PublicAPI] FileAttributes Attributes { get; set; }
 
-    [UsedImplicitly]
+    [PublicAPI]
     void MoveToRecycleBin();
 
-    [UsedImplicitly]
+    [PublicAPI]
     string ToString();
 
-    [UsedImplicitly]
+    [PublicAPI]
     void Refresh();
 
-    [UsedImplicitly]
+    [PublicAPI]
     void Delete();
 
-    [UsedImplicitly]
+    [PublicAPI]
     void MoveTo(string destinationDirectoryPath);
 }

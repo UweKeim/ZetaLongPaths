@@ -14,7 +14,7 @@ public sealed class ZlpFileOrDirectoryInfo
 
     private PreferedType _preferedType;
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileOrDirectoryInfo()
     {
         _preferedType = PreferedType.Unspecified;
@@ -28,7 +28,7 @@ public sealed class ZlpFileOrDirectoryInfo
         OriginalPath = fullPath;
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileOrDirectoryInfo(
         string fullPath,
         bool detectTypeFromFileSystem)
@@ -88,7 +88,7 @@ public sealed class ZlpFileOrDirectoryInfo
         OriginalPath = info.ToString();
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileOrDirectoryInfo Clone()
     {
         return new(this);
@@ -100,7 +100,7 @@ public sealed class ZlpFileOrDirectoryInfo
 
     public ZlpDirectoryInfo Directory => new(FullName);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpDirectoryInfo EffectiveDirectory
     {
         get
@@ -130,7 +130,7 @@ public sealed class ZlpFileOrDirectoryInfo
     /// <summary>
     /// Get a value indicating whether the file or the directory exists.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public bool Exists
     {
         get
@@ -152,12 +152,12 @@ public sealed class ZlpFileOrDirectoryInfo
 
     public string FullName { get; }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string OriginalPath { get; }
 
     public ZlpSplittedPath ZlpSplittedPath => new(this);
 
-    [UsedImplicitly]
+    [PublicAPI]
     public string Name => IsFile ? File?.Name : Directory?.Name;
 
     /// <summary>
@@ -172,7 +172,7 @@ public sealed class ZlpFileOrDirectoryInfo
     /// </summary>
     public bool IsDirectory => Directory.Exists;
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         ZlpDirectoryInfo one,
         ZlpDirectoryInfo two)
@@ -181,7 +181,7 @@ public sealed class ZlpFileOrDirectoryInfo
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         ZlpFileInfo one,
         ZlpFileInfo two)
@@ -190,7 +190,7 @@ public sealed class ZlpFileOrDirectoryInfo
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         ZlpFileOrDirectoryInfo one,
         ZlpFileOrDirectoryInfo two)
@@ -199,7 +199,7 @@ public sealed class ZlpFileOrDirectoryInfo
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         ZlpFileOrDirectoryInfo one,
         ZlpFileInfo two)
@@ -208,7 +208,7 @@ public sealed class ZlpFileOrDirectoryInfo
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         ZlpFileOrDirectoryInfo one,
         ZlpDirectoryInfo two)
@@ -217,7 +217,7 @@ public sealed class ZlpFileOrDirectoryInfo
             StringComparison.OrdinalIgnoreCase);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         string one,
         ZlpDirectoryInfo two)
@@ -225,7 +225,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Compare(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         string one,
         ZlpFileInfo two)
@@ -233,7 +233,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Compare(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         string one,
         ZlpFileOrDirectoryInfo two)
@@ -241,7 +241,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Compare(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         ZlpDirectoryInfo one,
         string two)
@@ -249,7 +249,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Compare(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         ZlpFileInfo one,
         string two)
@@ -257,7 +257,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Compare(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         ZlpFileOrDirectoryInfo one,
         string two)
@@ -265,7 +265,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Compare(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static int Compare(
         string one,
         string two)
@@ -273,35 +273,35 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Compare(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public int Compare(
         string b)
     {
         return Compare(this, new ZlpFileOrDirectoryInfo(b));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public int Compare(
         ZlpFileInfo b)
     {
         return Compare(b.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public int Compare(
         ZlpDirectoryInfo b)
     {
         return Compare(b.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public int Compare(
         ZlpFileOrDirectoryInfo b)
     {
         return Compare(b.FullName);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         ZlpDirectoryInfo one,
         ZlpDirectoryInfo two)
@@ -309,7 +309,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         ZlpFileInfo one,
         ZlpFileInfo two)
@@ -317,7 +317,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         ZlpFileOrDirectoryInfo one,
         ZlpFileOrDirectoryInfo two)
@@ -325,7 +325,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         ZlpFileOrDirectoryInfo one,
         ZlpFileInfo two)
@@ -333,7 +333,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         ZlpFileOrDirectoryInfo one,
         ZlpDirectoryInfo two)
@@ -341,7 +341,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         string one,
         ZlpDirectoryInfo two)
@@ -349,7 +349,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         string one,
         ZlpFileInfo two)
@@ -357,7 +357,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         string one,
         ZlpFileOrDirectoryInfo two)
@@ -365,7 +365,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         ZlpDirectoryInfo one,
         string two)
@@ -373,7 +373,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         ZlpFileInfo one,
         string two)
@@ -381,7 +381,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         ZlpFileOrDirectoryInfo one,
         string two)
@@ -389,7 +389,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public static ZlpFileOrDirectoryInfo Combine(
         string one,
         string two)
@@ -397,7 +397,7 @@ public sealed class ZlpFileOrDirectoryInfo
         return new ZlpFileOrDirectoryInfo(one).Combine(two);
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileOrDirectoryInfo Combine(
         ZlpFileOrDirectoryInfo info)
     {
@@ -408,7 +408,7 @@ public sealed class ZlpFileOrDirectoryInfo
                     info.FullName));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileOrDirectoryInfo Combine(
         string path)
     {
@@ -419,7 +419,7 @@ public sealed class ZlpFileOrDirectoryInfo
                     path));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileOrDirectoryInfo Combine(
         ZlpFileInfo info)
     {
@@ -432,7 +432,7 @@ public sealed class ZlpFileOrDirectoryInfo
                     info.ToString()));
     }
 
-    [UsedImplicitly]
+    [PublicAPI]
     public ZlpFileOrDirectoryInfo Combine(
         ZlpDirectoryInfo info)
     {
@@ -449,7 +449,7 @@ public sealed class ZlpFileOrDirectoryInfo
     /// Schaut ins Dateisystem, wenn der Typ "unspecified" ist und versucht den
     /// korreten Typ festzustellen.
     /// </summary>
-    [UsedImplicitly]
+    [PublicAPI]
     public void LookupType()
     {
         if (_preferedType == PreferedType.Unspecified)
