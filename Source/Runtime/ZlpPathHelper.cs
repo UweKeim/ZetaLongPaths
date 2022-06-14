@@ -254,9 +254,18 @@ public static class ZlpPathHelper
         string pathToWhichToMakeRelativeTo,
         string pathToMakeRelative)
     {
+        return internalGetRelativePath(pathToWhichToMakeRelativeTo, pathToMakeRelative, out _);
+    }
+
+    private static string internalGetRelativePath(
+        string pathToWhichToMakeRelativeTo,
+        string pathToMakeRelative,
+        out string sameStart)
+    {
         if (IsNullOrEmpty(pathToWhichToMakeRelativeTo) ||
             IsNullOrEmpty(pathToMakeRelative))
         {
+            sameStart = null;
             return pathToMakeRelative;
         }
         else
@@ -279,6 +288,7 @@ public static class ZlpPathHelper
             // Different drive or share, i.e. nothing common, skip.
             if (td != od)
             {
+                sameStart = null;
                 return pathToMakeRelative;
             }
             else
@@ -306,6 +316,7 @@ public static class ZlpPathHelper
                 // noting in common.
                 if (pos <= 0)
                 {
+                    sameStart = null;
                     return t;
                 }
                 else
@@ -322,6 +333,7 @@ public static class ZlpPathHelper
                     // noting in common.
                     if (pos <= 0)
                     {
+                        sameStart = null;
                         return t;
                     }
                     else
@@ -357,6 +369,7 @@ public static class ZlpPathHelper
 
                         // --
 
+                        sameStart = pathToMakeRelative.Substring(0, pos);
                         return result.ToString();
                     }
                 }
@@ -494,6 +507,11 @@ public static class ZlpPathHelper
         return new(Combine(path1, path2));
     }
 
+    /// <summary>
+    /// <para>For most of the passed path1 and path 2, this method behaves similar to System.IO.Path.Combine.</para>
+    /// <para>For some path2 however, this method behaves different: If path2 is a rooted path (i.e. a path starting with one backslash)
+    /// System.IO.Path.Combine simply returns path2 whereas this method still combines path 1 and path 2.</para>
+    /// </summary>
     public static string Combine(
         string path1,
         string path2)
@@ -508,6 +526,18 @@ public static class ZlpPathHelper
         }
         else
         {
+            // https://github.com/UweKeim/ZetaLongPaths/issues/39
+            if (IsAbsolutePath(path1) && IsAbsolutePath(path2))
+            {
+                var result = internalGetRelativePath(path1, path2, out var sameStart);
+
+                if (!IsNullOrEmpty(sameStart))
+                {
+                    path1 = sameStart;
+                    path2 = result;
+                }
+            }
+
             path1 = path1.TrimEnd('\\', '/').Replace('/', '\\');
             path2 = path2.TrimStart('\\', '/').Replace('/', '\\');
 
