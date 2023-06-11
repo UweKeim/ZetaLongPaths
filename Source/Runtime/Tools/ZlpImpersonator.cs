@@ -1456,6 +1456,7 @@ public sealed class ZlpImpersonator : IDisposable
                 _impersonationContext.Undo();
                 _impersonationContext = null;
             }
+            // ReSharper disable once RedundantCatchClause
             catch (Exception)
             {
 #if WANT_TRACE
@@ -1491,6 +1492,7 @@ public sealed class ZlpImpersonator : IDisposable
 
                 _profileBehaviour = ZlpImpersonatorProfileBehaviour.DontLoad;
             }
+			// ReSharper disable once RedundantCatchClause
             catch (Exception)
             {
 #if WANT_TRACE

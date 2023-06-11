@@ -1,5 +1,5 @@
-﻿global using Microsoft.Win32.SafeHandles;
-global using JetBrains.Annotations;
+﻿global using JetBrains.Annotations;
+global using Microsoft.Win32.SafeHandles;
 global using System;
 global using System.Collections.Generic;
 global using System.ComponentModel;

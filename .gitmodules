@@ -1,0 +1,6 @@
+[submodule "_References/Submodules/zeta-shared-ci-assets"]
+	path = _References/Submodules/zeta-shared-ci-assets
+	url = ../../zeta/zeta-shared-ci-assets.git
+[submodule "_References/Submodules/zeta-shared-legacy-assets"]
+	path = _References/Submodules/zeta-shared-legacy-assets
+	url = ../../zeta/zeta-shared-legacy-assets.git

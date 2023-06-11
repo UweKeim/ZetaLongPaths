@@ -91,8 +91,10 @@ public sealed class ZlpNetworkConnection : IDisposable
         }
     }
 
+#pragma warning disable IDE1006
     private void doNetUse(
-        string networkName,
+#pragma warning restore IDE1006
+	    string networkName,
         string userName,
         string password,
         ZlpNetworkConnectionResourceScope scope,
@@ -136,18 +138,23 @@ public sealed class ZlpNetworkConnection : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private void doDispose()
-    {
-        if (!string.IsNullOrEmpty(_networkName))
-        {
-            var result = WNetCancelConnection2(_networkName, 0, true);
+#pragma warning disable IDE1006
+	private void doDispose()
+#pragma warning restore IDE1006
+	{
+		if (!string.IsNullOrEmpty(_networkName))
+		{
 #if WANT_TRACE
-                Trace.TraceInformation($@"Result for canceling network connection: {result}.");
+            var result =
 #endif
-        }
-    }
+			WNetCancelConnection2(_networkName, 0, true);
+#if WANT_TRACE
+            Trace.TraceInformation($@"Result for canceling network connection: {result}.");
+#endif
+		}
+	}
 
-    [DllImport(@"mpr.dll")]
+	[DllImport(@"mpr.dll")]
     private static extern int WNetAddConnection2(
         NetResource netResource,
         string password,
